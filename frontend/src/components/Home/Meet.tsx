@@ -5,11 +5,12 @@ export const Meet: FC = memo(() => {
   const client = new ApolloClient({
     uri: 'https://flyby-gateway.herokuapp.com/',
     cache: new InMemoryCache(),
+    connectToDevTools: true,
   });
 
   client
     .query({
-      query: gql()`
+      query: gql`
       query GetLocations {
         locations {
           id
