@@ -1,9 +1,11 @@
-import { FC, memo } from 'react';
+import { FC, memo, useState } from 'react';
 import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 
 export const Meet: FC = memo(() => {
+  const [users, setUsers] = useState([]);
+
   const client = new ApolloClient({
-    uri: 'http://localhost:4000',
+    uri: 'http://localhost:4000/api',
     cache: new InMemoryCache(),
   });
 
@@ -11,17 +13,25 @@ export const Meet: FC = memo(() => {
     .query({
       query: gql`
         query Users {
-          lastName,
-          firstName,
+          users {
+            lastName,
+            firstName
+          }
         }
     `,
     })
-    .then((result) => console.log(result));
+    .then((el) => setUsers(el.data.users));
 
   return (
     <div className="container">
       <main>
         <h1>Meet</h1>
+
+        {users.map(user => (
+          <h2 key={user.lastName}>
+            {`${user.firstName} ${user.lastName}`}
+          </h2>
+        ))}
       </main>
     </div>
   )
