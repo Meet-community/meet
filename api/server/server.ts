@@ -8,6 +8,9 @@ import { resolvers } from './resolvers';
 async function startApolloServer(typeDefs: any, resolvers: any) {
   const app = express();
   const httpServer = http.createServer(app);
+  const corsOptions = {
+    origin: ["http://localhost:3000"]
+  };
   const server = new ApolloServer({
     typeDefs,
     resolvers,
@@ -16,7 +19,9 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
   await server.start();
-  server.applyMiddleware({ app });
+  server.applyMiddleware({
+    app, cors: corsOptions
+  });
   await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve));
   console.log(`🚀🚀🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }

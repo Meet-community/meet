@@ -3,21 +3,17 @@ import { ApolloClient, gql, InMemoryCache } from '@apollo/client';
 
 export const Meet: FC = memo(() => {
   const client = new ApolloClient({
-    uri: 'https://flyby-gateway.herokuapp.com/',
+    uri: 'http://localhost:4000',
     cache: new InMemoryCache(),
   });
 
   client
     .query({
-      query: gql()`
-      query GetLocations {
-        locations {
-          id
-          name
-          description
-          photo
+      query: gql`
+        query Users {
+          lastName,
+          firstName,
         }
-      }
     `,
     })
     .then((result) => console.log(result));
