@@ -4,7 +4,9 @@
   "description": "app to find people",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "api": "npm --prefix ./api run start",
+    "front": "npm --prefix ./frontend run dev"
   },
   "repository": {
     "type": "git",
