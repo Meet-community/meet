@@ -1,10 +1,10 @@
 import { ApolloProvider } from '@apollo/client';
 import { Meet } from '../src/components/Home/Meet';
-import { ApolloClientBuilder } from "../apollo/getApolloClient";
+import { initApollo } from "../apollo/getApolloClient";
 
 
 export default function Index() {
-  const client = new ApolloClientBuilder();
+  const client = initApollo();
 
   return (
     <ApolloProvider client={client}>
