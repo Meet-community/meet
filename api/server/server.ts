@@ -4,7 +4,6 @@ import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { typeDefs } from './shema';
 import { resolvers } from './resolvers';
-import { Sequelize } from 'sequelize';
 import { dbInit } from './db/dataBaseInit';
 import dotenv from 'dotenv'
 
