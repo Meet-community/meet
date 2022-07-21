@@ -7,11 +7,11 @@ import Link from 'next/link';
 
 export const Meet: FC = memo(() => {
   const [users, setUsers] = useState([]);
+  const [notes, setNotes] = useState([]);
   const client = useApolloClient();
 
   useEffect(() => {
-    client
-    .query({
+    client.query({
       query: gql`
         query Users {
           users {
@@ -24,6 +24,19 @@ export const Meet: FC = memo(() => {
       `,
     })
     .then((el) => setUsers(el.data.users));
+
+    client.query({
+      query: gql`
+        query Notes {
+          notes {
+            id
+            note
+          }
+        }
+      `,
+    })
+    .then((el) => setNotes(el.data.notes));
+
   }, [])
 
   return (
@@ -40,6 +53,11 @@ export const Meet: FC = memo(() => {
             {`${user.firstName} ${user.lastName}`}
           </h2>
         ))}
+        <ul>
+          {notes.map(({ note }) => (
+            <li key={note}>{note}</li>
+          ))}
+        </ul>
       </main>
     </div>
   )

@@ -2,11 +2,11 @@ import express from 'express'
 import * as http from 'http';
 import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
-import { typeDefs } from './shema';
-import { resolvers } from './resolvers';
 import { dbInit } from './db/dataBaseInit';
 import dotenv from 'dotenv'
 import { Models } from '../src/models';
+import { typeDefs } from '../src/modules/shema';
+import { resolvers } from '../src/modules/resolvers';
 
 async function initApolloServer(typeDefs: any, resolvers: any) {
   const app = express();
