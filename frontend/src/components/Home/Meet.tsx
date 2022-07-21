@@ -15,8 +15,10 @@ export const Meet: FC = memo(() => {
       query: gql`
         query Users {
           users {
-            lastName,
+            lastName
             firstName
+            id
+            userName
           }
         }
       `,

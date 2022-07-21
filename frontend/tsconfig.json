@@ -18,14 +18,15 @@
     "resolveJsonModule": true,
     "isolatedModules": true,
     "noEmit": true,
-    "jsx": "react-jsx",
+    "jsx": "preserve",
     "removeComments": true,
     "noImplicitReturns": true,
     "noImplicitAny": true,
     "strictNullChecks": true,
     "strictFunctionTypes": true,
     "noImplicitThis": true,
-    "noUnusedLocals": false
+    "noUnusedLocals": false,
+    "incremental": true
   },
   "include": [
     "next-env.d.ts",
