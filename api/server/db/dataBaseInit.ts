@@ -1,4 +1,5 @@
-import { Sequelize } from 'sequelize';
+import { Sequelize } from 'sequelize-typescript';
+import { models } from '../../src/models';
 
 export const dbInit = async () => {
   const dbName = process.env.DB_NAME as string;
@@ -7,6 +8,7 @@ export const dbInit = async () => {
   const port = Number(process.env.DB_PORT);
   const password = process.env.DB_PASSWORD as string;
 
+  // @ts-ignore
   const sequelize = new Sequelize(
     dbName,
     userName,
@@ -21,7 +23,9 @@ export const dbInit = async () => {
           require: true,
           rejectUnauthorized: false,
         },
-      }
+      },
+      logging: false,
+      models: Object.values(models),
     }
   )
 
