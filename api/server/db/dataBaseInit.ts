@@ -31,4 +31,6 @@ export const dbInit = async () => {
 
   await sequelize.authenticate();
   console.log('📓📓📓 Connection to db has been established successfully.');
+
+  return sequelize;
 }

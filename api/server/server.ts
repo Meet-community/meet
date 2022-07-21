@@ -6,16 +6,24 @@ import { typeDefs } from './shema';
 import { resolvers } from './resolvers';
 import { dbInit } from './db/dataBaseInit';
 import dotenv from 'dotenv'
+import { Models } from '../src/models';
 
-async function startApolloServer(typeDefs: any, resolvers: any) {
+async function initApolloServer(typeDefs: any, resolvers: any) {
   const app = express();
   const httpServer = http.createServer(app);
+
+  const db = await dbInit();
+  const models: Models = db.models as Models;
+
   const server = new ApolloServer({
     typeDefs,
     resolvers,
     csrfPrevention: true,
     cache: 'bounded',
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
+    context: {
+      models,
+    }
   });
   await server.start();
 
@@ -27,15 +35,13 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     path: "/api",
   });
 
-  await dbInit();
-
   await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve));
   console.log(`🚀🚀🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }
 
 const serverInit = () => {
   dotenv.config({ path: '.env' });
-  startApolloServer(typeDefs, resolvers);
+  initApolloServer(typeDefs, resolvers);
 }
 
 serverInit();

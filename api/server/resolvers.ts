@@ -1,3 +1,5 @@
+import { Ctx } from './typedefs';
+
 interface User {
   firstName: string;
   lastName: string;
@@ -10,6 +12,11 @@ const users: User[] = [
 
 export const resolvers = {
   Query: {
-    users: () => users,
+    users: (_, __, ctx: Ctx) => {
+      return ctx.models.User.findAll();
+    },
+  },
+  User: {
+    userName: (parent: User) => `${parent.firstName} ${parent.lastName}`
   }
 }
