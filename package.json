@@ -6,7 +6,8 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "api": "npm --prefix ./api run start",
-    "front": "npm --prefix ./frontend run dev"
+    "front": "npm --prefix ./frontend run dev",
+    "db": "psql -h ec2-54-77-40-202.eu-west-1.compute.amazonaws.com -p 5432 -d d7vu3j1t71q444 -U bcefiqogqsakpz -W"
   },
   "repository": {
     "type": "git",
