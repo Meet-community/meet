@@ -4,6 +4,9 @@ import { ApolloServer } from 'apollo-server-express';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { typeDefs } from './shema';
 import { resolvers } from './resolvers';
+import { Sequelize } from 'sequelize';
+import { dbInit } from './db/dataBaseInit';
+import dotenv from 'dotenv'
 
 async function startApolloServer(typeDefs: any, resolvers: any) {
   const app = express();
@@ -16,6 +19,7 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
   });
   await server.start();
+
   server.applyMiddleware({
     app,
     cors: {
@@ -23,8 +27,17 @@ async function startApolloServer(typeDefs: any, resolvers: any) {
     },
     path: "/api",
   });
+
+  await dbInit();
+
   await new Promise<void>(resolve => httpServer.listen({ port: 4000 }, resolve));
   console.log(`🚀🚀🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 }
 
-startApolloServer(typeDefs, resolvers);
+const serverInit = () => {
+  dotenv.config({ path: '.env' });
+  startApolloServer(typeDefs, resolvers);
+}
+
+serverInit();
+
