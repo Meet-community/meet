@@ -21,6 +21,7 @@ const dbConfig = {
     },
   },
   logging: false,
+  seederStorage: 'sequelize',
 }
 
 module.exports = {
