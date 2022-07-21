@@ -1,9 +1,0 @@
-{
-  "development": {
-    "username": "bcefiqogqsakpz",
-    "password": 200926,
-    "database": "d7vu3j1t71q444",
-    "host": "ec2-54-77-40-202.eu-west-1.compute.amazonaws.com",
-    "dialect": "postgres"
-  }
-}
