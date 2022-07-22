@@ -101,15 +101,13 @@ module.exports = {
     'no-use-before-define': ['error', { functions: false }],
     'default-case': 'off',
   },
-  ignorePatterns: [
-    '**/*/graphql/generated.ts',
-  ],
   settings: {
     'import/resolver': {
       node: {
         extensions: ['.js', '.jsx', '.json', '.ts', '.tsx', '.svg'],
-        moduleDirectory: ['node_modules', './'],
+        moduleDirectory: ['node_modules', 'src/'],
       },
     },
   },
 };
+
