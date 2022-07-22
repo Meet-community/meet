@@ -32,9 +32,6 @@ module.exports = {
             defaultValue: Sequelize.fn('now'),
             allowNull: false,
           },
-          deleted_at: {
-            type: Sequelize.DATE,
-          },
         },
         { transaction },
       );
