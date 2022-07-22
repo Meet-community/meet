@@ -4,7 +4,7 @@
   "description": "meet-api",
   "main": "index.js",
   "scripts": {
-    "start": "npx sequelize-cli db:seed:all && npx sequelize-cli db:migrate && nodemon --exec ts-node server/server.ts"
+    "start": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && nodemon --exec ts-node server/server.ts"
   },
   "author": "Ihor Karpyn",
   "license": "ISC",
