@@ -9,5 +9,5 @@ export class Note extends Model<Note> {
   @Column({
     type: DataType.STRING,
   })
-  note?: string;
+    note?: string;
 }

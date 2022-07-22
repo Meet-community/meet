@@ -101,6 +101,9 @@ module.exports = {
     'no-use-before-define': ['error', { functions: false }],
     'default-case': 'off',
   },
+  ignorePatterns: [
+    '**/*/graphql/generated.ts',
+  ],
   settings: {
     'import/resolver': {
       node: {
@@ -110,4 +113,3 @@ module.exports = {
     },
   },
 };
-
