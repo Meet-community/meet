@@ -5,7 +5,7 @@ import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 import { dbInit } from './db/dataBaseInit';
 import dotenv from 'dotenv'
 import { Models } from '../src/models';
-import { typeDefs } from '../src/modules/shema';
+import { typeDefs } from '../src/modules/schema';
 import { resolvers } from '../src/modules/resolvers';
 
 async function initApolloServer(typeDefs: any, resolvers: any) {

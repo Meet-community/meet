@@ -1,4 +1,4 @@
-import { UserSchema } from './User/user.shema';
+import { UserSchema } from './user/user.schema';
 import { NoteSchema } from './Note/note.schema'
 
 export const typeDefs = [

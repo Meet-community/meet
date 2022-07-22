@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "api": "npm --prefix ./api run start",
     "front": "npm --prefix ./frontend run dev",
-    "db": "psql -h ec2-54-77-40-202.eu-west-1.compute.amazonaws.com -p 5432 -d d7vu3j1t71q444 -U bcefiqogqsakpz -W"
+    "db": "psql -h ec2-54-77-40-202.eu-west-1.compute.amazonaws.com -p 5432 -d d7vu3j1t71q444 -U bcefiqogqsakpz -W",
+    "graphql:generate": "graphql-codegen --config graphql-codegen-frontend.yml"
   },
   "repository": {
     "type": "git",
@@ -18,5 +19,12 @@
   "bugs": {
     "url": "https://github.com/Ihor-Karpyn/meet/issues"
   },
-  "homepage": "https://github.com/Ihor-Karpyn/meet#readme"
+  "homepage": "https://github.com/Ihor-Karpyn/meet#readme",
+  "devDependencies": {
+    "@graphql-codegen/cli": "2.9.1",
+    "@graphql-codegen/typescript-operations": "2.5.2",
+    "@graphql-codegen/typescript-react-apollo": "3.3.2",
+    "@graphql-codegen/typescript": "2.7.2",
+    "@graphql-codegen/introspection": "2.2.0"
+  }
 }

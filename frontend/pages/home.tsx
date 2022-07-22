@@ -1,29 +1,14 @@
 import { ApolloProvider } from '@apollo/client';
-import { initApollo } from "../apollo/getApolloClient";
-import { useEffect } from 'react';
-import gql from 'graphql-tag';
+import { initApollo } from '../src/controllers/apollo/getApolloClient';
+import { Meet } from '../src/components/Home/Meet';
 
 
 export default function Home() {
   const client = initApollo();
 
-  useEffect(() => {
-    client
-    .query({
-      query: gql`
-        query Users {
-          users {
-            lastName,
-            firstName
-          }
-        }
-      `,
-    })
-  }, [])
-
   return (
     <ApolloProvider client={client}>
-      <h2>home</h2>
+      <Meet />
     </ApolloProvider>
   );
 };
