@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
-import { initApollo } from 'src/controllers/apollo/getApolloClient';
-import { Meet } from 'src/components/Home/Meet';
+import { Meet } from '../src/components/Home/Meet';
+import { initApollo } from '../src/controllers/apollo/getApolloClient';
+
 
 export default function Index() {
   const client = initApollo();
@@ -10,4 +11,4 @@ export default function Index() {
       <Meet />
     </ApolloProvider>
   );
-}
+};

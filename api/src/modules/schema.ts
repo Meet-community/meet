@@ -1,5 +1,5 @@
-import { UserSchema } from 'src/modules/user/user.schema';
-import { NoteSchema } from 'src/modules/note/note.schema';
+import { UserSchema } from './user/user.schema';
+import { NoteSchema } from './Note/note.schema'
 
 export const typeDefs = [
   UserSchema,

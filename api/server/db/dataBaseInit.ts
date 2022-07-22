@@ -1,5 +1,5 @@
 import { Sequelize } from 'sequelize-typescript';
-import { models } from 'src/models';
+import { models } from '../../src/models';
 
 export const dbInit = async () => {
   const dbName = process.env.DB_NAME as string;

@@ -1,13 +1,10 @@
-import {
-  ApolloClient,
-  InMemoryCache,
-  NormalizedCacheObject,
-} from '@apollo/client';
+// @ts-ignore
+import { ApolloClient, InMemoryCache } from '@apollo/client';
 
-let client: ApolloClient<NormalizedCacheObject> | null;
+let client: ApolloClient | null;
 
 export const initApollo = () => {
-  console.log(client);
+  console.log(client)
   if (client) {
     return client;
   }
@@ -18,5 +15,5 @@ export const initApollo = () => {
     connectToDevTools: true,
   });
 
-  return client;
-};
+  return client
+}
