@@ -1,5 +1,5 @@
-import { User } from './User';
-import { Note } from './Note';
+import { User } from 'src/models/User';
+import { Note } from 'src/models/Note';
 
 export const models = {
   User,

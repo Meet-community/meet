@@ -18,4 +18,12 @@ module.exports = {
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'off',
   },
+  settings: {
+    'import/resolver': {
+      node: {
+        extensions: ['.js', '.json', '.ts'],
+        moduleDirectory: ['node_modules', './'],
+      },
+    },
+  },
 };
