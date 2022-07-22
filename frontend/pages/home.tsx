@@ -1,7 +1,6 @@
 import { ApolloProvider } from '@apollo/client';
-import { initApollo } from '../src/controllers/apollo/getApolloClient';
+import { initApollo } from 'apollo/getApolloClient';
 import { Meet } from '../src/components/Home/Meet';
-
 
 export default function Home() {
   const client = initApollo();
@@ -11,4 +10,4 @@ export default function Home() {
       <Meet />
     </ApolloProvider>
   );
-};
+}
