@@ -13,35 +13,56 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
+  Date: any;
   Upload: any;
 };
 
-export type Note = {
-  __typename?: 'Note';
+export type Event = {
+  __typename?: 'Event';
+  capacity: Scalars['Int'];
+  creator: User;
+  creatorId: Scalars['Int'];
+  description: Scalars['String'];
+  endAt: Scalars['Date'];
   id: Scalars['Int'];
-  note?: Maybe<Scalars['String']>;
+  logo?: Maybe<Scalars['String']>;
+  minCapacity: Scalars['Int'];
+  startAt: Scalars['Date'];
+  status: VacancyStatus;
+  title: Scalars['String'];
 };
 
 export type Query = {
   __typename?: 'Query';
-  notes: Array<Note>;
+  events: Array<Event>;
   users: Array<User>;
 };
 
 export type User = {
   __typename?: 'User';
-  firstName?: Maybe<Scalars['String']>;
+  firstName: Scalars['String'];
   id: Scalars['Int'];
-  lastName?: Maybe<Scalars['String']>;
-  userName: Scalars['String'];
+  lastName: Scalars['String'];
 };
 
-export type UserFullFragment = { __typename?: 'User', id: number, firstName?: string | null, lastName?: string | null };
+export enum VacancyStatus {
+  Canceled = 'CANCELED',
+  Pending = 'PENDING'
+}
+
+export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string } };
+
+export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string } }> };
+
+export type UserFullFragment = { __typename?: 'User', id: number, firstName: string, lastName: string };
 
 export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: number, firstName?: string | null, lastName?: string | null }> };
+export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> };
 
 export const UserFullFragmentDoc = /*#__PURE__*/ gql`
     fragment UserFull on User {
@@ -50,6 +71,57 @@ export const UserFullFragmentDoc = /*#__PURE__*/ gql`
   lastName
 }
     `;
+export const EventFullFragmentDoc = /*#__PURE__*/ gql`
+    fragment EventFull on Event {
+  id
+  creatorId
+  title
+  description
+  startAt
+  endAt
+  logo
+  capacity
+  minCapacity
+  status
+  creator {
+    ...UserFull
+  }
+}
+    ${UserFullFragmentDoc}`;
+export const EventsDocument = /*#__PURE__*/ gql`
+    query events {
+  events {
+    ...EventFull
+  }
+}
+    ${EventFullFragmentDoc}`;
+
+/**
+ * __useEventsQuery__
+ *
+ * To run a query within a React component, call `useEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventsQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useEventsQuery(baseOptions?: Apollo.QueryHookOptions<EventsQuery, EventsQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventsQuery, EventsQueryVariables>(EventsDocument, options);
+      }
+export function useEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventsQuery, EventsQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventsQuery, EventsQueryVariables>(EventsDocument, options);
+        }
+export type EventsQueryHookResult = ReturnType<typeof useEventsQuery>;
+export type EventsLazyQueryHookResult = ReturnType<typeof useEventsLazyQuery>;
+export type EventsQueryResult = Apollo.QueryResult<EventsQuery, EventsQueryVariables>;
 export const UsersDocument = /*#__PURE__*/ gql`
     query users {
   users {

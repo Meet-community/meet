@@ -1,7 +1,7 @@
 import { UserSchema } from './user/user.schema';
-import { NoteSchema } from './Note/note.schema'
+import { EventSchema } from './event/event.schema';
 
 export const typeDefs = [
   UserSchema,
-  NoteSchema,
+  EventSchema,
 ]
