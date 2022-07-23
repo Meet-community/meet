@@ -22,8 +22,6 @@ export const signInResolver = async (
 ): Promise<Result> => {
   const { email, password } = args;
 
-  console.log(authUser);
-
   const user = await models.User.findOne({
     where: { email },
     raw: true,
