@@ -7,9 +7,9 @@ import {
   Model, Table,
   BelongsTo
 } from 'sequelize-typescript';
-import { User } from 'src/models/User';
-import { EventModel } from 'src/models/EventModel';
-import { UserEventStatus } from 'src/modules/userEvent/userEvent.typedefs';
+import { User } from './User';
+import { EventModel } from './EventModel';
+import { UserEventStatus } from '../modules/userEvent/userEvent.typedefs';
 
 @Table({
   tableName: 'user_events',
