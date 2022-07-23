@@ -1,10 +1,12 @@
 import {
   AllowNull,
   Column, CreatedAt,
-  DataType,
+  DataType, Default,
   Model,
-  Table, UpdatedAt
+  Table, Unique, UpdatedAt
 } from 'sequelize-typescript';
+import { EventStatus } from '../modules/event/event.typedefs';
+import { UserStatus } from '../modules/user/user.typedefs';
 
 @Table({
   tableName: 'users',
@@ -27,14 +29,38 @@ export class User extends Model<User> {
   lastName: string;
 
   @AllowNull(false)
+  @Default(UserStatus.Pending)
+  @Column({
+    type: DataType.ENUM(...Object.values(UserStatus)),
+  })
+  status: UserStatus;
+
+  @Column({
+    type: DataType.STRING,
+  })
+  token?: string;
+
+  @AllowNull(false)
+  @Unique(true)
+  @Column({
+    type: DataType.STRING,
+  })
+  email: string;
+
+  @AllowNull(false)
+  @Column({
+    type: DataType.STRING,
+  })
+  password: string;
+
   @CreatedAt
   @Column({
     field: 'created_at',
   })
   createdAt: Date;
 
-  @AllowNull(false)
   @UpdatedAt
+  @Default(new Date())
   @Column({
     field: 'updated_at',
   })
