@@ -9,6 +9,8 @@ export const UserSchema = gql`
   type Mutation {
     signUp(args: SignUpArgs!): User!
     activateUser(token: String!): User!
+    signIn(args: SignInArgs!): User!
+    logOut: Boolean!
   }
   
   type User {
@@ -29,6 +31,11 @@ export const UserSchema = gql`
   input SignUpArgs {
     firstName: String!
     lastName: String!
+    email: String!
+    password: String!
+  }
+  
+  input SignInArgs {
     email: String!
     password: String!
   }

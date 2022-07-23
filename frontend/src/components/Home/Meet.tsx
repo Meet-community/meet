@@ -1,13 +1,15 @@
 import { FC, memo, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import {
-  useEventsQuery, useSignUpMutation,
+  useEventsQuery, useLogOutMutation, useSignUpMutation,
   useUsersQuery
 } from '../../controllers/graphql/generated';
+import { useApolloClient } from '@apollo/client';
 
 export const Meet: FC = memo(() => {
   const { data, loading, error } = useUsersQuery();
   const { data: eventsData, loading: eventsLoading } = useEventsQuery();
+  const [logOut] = useLogOutMutation();
   const [signUp, {
     loading: signUpLoading,
   }] = useSignUpMutation({
@@ -19,6 +21,8 @@ export const Meet: FC = memo(() => {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+
+  const client = useApolloClient();
 
   const signUpHandler = () => {
     signUp({
@@ -40,14 +44,29 @@ export const Meet: FC = memo(() => {
       : []
   ), [eventsData]);
 
+  const logOutHandler = async () => {
+    await logOut();
+    await client.clearStore();
+  }
+
   return (
     <div className="container">
       <main>
         <h1>Meet</h1>
 
-        <Link href="/home">
+        <button type="button" onClick={logOutHandler}>LogOut</button>
+
+        <Link href="/">
           <a>Go home</a>
         </Link>
+
+        <span>{`  /  `}</span>
+
+        <Link href="/signIn">
+          <a>Go signIn</a>
+        </Link>
+
+        <div style={{marginBottom: '32px'}}></div>
 
 
         <form onSubmit={e => {
