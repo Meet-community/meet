@@ -27,10 +27,13 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
   });
   await server.start();
 
+  const clientUrl = process.env.CLIENT_URL as string;
+
   server.applyMiddleware({
     app,
     cors: {
-      origin: "http://localhost:3000"
+      origin: clientUrl,
+      credentials: true,
     },
     path: "/api",
   });
