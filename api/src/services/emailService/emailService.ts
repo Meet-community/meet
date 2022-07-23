@@ -1,5 +1,6 @@
 import nodemailer from 'nodemailer'
 import dotenv from 'dotenv';
+import { sendEmailConfirm } from './templates/emailConfirm/sendEmailConfirm';
 
 dotenv.config({ path: '.env' });
 
@@ -35,6 +36,11 @@ export const sendEmail = async (options: Options) => {
     text,
     html,
   });
+}
+
+export const emailService = {
+  send: sendEmail,
+  sendEmailConfirm,
 }
 
 

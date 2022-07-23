@@ -80,14 +80,12 @@ export class EventModel extends Model<EventModel> {
   })
   status: EventStatus;
 
-  @AllowNull(false)
   @CreatedAt
   @Column({
     field: 'created_at',
   })
   createdAt: Date;
 
-  @AllowNull(false)
   @UpdatedAt
   @Column({
     field: 'updated_at',
