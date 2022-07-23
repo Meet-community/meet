@@ -11,7 +11,7 @@ export const UserEventSchema = gql`
     eventId: Int!
     status: UserEventStatus!
     user: User!
-    event: EventModel!
+    event: Event!
   }
   
   enum UserEventStatus {

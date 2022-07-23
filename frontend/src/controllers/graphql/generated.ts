@@ -58,6 +58,7 @@ export type MutationSignUpArgs = {
 export type Query = {
   __typename?: 'Query';
   events: Array<Event>;
+  userEvent: Array<UserEvent>;
   users: Array<User>;
 };
 
@@ -82,17 +83,15 @@ export type User = {
   password: Scalars['String'];
   status: UserStatus;
   token?: Maybe<Scalars['String']>;
-<<<<<<< Updated upstream
-};
-
-=======
 };
 
 export type UserEvent = {
   __typename?: 'UserEvent';
+  event: Event;
   eventId: Scalars['Int'];
   id: Scalars['Int'];
   status: UserEventStatus;
+  user: User;
   userId: Scalars['Int'];
 };
 
@@ -102,7 +101,6 @@ export enum UserEventStatus {
   Violated = 'VIOLATED'
 }
 
->>>>>>> Stashed changes
 export enum UserStatus {
   Confirmed = 'CONFIRMED',
   Pending = 'PENDING'
