@@ -8,9 +8,8 @@ export const UserSchema = gql`
   
   type User {
     id: Int!
-    firstName: String
-    lastName: String
-    userName: String!
+    firstName: String!
+    lastName: String!
   }
 
 `

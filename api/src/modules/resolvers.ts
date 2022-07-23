@@ -1,10 +1,10 @@
 import merge from 'lodash/merge';
 import { UserResolvers } from './user/user.resolvers';
-import { NotesResolvers } from './note/notes.resolvers';
+import { EventResolvers } from './event/event.resolvers';
 
 const ModulesResolvers = [
   UserResolvers,
-  NotesResolvers,
+  EventResolvers,
 ]
 
 export const resolvers = merge(

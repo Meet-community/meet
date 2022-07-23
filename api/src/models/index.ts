@@ -1,9 +1,9 @@
 import { User } from './User';
-import { Note } from './Note';
+import { EventModel } from './EventModel';
 
 export const models = {
   User,
-  Note,
+  EventModel,
 };
 
 export type Models = typeof models;
