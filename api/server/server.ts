@@ -7,9 +7,15 @@ import dotenv from 'dotenv'
 import { Models } from '../src/models';
 import { typeDefs } from '../src/modules/schema';
 import { resolvers } from '../src/modules/resolvers';
+import { jwtService } from '../src/services/jwtService/jwtService';
+import { User } from '../src/models/User';
+import { UserStatus } from '../src/modules/user/user.typedefs';
+import { Ctx } from './typedefs';
+import cookieParser from 'cookie-parser';
 
 async function initApolloServer(typeDefs: any, resolvers: any) {
   const app = express();
+  app.use(cookieParser())
   const httpServer = http.createServer(app);
 
   const db = await dbInit();
@@ -21,18 +27,40 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
     csrfPrevention: true,
     cache: 'bounded',
     plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
-    context: {
-      models,
+    context: async ({ req, res }): Promise<Ctx> => {
+      const token = req.cookies.Authorization || req.headers.authorization;
+
+      const data = jwtService.validateAccessToken(token);
+
+      let user: User | null = null;
+
+      if (data?.id && data?.email) {
+        user = await User.findOne({
+          where: {
+            id: data.id, status: UserStatus.Confirmed,
+          },
+          raw: true,
+        })
+      }
+
+      return {
+        models,
+        authUser: user,
+        res,
+      }
     }
   });
   await server.start();
 
   const clientUrl = process.env.CLIENT_URL as string;
+  const graphqlSendBoxUrl = process.env.STAGE === 'development'
+    ? ['https://studio.apollographql.com']
+    : [];
 
   server.applyMiddleware({
     app,
     cors: {
-      origin: clientUrl,
+      origin: [clientUrl, ...graphqlSendBoxUrl],
       credentials: true,
     },
     path: "/api",

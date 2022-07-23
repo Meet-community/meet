@@ -48,8 +48,6 @@ export const signUpResolver = async (
       },
     )
   } else {
-    console.log(args);
-
     user = await models.User.create(
       { ...args, token },
       {
@@ -57,8 +55,6 @@ export const signUpResolver = async (
         returning: true,
       },
     )
-
-    console.log(user)
   }
 
   await emailService.sendEmailConfirm({ token, email })
