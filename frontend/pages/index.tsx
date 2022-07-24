@@ -4,11 +4,7 @@ import { initApollo } from '../src/controllers/apollo/getApolloClient';
 
 
 export default function Index() {
-  const client = initApollo();
-
   return (
-    <ApolloProvider client={client}>
       <Meet />
-    </ApolloProvider>
   );
 };
