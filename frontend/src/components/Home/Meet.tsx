@@ -7,7 +7,6 @@ import {
 import { useApolloClient } from '@apollo/client';
 
 export const Meet: FC = memo(() => {
-  const { data, loading, error } = useUsersQuery();
   const { data: eventsData, loading: eventsLoading } = useEventsQuery();
   const [logOut] = useLogOutMutation();
   const [signUp, {
@@ -21,6 +20,12 @@ export const Meet: FC = memo(() => {
   const [password, setPassword] = useState('');
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
+
+  const [isAuth, setIsAuth] = useState(true);
+
+  const { data, loading } = useUsersQuery({
+    onError: () => setIsAuth(false),
+  });
 
   const client = useApolloClient();
 
@@ -47,6 +52,7 @@ export const Meet: FC = memo(() => {
   const logOutHandler = async () => {
     await logOut();
     await client.clearStore();
+    document.location.reload();
   }
 
   return (
@@ -87,6 +93,11 @@ export const Meet: FC = memo(() => {
 
 
         {loading && <h2>Loading...</h2>}
+
+        <h4>-----------------------------------------------</h4>
+        <h2>Users</h2>
+
+        {!loading && !isAuth && (<h2 style={{color: 'red'}}>login_not_authorized</h2>)}
 
         {users.map(user => (
           <h3 key={user.id}>
