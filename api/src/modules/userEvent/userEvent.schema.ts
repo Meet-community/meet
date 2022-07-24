@@ -2,7 +2,11 @@ import { gql } from 'apollo-server-core';
 
 export const UserEventSchema = gql`
   type Query {
-    userEvent: [UserEvent!]!
+    userEvents: [UserEvent!]!
+  }
+  
+  type Mutation {
+      createUserEvent(args: CreateUserEventArgs!): UserEvent!
   }
   
   type UserEvent {
@@ -10,6 +14,11 @@ export const UserEventSchema = gql`
     userId: Int!
     eventId: Int!
     status: UserEventStatus!
+    user: User!
+  }
+  
+  input CreateUserEventArgs {
+    eventId: Int!
   }
   
   enum UserEventStatus {

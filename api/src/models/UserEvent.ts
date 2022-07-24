@@ -14,7 +14,7 @@ import { UserEventStatus } from '../modules/userEvent/userEvent.typedefs';
 @Table({
   tableName: 'user_events',
 })
-export class UserEvents extends Model<UserEvents> {
+export class UserEvent extends Model<UserEvent> {
   @BelongsTo(() => User)
   user: User;
 
