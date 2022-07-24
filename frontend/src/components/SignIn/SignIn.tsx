@@ -181,6 +181,7 @@ export const SignIn: FC = React.memo(() => {
                   variant="contained"
                   loading={loading}
                   sx={{ mt: 3, mb: 2 }}
+                  disabled={!password || !email}
                 >
                   Sign In
                 </LoadingButton>
