@@ -9,5 +9,5 @@ export const generateAccessToken = (user: User) => {
   const secret = process.env.JWT_ACCESS_SECRET as string;
   const normalizedUser: JwtUser = normalizeUser(user);
 
-  return jwt.sign(normalizedUser, secret)
+  return jwt.sign(normalizedUser, secret, { expiresIn: '7d' })
 }
