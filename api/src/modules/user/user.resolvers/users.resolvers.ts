@@ -1,5 +1,8 @@
-import { Ctx } from '../../../../server/typedefs';
+import { Resolver } from '../../../core/resolvers/makeResolver';
+import { User } from '../../../models/User';
 
-export const usersResolvers = (_, __, ctx: Ctx) => {
+export const usersResolvers: Resolver<
+  Promise<User[]>
+> = (_, __, ctx) => {
   return ctx.models.User.findAll();
 }
