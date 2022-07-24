@@ -30,6 +30,14 @@ export default function MyApp({ Component, pageProps }: any) {
         <title>Meet</title>
 
         <meta name="viewport" content="initial-scale=1, width=device-width" />
+        <style global>
+          {`
+            body {
+              margin: 0;
+              padding: 0;
+            }
+          `}
+      </style>
       </Head>
 
       <ThemeProvider theme={darkTheme}>
