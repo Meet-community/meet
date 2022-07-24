@@ -11,20 +11,17 @@ export const useLogOut = () => {
   const router = useRouter();
 
   const [logOut] = useLogOutMutation({
+    refetchQueries: [
+      { query: AuthUserDocument }
+    ],
+    awaitRefetchQueries: true,
     onCompleted: async (data) => {
-      client.writeQuery<AuthUserQuery>({
-        query: AuthUserDocument,
-        data: {
-          authUser: null,
-        }
-      })
+      await client.clearStore();
     },
   });
 
   const logOutHandler = async () => {
     await logOut();
-    await client.clearStore();
-    await router.push('/');
   }
 
   return {

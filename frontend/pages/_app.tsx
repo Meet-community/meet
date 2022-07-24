@@ -33,8 +33,6 @@ export default function MyApp({ Component, pageProps }: any) {
       </Head>
 
       <ThemeProvider theme={darkTheme}>
-        <Header />
-
         <Component {...pageProps} />
       </ThemeProvider>
     </ApolloProvider>

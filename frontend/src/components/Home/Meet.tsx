@@ -11,6 +11,7 @@ import {
 import { useApolloClient } from '@apollo/client';
 import { useWithAuthPage } from '../../controllers/entities/user/useWithAuthPage';
 import { useRouter } from 'next/router';
+import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 
 export const Meet: FC = memo(() => {
   const [subscribeToEvent] = useCreateUserEventMutation({
@@ -41,13 +42,7 @@ export const Meet: FC = memo(() => {
       }
     })
   }
-  const { data: authUserData } = useAuthUserQuery({
-    fetchPolicy: 'cache-and-network',
-  });
-  const authUser = useMemo(() => (authUserData?.authUser
-      ? authUserData.authUser
-      : null
-  ), [authUserData])
+  const authUser = useAuthUser();
 
   const events = useMemo(() => (eventsData?.events
       ? eventsData.events
@@ -70,6 +65,8 @@ export const Meet: FC = memo(() => {
   const unSubscribeHandler = (eventId: number) => {
     subscribeToEvent({ variables: { args: { eventId, status: UserEventStatus.Canceled } } })
   }
+
+  console.log(authUser);
 
   return (
     <div className="container">

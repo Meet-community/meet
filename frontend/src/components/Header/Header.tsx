@@ -12,14 +12,19 @@ import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
-import { useAuthUserQuery } from '../../controllers/graphql/generated';
 import { useRouter } from 'next/router';
 import { HomeRounded } from '@mui/icons-material';
 import Link from 'next/link';
 import { useLogOut } from '../../Hooks/useLogOut';
+import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
+import NearMeIcon from '@mui/icons-material/NearMe';
+import ExitToAppIcon from '@mui/icons-material/ExitToApp';
+import LoginIcon from '@mui/icons-material/Login';
+import styles from './Header.module.scss';
 
 export const Header = () => {
-  const { data: authUserData } = useAuthUserQuery();
+  const authUser = useAuthUser();
+  console.log(authUser)
   const { logOutHandler } = useLogOut();
   const router = useRouter();
 
@@ -71,7 +76,7 @@ export const Header = () => {
               alignItems: 'center',
             }}
           >
-            <AdbIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <NearMeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
 
             Meet
           </Typography>
@@ -164,39 +169,56 @@ export const Header = () => {
             </Box>
           </Link>
 
-          {authUserData?.authUser && (
-            <Box sx={{ flexGrow: 0 }}>
-              <Tooltip title="Open settings">
-                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-                </IconButton>
-              </Tooltip>
 
-              <Menu
-                sx={{ mt: '45px'}}
-                id="menu-appbar"
-                anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'right',
-                }}
-                open={Boolean(anchorElUser)}
-                onClose={handleCloseUserMenu}
-              >
-                <MenuItem onClick={onLogOut}>
-                  <Typography textAlign="center">Logout</Typography>
-                </MenuItem>
-              </Menu>
-            </Box>
+          {authUser && (
+            <>
+              <Typography mr="12px" className={styles.fullName}>
+                {`${authUser.firstName} ${authUser.lastName}`}
+              </Typography>
+
+              <Box sx={{ flexGrow: 0 }}>
+                <Tooltip title="Open settings">
+                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                    <Avatar src="''" />
+                  </IconButton>
+                </Tooltip>
+
+                <Menu
+                  sx={{ mt: '45px'}}
+                  id="menu-appbar"
+                  anchorEl={anchorElUser}
+                  anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                  }}
+                  open={Boolean(anchorElUser)}
+                  onClose={handleCloseUserMenu}
+                >
+                  <MenuItem onClick={onLogOut}>
+                    <Typography textAlign="center" marginRight="4px">Logout</Typography>
+                    <ExitToAppIcon />
+                  </MenuItem>
+                </Menu>
+              </Box>
+            </>
           )}
 
-          {!authUserData?.authUser && (
+          {!authUser && (
             <>
+              <Button
+                onClick={handleCloseUserMenu}
+                color="inherit"
+                variant="outlined"
+                style={{ marginRight: 12 }}
+              >
+                <Typography textAlign="center">Sign up</Typography>
+              </Button>
+
               <Button
                 onClick={onSignIn}
                 color="inherit"
@@ -204,15 +226,8 @@ export const Header = () => {
                 size="medium"
                 style={{marginRight: 8}}
               >
-                <Typography textAlign="center">Sign in</Typography>
-              </Button>
-
-              <Button
-                onClick={handleCloseUserMenu}
-                color="inherit"
-                variant="outlined"
-              >
-                <Typography textAlign="center">Sign up</Typography>
+                <Typography textAlign="center" mr={1}>Sign in</Typography>
+                <LoginIcon />
               </Button>
             </>
           )}
