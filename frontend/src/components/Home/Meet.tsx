@@ -9,8 +9,13 @@ import {
   useSignUpMutation,
 } from '../../controllers/graphql/generated';
 import { useApolloClient } from '@apollo/client';
+import {
+  useWithAuthPage
+} from '../../controllers/entities/user/useWithAuthPage';
+import { useRouter } from 'next/router';
 
 export const Meet: FC = memo(() => {
+  useWithAuthPage();
   const [subscribeToEvent] = useCreateUserEventMutation({
     onError: e => window.alert(e.message),
   });
@@ -52,10 +57,13 @@ export const Meet: FC = memo(() => {
       : []
   ), [eventsData]);
 
+  const router = useRouter();
+
   const logOutHandler = async () => {
     await logOut();
     await client.clearStore();
-    document.location.reload();
+
+    await router.push('/signIn')
   }
 
   const subscribeHandler = (eventId: number) => {
