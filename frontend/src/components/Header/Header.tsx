@@ -21,12 +21,14 @@ import NearMeIcon from '@mui/icons-material/NearMe';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LoginIcon from '@mui/icons-material/Login';
 import styles from './Header.module.scss';
+import { useMediaQuery } from '@mui/material';
 
 export const Header = () => {
   const authUser = useAuthUser();
   console.log(authUser)
   const { logOutHandler } = useLogOut();
   const router = useRouter();
+  const matches = useMediaQuery('(max-width:600px)');
 
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
@@ -49,13 +51,12 @@ export const Header = () => {
   const onLogOut = useCallback(async () => {
     handleCloseUserMenu();
     await logOutHandler();
-  },[])
+  }, [])
 
-
-  const onSignIn = useCallback( () => {
+  const onSignIn = useCallback(() => {
     handleCloseUserMenu();
     router.push('/signIn');
-  },[])
+  }, [])
 
   return (
     <AppBar position="static">
@@ -76,7 +77,7 @@ export const Header = () => {
               alignItems: 'center',
             }}
           >
-            <NearMeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <NearMeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
 
             Meet
           </Typography>
@@ -90,7 +91,7 @@ export const Header = () => {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon />
+              <MenuIcon/>
 
             </IconButton>
 
@@ -118,8 +119,6 @@ export const Header = () => {
             </Menu>
           </Box>
 
-          <AdbIcon sx={{ display: { xs: 'flex', md: 'none' }, mr: 1 }} />
-
           <Typography
             variant="h5"
             noWrap
@@ -137,15 +136,16 @@ export const Header = () => {
             }}
           >
             Meet
+            <NearMeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
           </Typography>
 
           <Link href={'/'}>
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' }}}>
+            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button
-                sx={{ my: 2, color: 'white', display: 'flex'}}
-                style={{gap: 8}}
+                sx={{ my: 2, color: 'white', display: 'flex' }}
+                style={{ gap: 8 }}
               >
-                <HomeRounded fontSize={'small'} />
+                <HomeRounded fontSize={'small'}/>
 
                 <Typography
                   variant="h5"
@@ -172,19 +172,20 @@ export const Header = () => {
 
           {authUser && (
             <>
-              <Typography mr="12px" className={styles.fullName}>
+              <Typography variant='overline' mr="12px"
+                          className={styles.fullName}>
                 {`${authUser.firstName} ${authUser.lastName}`}
               </Typography>
 
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar src="''" />
+                    <Avatar src="''"/>
                   </IconButton>
                 </Tooltip>
 
                 <Menu
-                  sx={{ mt: '45px'}}
+                  sx={{ mt: '45px' }}
                   id="menu-appbar"
                   anchorEl={anchorElUser}
                   anchorOrigin={{
@@ -200,8 +201,9 @@ export const Header = () => {
                   onClose={handleCloseUserMenu}
                 >
                   <MenuItem onClick={onLogOut}>
-                    <Typography textAlign="center" marginRight="4px">Logout</Typography>
-                    <ExitToAppIcon />
+                    <Typography textAlign="center"
+                                marginRight="4px">Logout</Typography>
+                    <ExitToAppIcon/>
                   </MenuItem>
                 </Menu>
               </Box>
@@ -215,6 +217,13 @@ export const Header = () => {
                 color="inherit"
                 variant="outlined"
                 style={{ marginRight: 12 }}
+                size={matches ? 'small' : 'large'}
+                sx={{
+                  display: {
+                    xs: 'none',
+                    sm: 'block',
+                  }
+                }}
               >
                 <Typography textAlign="center">Sign up</Typography>
               </Button>
@@ -223,11 +232,11 @@ export const Header = () => {
                 onClick={onSignIn}
                 color="inherit"
                 variant="outlined"
-                size="medium"
-                style={{marginRight: 8}}
+                size={matches ? 'small' : 'large'}
+                style={{ marginRight: 8 }}
               >
                 <Typography textAlign="center" mr={1}>Sign in</Typography>
-                <LoginIcon />
+                <LoginIcon/>
               </Button>
             </>
           )}
