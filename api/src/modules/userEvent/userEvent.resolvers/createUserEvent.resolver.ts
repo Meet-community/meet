@@ -5,6 +5,7 @@ import { EventModel } from '../../../models/EventModel';
 
 interface Args {
   eventId: number;
+  status?: UserEventStatus;
 }
 
 interface Options {
@@ -13,7 +14,7 @@ interface Options {
 
 export const createUserEventResolver: Resolver<Promise<EventModel>,
   Options> = async (_, options, ctx) => {
-  const { eventId } = options.args;
+  const { eventId, status = UserEventStatus.Pending } = options.args;
   const userId = ctx.authUser.id;
   const userEventRepository = new UserEventRepository(ctx);
 
@@ -29,7 +30,7 @@ export const createUserEventResolver: Resolver<Promise<EventModel>,
 
   if (existedUserEvent) {
     await ctx.models.UserEvent.update(
-      { status: UserEventStatus.Pending },
+      { status },
       {
         where: { id: existedUserEvent.id },
         returning: true,
@@ -40,7 +41,7 @@ export const createUserEventResolver: Resolver<Promise<EventModel>,
   }
 
   await ctx.models.UserEvent.create(
-    { userId, eventId, status: UserEventStatus.Pending },
+    { userId, eventId, status },
     { returning: true, raw: true }
   )
 

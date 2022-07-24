@@ -19,6 +19,7 @@ export type Scalars = {
 
 export type CreateUserEventArgs = {
   eventId: Scalars['Int'];
+  status?: InputMaybe<UserEventStatus>;
 };
 
 export type Event = {
