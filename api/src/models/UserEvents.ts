@@ -5,7 +5,7 @@ import {
   ForeignKey,
   Index,
   Model, Table,
-  BelongsTo
+  BelongsTo, CreatedAt, UpdatedAt, Default
 } from 'sequelize-typescript';
 import { User } from './User';
 import { EventModel } from './EventModel';
@@ -44,4 +44,16 @@ export class UserEvents extends Model<UserEvents> {
     type: DataType.ENUM(...Object.values(UserEventStatus)),
   })
   status: UserEventStatus;
+
+  @CreatedAt
+  @Column({
+    field: 'created_at',
+  })
+  createdAt: Date;
+
+  @UpdatedAt
+  @Column({
+    field: 'updated_at',
+  })
+  updatedAt: Date;
 }
