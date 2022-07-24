@@ -2,9 +2,9 @@ import { GraphQLResolveInfo } from 'graphql';
 import { Ctx } from '../../../server/typedefs';
 import { USER_ERROR } from '../../modules/user/user.constans';
 
-export type Resolver<Result, Option = undefined, Args = undefined, Parent = undefined> = (
+export type Resolver<Result, Options = undefined, Parent = undefined> = (
   parent: Parent,
-  args: Args,
+  args: Options,
   ctx: Ctx,
   info: GraphQLResolveInfo,
 ) => Result;

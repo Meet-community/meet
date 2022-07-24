@@ -1,7 +1,18 @@
-import { userEventResolver } from './userEvent.resolver';
+import { userEventsResolver } from './userEventsResolver';
+import { createUserEventResolver } from './createUserEvent.resolver';
+import { makeAuthResolver } from '../../../core/resolvers/makeResolver';
+import { userResolver } from './user.resolver';
 
 export const UserEventResolvers = {
   Query: {
-    userEvent: userEventResolver,
+    userEvents: makeAuthResolver(userEventsResolver),
   },
+
+  Mutation: {
+    createUserEvent: makeAuthResolver(createUserEventResolver),
+  },
+
+  UserEvent: {
+    user: makeAuthResolver(userResolver),
+  }
 }

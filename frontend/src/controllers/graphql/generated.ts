@@ -17,6 +17,10 @@ export type Scalars = {
   Upload: any;
 };
 
+export type CreateUserEventArgs = {
+  eventId: Scalars['Int'];
+};
+
 export type Event = {
   __typename?: 'Event';
   capacity: Scalars['Int'];
@@ -35,6 +39,7 @@ export type Event = {
 export type Mutation = {
   __typename?: 'Mutation';
   activateUser: User;
+  createUserEvent: UserEvent;
   logOut: Scalars['Boolean'];
   signIn: User;
   signUp: User;
@@ -43,6 +48,11 @@ export type Mutation = {
 
 export type MutationActivateUserArgs = {
   token: Scalars['String'];
+};
+
+
+export type MutationCreateUserEventArgs = {
+  args: CreateUserEventArgs;
 };
 
 
@@ -58,7 +68,7 @@ export type MutationSignUpArgs = {
 export type Query = {
   __typename?: 'Query';
   events: Array<Event>;
-  userEvent: Array<UserEvent>;
+  userEvents: Array<UserEvent>;
   users: Array<User>;
 };
 
@@ -87,7 +97,6 @@ export type User = {
 
 export type UserEvent = {
   __typename?: 'UserEvent';
-  event: Event;
   eventId: Scalars['Int'];
   id: Scalars['Int'];
   status: UserEventStatus;
@@ -150,6 +159,13 @@ export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> };
+
+export type CreateUserEventMutationVariables = Exact<{
+  args: CreateUserEventArgs;
+}>;
+
+
+export type CreateUserEventMutation = { __typename?: 'Mutation', createUserEvent: { __typename?: 'UserEvent', id: number, userId: number, eventId: number, status: UserEventStatus, user: { __typename?: 'User', id: number, firstName: string, lastName: string } } };
 
 export type UserEventFragment = { __typename?: 'UserEvent', id: number, userId: number, eventId: number, status: UserEventStatus };
 
@@ -382,3 +398,40 @@ export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<User
 export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
 export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
 export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
+export const CreateUserEventDocument = /*#__PURE__*/ gql`
+    mutation createUserEvent($args: CreateUserEventArgs!) {
+  createUserEvent(args: $args) {
+    ...UserEvent
+    user {
+      ...UserFull
+    }
+  }
+}
+    ${UserEventFragmentDoc}
+${UserFullFragmentDoc}`;
+export type CreateUserEventMutationFn = Apollo.MutationFunction<CreateUserEventMutation, CreateUserEventMutationVariables>;
+
+/**
+ * __useCreateUserEventMutation__
+ *
+ * To run a mutation, you first call `useCreateUserEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateUserEventMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createUserEventMutation, { data, loading, error }] = useCreateUserEventMutation({
+ *   variables: {
+ *      args: // value for 'args'
+ *   },
+ * });
+ */
+export function useCreateUserEventMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserEventMutation, CreateUserEventMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateUserEventMutation, CreateUserEventMutationVariables>(CreateUserEventDocument, options);
+      }
+export type CreateUserEventMutationHookResult = ReturnType<typeof useCreateUserEventMutation>;
+export type CreateUserEventMutationResult = Apollo.MutationResult<CreateUserEventMutation>;
+export type CreateUserEventMutationOptions = Apollo.BaseMutationOptions<CreateUserEventMutation, CreateUserEventMutationVariables>;

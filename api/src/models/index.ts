@@ -1,11 +1,11 @@
 import { User } from './User';
 import { EventModel } from './EventModel';
-import { UserEvents } from './UserEvents';
+import { UserEvent } from './UserEvent';
 
 export const models = {
   User,
   EventModel,
-  UserEvents,
+  UserEvent,
 };
 
 export type Models = typeof models;
