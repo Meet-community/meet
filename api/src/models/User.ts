@@ -1,12 +1,12 @@
 import {
   AllowNull,
   Column, CreatedAt,
-  DataType, Default,
+  DataType, Default, HasMany,
   Model,
   Table, Unique, UpdatedAt
 } from 'sequelize-typescript';
-import { EventStatus } from '../modules/event/event.typedefs';
 import { UserStatus } from '../modules/user/user.typedefs';
+import { UserEvent } from './UserEvent';
 
 @Table({
   tableName: 'users',
@@ -14,6 +14,9 @@ import { UserStatus } from '../modules/user/user.typedefs';
 })
 
 export class User extends Model<User> {
+  @HasMany(() => UserEvent)
+  userEvents: User[];
+
   @AllowNull(false)
   @Column({
     type: DataType.STRING,

@@ -18,6 +18,9 @@ export const EVENT_FULL_FRAGMENT = gql`
     creator {
       ...UserFull
     }
+    participants {
+      ...UserFull
+    }
   }
   ${USERS_FULL_FRAGMENT}
 `
