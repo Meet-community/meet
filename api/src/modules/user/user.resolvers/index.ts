@@ -3,11 +3,11 @@ import { signUpResolver } from './signUp.resolver';
 import { activateUserResolver } from './activateUser.resolver';
 import { signInResolver } from './signIn.resolver';
 import { logOutResolver } from './logOut.resolver';
-import { makeAuthResolver } from '../../../core/resolvers/makeResolver';
+import { authUserResolver } from './authUser.resolver';
 
 export const UserResolvers = {
   Query: {
-    users: makeAuthResolver(usersResolvers),
+    authUser: authUserResolver,
   },
   Mutation: {
     signUp: signUpResolver,
