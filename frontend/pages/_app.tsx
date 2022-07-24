@@ -36,6 +36,9 @@ export default function MyApp({ Component, pageProps }: any) {
               margin: 0;
               padding: 0;
             }
+            a {
+              text-decoration: none !important;
+            }
           `}
       </style>
       </Head>
