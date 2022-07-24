@@ -6,6 +6,7 @@ export const useWithAuthPage = () => {
   useAuthUserQuery({
     onCompleted: async (data) => {
       if(!data.authUser) {
+        //TODO: Add routes const (sergio)
         await router.push('./signIn')
       }
     }
