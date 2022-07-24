@@ -3,7 +3,7 @@ import { gql } from 'apollo-server-core';
 export const UserSchema = gql`
   
   type Query {
-    users: [User!]!
+    authUser: User
   }
   
   type Mutation {

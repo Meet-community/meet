@@ -68,9 +68,9 @@ export type MutationSignUpArgs = {
 
 export type Query = {
   __typename?: 'Query';
+  authUser?: Maybe<User>;
   events: Array<Event>;
   userEvents: Array<UserEvent>;
-  users: Array<User>;
 };
 
 export type SignInArgs = {
@@ -137,6 +137,11 @@ export type ActivateUserMutationVariables = Exact<{
 
 export type ActivateUserMutation = { __typename?: 'Mutation', activateUser: { __typename?: 'User', id: number, firstName: string, lastName: string } };
 
+export type AuthUserQueryVariables = Exact<{ [key: string]: never; }>;
+
+
+export type AuthUserQuery = { __typename?: 'Query', authUser?: { __typename?: 'User', id: number, firstName: string, lastName: string } | null };
+
 export type LogOutMutationVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -155,11 +160,6 @@ export type SignUpMutationVariables = Exact<{
 
 
 export type SignUpMutation = { __typename?: 'Mutation', signUp: { __typename?: 'User', id: number, firstName: string, lastName: string } };
-
-export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> };
 
 export type CreateUserEventMutationVariables = Exact<{
   args: CreateUserEventArgs;
@@ -272,6 +272,40 @@ export function useActivateUserMutation(baseOptions?: Apollo.MutationHookOptions
 export type ActivateUserMutationHookResult = ReturnType<typeof useActivateUserMutation>;
 export type ActivateUserMutationResult = Apollo.MutationResult<ActivateUserMutation>;
 export type ActivateUserMutationOptions = Apollo.BaseMutationOptions<ActivateUserMutation, ActivateUserMutationVariables>;
+export const AuthUserDocument = /*#__PURE__*/ gql`
+    query authUser {
+  authUser {
+    ...UserFull
+  }
+}
+    ${UserFullFragmentDoc}`;
+
+/**
+ * __useAuthUserQuery__
+ *
+ * To run a query within a React component, call `useAuthUserQuery` and pass it any options that fit your needs.
+ * When your component renders, `useAuthUserQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useAuthUserQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useAuthUserQuery(baseOptions?: Apollo.QueryHookOptions<AuthUserQuery, AuthUserQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<AuthUserQuery, AuthUserQueryVariables>(AuthUserDocument, options);
+      }
+export function useAuthUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<AuthUserQuery, AuthUserQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<AuthUserQuery, AuthUserQueryVariables>(AuthUserDocument, options);
+        }
+export type AuthUserQueryHookResult = ReturnType<typeof useAuthUserQuery>;
+export type AuthUserLazyQueryHookResult = ReturnType<typeof useAuthUserLazyQuery>;
+export type AuthUserQueryResult = Apollo.QueryResult<AuthUserQuery, AuthUserQueryVariables>;
 export const LogOutDocument = /*#__PURE__*/ gql`
     mutation logOut {
   logOut
@@ -368,40 +402,6 @@ export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignU
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
-export const UsersDocument = /*#__PURE__*/ gql`
-    query users {
-  users {
-    ...UserFull
-  }
-}
-    ${UserFullFragmentDoc}`;
-
-/**
- * __useUsersQuery__
- *
- * To run a query within a React component, call `useUsersQuery` and pass it any options that fit your needs.
- * When your component renders, `useUsersQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useUsersQuery({
- *   variables: {
- *   },
- * });
- */
-export function useUsersQuery(baseOptions?: Apollo.QueryHookOptions<UsersQuery, UsersQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
-      }
-export function useUsersLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<UsersQuery, UsersQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<UsersQuery, UsersQueryVariables>(UsersDocument, options);
-        }
-export type UsersQueryHookResult = ReturnType<typeof useUsersQuery>;
-export type UsersLazyQueryHookResult = ReturnType<typeof useUsersLazyQuery>;
-export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariables>;
 export const CreateUserEventDocument = /*#__PURE__*/ gql`
     mutation createUserEvent($args: CreateUserEventArgs!) {
   createUserEvent(args: $args) {
