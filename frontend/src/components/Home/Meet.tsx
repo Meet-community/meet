@@ -9,13 +9,11 @@ import {
   useSignUpMutation,
 } from '../../controllers/graphql/generated';
 import { useApolloClient } from '@apollo/client';
-import {
-  useWithAuthPage
-} from '../../controllers/entities/user/useWithAuthPage';
+import { useWithAuthPage } from '../../controllers/entities/user/useWithAuthPage';
 import { useRouter } from 'next/router';
+import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 
 export const Meet: FC = memo(() => {
-  useWithAuthPage();
   const [subscribeToEvent] = useCreateUserEventMutation({
     onError: e => window.alert(e.message),
   });
@@ -44,13 +42,7 @@ export const Meet: FC = memo(() => {
       }
     })
   }
-  const { data: authUserData } = useAuthUserQuery({
-    fetchPolicy: 'cache-and-network',
-  });
-  const authUser = useMemo(() => (authUserData?.authUser
-      ? authUserData.authUser
-      : null
-  ), [authUserData])
+  const authUser = useAuthUser();
 
   const events = useMemo(() => (eventsData?.events
       ? eventsData.events
@@ -74,20 +66,12 @@ export const Meet: FC = memo(() => {
     subscribeToEvent({ variables: { args: { eventId, status: UserEventStatus.Canceled } } })
   }
 
+  console.log(authUser);
+
   return (
     <div className="container">
       <main>
         <h1>Meet</h1>
-
-        {authUser && (
-          <button type="button" onClick={logOutHandler}>LogOut</button>
-        )}
-
-        <Link href="/">
-          <a>Go home</a>
-        </Link>
-
-        <span>{`  /  `}</span>
         {!authUser && (
           <Link href="/signIn">
             <a>Go signIn</a>
@@ -127,10 +111,10 @@ export const Meet: FC = memo(() => {
           return (
             <div style={{
               backgroundColor: i % 2 === 0 ? 'lightblue' : 'lightgreen',
-              width: '800px',
+              maxWidth: '800px',
               margin: '50px auto'
             }}>
-              <img style={{ width: '400px', height: '400px', objectFit: 'cover' }}
+              <img style={{ width: '100%', height: '400px', objectFit: 'cover' }}
                    src={event.logo || ''} alt=""/>
               <h3>{event.title}</h3>
               <h4>{`${event.creator.firstName} ${event.creator.lastName} - ${new Date(event.startAt).toLocaleString()}`}</h4>

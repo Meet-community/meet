@@ -17,8 +17,9 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useRouter } from 'next/router';
-import { Paper } from '@mui/material';
+import { Paper, Skeleton } from '@mui/material';
 import { useApolloClient } from '@apollo/client';
+import { LoadingButton } from '@mui/lab';
 
 function Copyright(props: any) {
   return (
@@ -43,7 +44,7 @@ export const SignIn: FC = React.memo(() => {
   const { data: authUserData } = useAuthUserQuery({
     fetchPolicy: 'cache-and-network',
   });
-  const [signIn] = useSignInMutation({
+  const [signIn, { loading } ] = useSignInMutation({
     onCompleted: async (data) => {
       client.writeQuery<AuthUserQuery>({
         query: AuthUserDocument,
@@ -174,14 +175,15 @@ export const SignIn: FC = React.memo(() => {
                   control={<Checkbox value="remember" color="primary" />}
                   label="Remember me"
                 />
-                <Button
+                <LoadingButton
                   type="submit"
                   fullWidth
                   variant="contained"
+                  loading={loading}
                   sx={{ mt: 3, mb: 2 }}
                 >
                   Sign In
-                </Button>
+                </LoadingButton>
                 <Grid container>
                   <Grid item xs>
                     <Link href="#" variant="body2">
