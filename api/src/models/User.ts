@@ -60,7 +60,6 @@ export class User extends Model<User> {
   createdAt: Date;
 
   @UpdatedAt
-  @Default(new Date())
   @Column({
     field: 'updated_at',
   })

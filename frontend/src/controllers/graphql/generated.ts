@@ -58,6 +58,7 @@ export type MutationSignUpArgs = {
 export type Query = {
   __typename?: 'Query';
   events: Array<Event>;
+  userEvent: Array<UserEvent>;
   users: Array<User>;
 };
 
@@ -83,6 +84,22 @@ export type User = {
   status: UserStatus;
   token?: Maybe<Scalars['String']>;
 };
+
+export type UserEvent = {
+  __typename?: 'UserEvent';
+  event: Event;
+  eventId: Scalars['Int'];
+  id: Scalars['Int'];
+  status: UserEventStatus;
+  user: User;
+  userId: Scalars['Int'];
+};
+
+export enum UserEventStatus {
+  Canceled = 'CANCELED',
+  Pending = 'PENDING',
+  Violated = 'VIOLATED'
+}
 
 export enum UserStatus {
   Confirmed = 'CONFIRMED',
@@ -134,6 +151,8 @@ export type UsersQueryVariables = Exact<{ [key: string]: never; }>;
 
 export type UsersQuery = { __typename?: 'Query', users: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> };
 
+export type UserEventFragment = { __typename?: 'UserEvent', id: number, userId: number, eventId: number, status: UserEventStatus };
+
 export const UserFullFragmentDoc = /*#__PURE__*/ gql`
     fragment UserFull on User {
   id
@@ -158,6 +177,14 @@ export const EventFullFragmentDoc = /*#__PURE__*/ gql`
   }
 }
     ${UserFullFragmentDoc}`;
+export const UserEventFragmentDoc = /*#__PURE__*/ gql`
+    fragment UserEvent on UserEvent {
+  id
+  userId
+  eventId
+  status
+}
+    `;
 export const EventsDocument = /*#__PURE__*/ gql`
     query events {
   events {
