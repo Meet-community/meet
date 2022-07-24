@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -14,16 +14,17 @@ import MenuItem from '@mui/material/MenuItem';
 import AdbIcon from '@mui/icons-material/Adb';
 import { useAuthUserQuery } from '../../controllers/graphql/generated';
 import { useRouter } from 'next/router';
-import { rgbToHex } from '@mui/system';
-import { HomeMiniOutlined, HomeRounded } from '@mui/icons-material';
+import { HomeRounded } from '@mui/icons-material';
 import Link from 'next/link';
+import { useLogOut } from '../../Hooks/useLogOut';
 
 export const Header = () => {
   const { data: authUserData } = useAuthUserQuery();
+  const { logOutHandler } = useLogOut();
+  const router = useRouter();
+
   const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
   const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
-
-  const router = useRouter();
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
@@ -40,15 +41,25 @@ export const Header = () => {
     setAnchorElUser(null);
   };
 
+  const onLogOut = useCallback(async () => {
+    handleCloseUserMenu();
+    await logOutHandler();
+  },[])
+
+
+  const onSignIn = useCallback( () => {
+    handleCloseUserMenu();
+    router.push('/signIn');
+  },[])
+
   return (
-    <AppBar position="static" style={{ backgroundColor: '#121212', backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.09), rgba(255, 255, 255, 0.09))'}}>
+    <AppBar position="static">
       <Container maxWidth="xl">
         <Toolbar disableGutters>
           <Typography
             variant="h6"
             noWrap
             component="a"
-            href="/"
             sx={{
               mr: 2,
               display: { xs: 'none', md: 'flex' },
@@ -153,48 +164,58 @@ export const Header = () => {
             </Box>
           </Link>
 
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
+          {authUserData?.authUser && (
+            <Box sx={{ flexGrow: 0 }}>
+              <Tooltip title="Open settings">
+                <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
+                  <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
+                </IconButton>
+              </Tooltip>
 
-            <Menu
-              sx={{ mt: '45px'}}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {!authUserData?.authUser && (
-                <>
-                  <MenuItem onClick={() => router.push('/signIn')}>
-                    <Typography textAlign="center">Sign in</Typography>
-                  </MenuItem>
-
-                  <MenuItem onClick={handleCloseUserMenu}>
-                    <Typography textAlign="center">Sign up</Typography>
-                  </MenuItem>
-                </>
-              )}
-
-              {authUserData?.authUser && (
-                <MenuItem onClick={handleCloseUserMenu}>
+              <Menu
+                sx={{ mt: '45px'}}
+                id="menu-appbar"
+                anchorEl={anchorElUser}
+                anchorOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: 'top',
+                  horizontal: 'right',
+                }}
+                open={Boolean(anchorElUser)}
+                onClose={handleCloseUserMenu}
+              >
+                <MenuItem onClick={onLogOut}>
                   <Typography textAlign="center">Logout</Typography>
                 </MenuItem>
-              )}
-            </Menu>
-          </Box>
+              </Menu>
+            </Box>
+          )}
+
+          {!authUserData?.authUser && (
+            <>
+              <Button
+                onClick={onSignIn}
+                color="inherit"
+                variant="outlined"
+                size="medium"
+                style={{marginRight: 8}}
+              >
+                <Typography textAlign="center">Sign in</Typography>
+              </Button>
+
+              <Button
+                onClick={handleCloseUserMenu}
+                color="inherit"
+                variant="outlined"
+              >
+                <Typography textAlign="center">Sign up</Typography>
+              </Button>
+            </>
+          )}
         </Toolbar>
       </Container>
     </AppBar>

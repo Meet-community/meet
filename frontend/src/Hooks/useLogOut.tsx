@@ -1,14 +1,33 @@
-import { useLogOutMutation } from '../controllers/graphql/generated';
+import {
+  AuthUserDocument,
+  AuthUserQuery,
+  useLogOutMutation,
+} from '../controllers/graphql/generated';
 import { useApolloClient } from '@apollo/client';
+import { useRouter } from 'next/router';
 
 export const useLogOut = () => {
   const client = useApolloClient();
+  const router = useRouter();
 
-  const [logOut] = useLogOutMutation();
+  const [logOut] = useLogOutMutation({
+    onCompleted: async (data) => {
+      client.writeQuery<AuthUserQuery>({
+        query: AuthUserDocument,
+        data: {
+          authUser: null,
+        }
+      })
+    },
+  });
 
   const logOutHandler = async () => {
     await logOut();
     await client.clearStore();
-    document.location.reload();
+    await router.push('/');
   }
+
+  return {
+    logOutHandler,
+  };
 }
