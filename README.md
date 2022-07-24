@@ -3,9 +3,12 @@ meet app
 
 ## Run project
 
-To start api run `npm run api` or go to api module and run `npm run start`
+- ```npm i-all```
+- ```npm run dev```
 
-To start frontend run `npm run front` or go to frontend module and run `npm run dev`
+## To run db
+```npm run db```
+
 
 ## Useful links
 
