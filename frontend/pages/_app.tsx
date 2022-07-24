@@ -1,6 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
 import { initApollo } from '../src/controllers/apollo/getApolloClient';
 import Head from 'next/head';
+import { Header } from '../src/components/Header/Header';
 
 export default function MyApp({ Component, pageProps }: any) {
   const client = initApollo();
@@ -23,6 +24,7 @@ export default function MyApp({ Component, pageProps }: any) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
       </Head>
 
+      <Header />
       <Component {...pageProps} />
     </ApolloProvider>
   )
