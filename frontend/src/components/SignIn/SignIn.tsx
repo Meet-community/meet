@@ -1,5 +1,6 @@
 import React, { FC, useCallback, useEffect, useMemo, useState } from 'react';
 import {
+  AuthUserDocument, AuthUserQuery,
   useAuthUserQuery,
   useSignInMutation
 } from '../../controllers/graphql/generated';
@@ -17,6 +18,7 @@ import Typography from '@mui/material/Typography';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useRouter } from 'next/router';
 import { Paper } from '@mui/material';
+import { useApolloClient } from '@apollo/client';
 
 function Copyright(props: any) {
   return (
@@ -36,8 +38,24 @@ export const SignIn: FC = React.memo(() => {
   const [passwordError, setPasswordError] = useState<string | null>(null);
   const [emailError, setEmailError] = useState<string | null>(null);
 
+  const client = useApolloClient();
+
   const { data: authUserData } = useAuthUserQuery({
     fetchPolicy: 'cache-and-network',
+  });
+  const [signIn] = useSignInMutation({
+    onCompleted: async (data) => {
+      client.writeQuery<AuthUserQuery>({
+        query: AuthUserDocument,
+        data: {
+          authUser: data.signIn,
+        },
+      })
+
+      //TODO: Add routes const (sergio)
+      await router.push('/')
+    },
+    onError: res => errorHandler(res.message),
   });
 
   const authUser = useMemo(() => (authUserData?.authUser
@@ -63,19 +81,14 @@ export const SignIn: FC = React.memo(() => {
       }
     };
 
-  const [signIn] = useSignInMutation({
-    onCompleted: res => router.push('/'),
-    onError: res => errorHandler(res.message),
-  });
-
-  const signInHandler = (event: React.FormEvent<HTMLFormElement>) => {
+  const signInHandler = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
 
     if (passwordError || emailError) {
       return;
     }
 
-    signIn({ variables: { args: { email, password } } });
+    await signIn({ variables: { args: { email, password } } });
   }
 
   const onChangePassword = useCallback((e: React.ChangeEvent<HTMLInputElement> ) => {
