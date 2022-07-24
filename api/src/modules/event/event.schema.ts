@@ -19,6 +19,7 @@ export const EventSchema = gql`
     minCapacity: Int!
     status: VacancyStatus!
     creator: User!
+    participants: [User!]!
   }
   
   enum VacancyStatus {

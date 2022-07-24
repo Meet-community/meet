@@ -31,6 +31,7 @@ export type Event = {
   id: Scalars['Int'];
   logo?: Maybe<Scalars['String']>;
   minCapacity: Scalars['Int'];
+  participants: Array<User>;
   startAt: Scalars['Date'];
   status: VacancyStatus;
   title: Scalars['String'];
@@ -39,7 +40,7 @@ export type Event = {
 export type Mutation = {
   __typename?: 'Mutation';
   activateUser: User;
-  createUserEvent: UserEvent;
+  createUserEvent: Event;
   logOut: Scalars['Boolean'];
   signIn: User;
   signUp: User;
@@ -120,12 +121,12 @@ export enum VacancyStatus {
   Pending = 'PENDING'
 }
 
-export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string } };
+export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> };
 
 export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string } }> };
+export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> }> };
 
 export type UserFullFragment = { __typename?: 'User', id: number, firstName: string, lastName: string };
 
@@ -165,7 +166,7 @@ export type CreateUserEventMutationVariables = Exact<{
 }>;
 
 
-export type CreateUserEventMutation = { __typename?: 'Mutation', createUserEvent: { __typename?: 'UserEvent', id: number, userId: number, eventId: number, status: UserEventStatus, user: { __typename?: 'User', id: number, firstName: string, lastName: string } } };
+export type CreateUserEventMutation = { __typename?: 'Mutation', createUserEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> } };
 
 export type UserEventFragment = { __typename?: 'UserEvent', id: number, userId: number, eventId: number, status: UserEventStatus };
 
@@ -189,6 +190,9 @@ export const EventFullFragmentDoc = /*#__PURE__*/ gql`
   minCapacity
   status
   creator {
+    ...UserFull
+  }
+  participants {
     ...UserFull
   }
 }
@@ -401,14 +405,10 @@ export type UsersQueryResult = Apollo.QueryResult<UsersQuery, UsersQueryVariable
 export const CreateUserEventDocument = /*#__PURE__*/ gql`
     mutation createUserEvent($args: CreateUserEventArgs!) {
   createUserEvent(args: $args) {
-    ...UserEvent
-    user {
-      ...UserFull
-    }
+    ...EventFull
   }
 }
-    ${UserEventFragmentDoc}
-${UserFullFragmentDoc}`;
+    ${EventFullFragmentDoc}`;
 export type CreateUserEventMutationFn = Apollo.MutationFunction<CreateUserEventMutation, CreateUserEventMutationVariables>;
 
 /**

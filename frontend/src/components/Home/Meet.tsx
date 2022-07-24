@@ -1,12 +1,23 @@
 import { FC, memo, useEffect, useMemo, useState } from 'react';
 import Link from 'next/link';
 import {
-  useEventsQuery, useLogOutMutation, useSignUpMutation,
+  EventFullFragment,
+  EventsDocument,
+  useCreateUserEventMutation,
+  useEventsQuery, useLogOutMutation, UserFullFragmentDoc, useSignUpMutation,
   useUsersQuery
 } from '../../controllers/graphql/generated';
 import { useApolloClient } from '@apollo/client';
+import { subscribe } from 'graphql';
+import { onError } from '@apollo/client/link/error';
 
 export const Meet: FC = memo(() => {
+  const [subscribeToEvent] = useCreateUserEventMutation({
+    onError: e => window.alert(e.message),
+    // refetchQueries: [
+    //   {query: EventsDocument},
+    // ]
+  });
   const { data: eventsData, loading: eventsLoading } = useEventsQuery();
   const [logOut] = useLogOutMutation();
   const [signUp, {
@@ -53,6 +64,10 @@ export const Meet: FC = memo(() => {
     await logOut();
     await client.clearStore();
     document.location.reload();
+  }
+
+  const subscribeHandler = (eventId: number) => {
+    subscribeToEvent({ variables: { args: { eventId } } })
   }
 
   return (
@@ -110,12 +125,22 @@ export const Meet: FC = memo(() => {
 
         {eventsLoading && <h3>Event loading</h3>}
 
-        {events.map(event => (
-          <div>
-            <img src={event.logo || ''} alt=""/>
+        {events.map((event, i) => (
+          <div style={{backgroundColor: i % 2 === 0 ? 'lightblue' : 'lightgreen', width: '800px', margin: '50px auto'}}>
+            <img style={{width: '400px', height: '400px', objectFit: 'cover' }} src={event.logo || ''} alt=""/>
             <h3>{event.title}</h3>
             <h4>{`${event.creator.firstName} ${event.creator.lastName} - ${new Date(event.startAt).toLocaleString()}`}</h4>
             <p>{event.description}</p>
+            <button type="button" onClick={() => subscribeHandler(event.id)}>Subscribe</button>
+            <ul>
+              {event.participants.length === 0 && (
+                <h5>No participants</h5>
+              )}
+              {event.participants.map(user => (
+                <li>{`${user.firstName} ${user.lastName}`}</li>
+              ))}
+            </ul>
+            <hr />
           </div>
         ))}
       </main>
