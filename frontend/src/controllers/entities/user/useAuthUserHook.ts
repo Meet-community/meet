@@ -1,9 +1,7 @@
 import { useAuthUserQuery } from '../../graphql/generated';
 
 export const useAuthUser = () => {
-  const { data } = useAuthUserQuery({
-    fetchPolicy: 'cache-and-network',
-  });
+  const { data } = useAuthUserQuery();
 
   return data?.authUser || null;
 }
