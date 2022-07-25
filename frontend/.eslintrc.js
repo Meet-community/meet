@@ -10,6 +10,7 @@ module.exports = {
     ecmaVersion: 6,
     sourceType: 'module',
   },
+  ignorePatterns: ['generated.ts'],
   parser: '@typescript-eslint/parser',
   extends: [
     'airbnb',
@@ -110,4 +111,3 @@ module.exports = {
     },
   },
 };
-

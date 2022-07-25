@@ -1,9 +1,7 @@
 import { ApolloProvider } from '@apollo/client';
-import { initApollo } from '../src/controllers/apollo/getApolloClient';
 import Head from 'next/head';
-import { Header } from '../src/components/Header/Header';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
-
+import { initApollo } from '../src/controllers/apollo/getApolloClient';
 
 export default function MyApp({ Component, pageProps }: any) {
   const client = initApollo();
@@ -30,7 +28,7 @@ export default function MyApp({ Component, pageProps }: any) {
         <title>Meet</title>
 
         <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <style global>
+        <style>
           {`
             body {
               margin: 0;
@@ -40,12 +38,12 @@ export default function MyApp({ Component, pageProps }: any) {
               text-decoration: none !important;
             }
           `}
-      </style>
+        </style>
       </Head>
 
       <ThemeProvider theme={darkTheme}>
         <Component {...pageProps} />
       </ThemeProvider>
     </ApolloProvider>
-  )
+  );
 }

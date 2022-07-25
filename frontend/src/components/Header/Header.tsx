@@ -11,31 +11,35 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import { useRouter } from 'next/router';
 import { HomeRounded } from '@mui/icons-material';
 import Link from 'next/link';
-import { useLogOut } from '../../Hooks/useLogOut';
-import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 import NearMeIcon from '@mui/icons-material/NearMe';
 import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LoginIcon from '@mui/icons-material/Login';
-import styles from './Header.module.scss';
 import { useMediaQuery } from '@mui/material';
+import styles from './Header.module.scss';
+import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
+import { useLogOut } from '../../Hooks/useLogOut';
 
-export const Header = () => {
+export function Header() {
   const authUser = useAuthUser();
-  console.log(authUser)
+
   const { logOutHandler } = useLogOut();
   const router = useRouter();
   const matches = useMediaQuery('(max-width:600px)');
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(null);
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(null);
+  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
+    null,
+  );
+  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
+    null,
+  );
 
   const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElNav(event.currentTarget);
   };
+
   const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorElUser(event.currentTarget);
   };
@@ -51,17 +55,17 @@ export const Header = () => {
   const onLogOut = useCallback(async () => {
     handleCloseUserMenu();
     await logOutHandler();
-  }, [])
+  }, [logOutHandler]);
 
   const onSignIn = useCallback(() => {
     handleCloseUserMenu();
     router.push('/signIn');
-  }, [])
+  }, [router]);
 
-  const onSignUp = useCallback( () => {
+  const onSignUp = useCallback(() => {
     handleCloseUserMenu();
     router.push('/signUp');
-  },[])
+  }, [router]);
 
   return (
     <AppBar position="static">
@@ -82,7 +86,7 @@ export const Header = () => {
               alignItems: 'center',
             }}
           >
-            <NearMeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
+            <NearMeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
 
             Meet
           </Typography>
@@ -96,7 +100,7 @@ export const Header = () => {
               onClick={handleOpenNavMenu}
               color="inherit"
             >
-              <MenuIcon/>
+              <MenuIcon />
 
             </IconButton>
 
@@ -141,16 +145,16 @@ export const Header = () => {
             }}
           >
             Meet
-            <NearMeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }}/>
+            <NearMeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
           </Typography>
 
-          <Link href={'/'}>
+          <Link href="/">
             <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
               <Button
                 sx={{ my: 2, color: 'white', display: 'flex' }}
                 style={{ gap: 8 }}
               >
-                <HomeRounded fontSize={'small'}/>
+                <HomeRounded fontSize="small" />
 
                 <Typography
                   variant="h5"
@@ -174,18 +178,20 @@ export const Header = () => {
             </Box>
           </Link>
 
-
           {authUser && (
             <>
-              <Typography variant='overline' mr="12px"
-                          className={styles.fullName}>
+              <Typography
+                variant='overline'
+                mr="12px"
+                className={styles.fullName}
+              >
                 {`${authUser.firstName} ${authUser.lastName}`}
               </Typography>
 
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar src="''"/>
+                    <Avatar src="''" />
                   </IconButton>
                 </Tooltip>
 
@@ -206,9 +212,13 @@ export const Header = () => {
                   onClose={handleCloseUserMenu}
                 >
                   <MenuItem onClick={onLogOut}>
-                    <Typography textAlign="center"
-                                marginRight="4px">Logout</Typography>
-                    <ExitToAppIcon/>
+                    <Typography
+                      textAlign="center"
+                      marginRight="4px"
+                    >
+                      Logout
+                    </Typography>
+                    <ExitToAppIcon />
                   </MenuItem>
                 </Menu>
               </Box>
@@ -227,7 +237,7 @@ export const Header = () => {
                   display: {
                     xs: 'none',
                     sm: 'block',
-                  }
+                  },
                 }}
               >
                 <Typography textAlign="center">Sign up</Typography>
@@ -241,7 +251,7 @@ export const Header = () => {
                 style={{ marginRight: 8 }}
               >
                 <Typography textAlign="center" mr={1}>Sign in</Typography>
-                <LoginIcon/>
+                <LoginIcon />
               </Button>
             </>
           )}
@@ -249,4 +259,4 @@ export const Header = () => {
       </Container>
     </AppBar>
   );
-};
+}

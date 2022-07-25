@@ -4,7 +4,7 @@
   "description": "app to find people",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
     "server": "npm --prefix ./api run start",
     "client": "npm --prefix ./frontend run dev",
     "client-windows": "npm --prefix ./frontend run dev-windows",
@@ -29,6 +29,7 @@
     "@graphql-codegen/typescript": "2.7.2",
     "@graphql-codegen/typescript-operations": "2.5.2",
     "@graphql-codegen/typescript-react-apollo": "3.3.2",
-    "concurrently": "^7.3.0"
+    "concurrently": "^7.3.0",
+    "husky": "^8.0.1"
   }
 }
