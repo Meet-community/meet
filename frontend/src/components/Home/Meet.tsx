@@ -19,8 +19,8 @@ export const Meet: FC = memo(() => {
   const [signUp, {
     loading: signUpLoading,
   }] = useSignUpMutation({
-    onError: console.log,
-    onCompleted: console.log,
+    onError: () => { /* empty */ },
+    onCompleted: () => { /* empty */ },
   });
 
   const [email, setEmail] = useState('');
@@ -44,8 +44,6 @@ export const Meet: FC = memo(() => {
     ? eventsData.events
     : []
   ), [eventsData]);
-
-  const router = useRouter();
 
   const subscribeHandler = (eventId: number) => {
     subscribeToEvent({ variables: { args: { eventId } } });
