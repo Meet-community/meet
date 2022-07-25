@@ -3,7 +3,7 @@ import {
 } from '../../../src/components/SignUp/SignUpSuccess/SignUpSuccess';
 import { Header } from '../../../src/components/Header/Header';
 
-export default function success() {
+export default function SuccessPage() {
   return (
     <>
       <Header />
