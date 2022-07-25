@@ -1,13 +1,15 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import { useActivateUserMutation } from '../../controllers/graphql/generated';
-import styles from './Activate.module.scss';
-import { Button, Container, Paper, Skeleton } from '@mui/material';
+import {
+  Button, Paper, Skeleton,
+} from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Typography from '@mui/material/Typography';
 import SentimentVeryDissatisfiedIcon
   from '@mui/icons-material/SentimentVeryDissatisfied';
 import Link from 'next/link';
+import styles from './Activate.module.scss';
+import { useActivateUserMutation } from '../../controllers/graphql/generated';
 
 export const Activate: FC = React.memo(() => {
   const router = useRouter();
@@ -15,24 +17,23 @@ export const Activate: FC = React.memo(() => {
   const [isOk, setIsOk] = useState(false);
 
   const [activate, { loading, error }] = useActivateUserMutation({
-    onError: () => {
-    },
+    onError: () => { /* empty */ },
     onCompleted: () => {
       setIsOk(true);
       setTimeout(() => router.push('/'), 5000);
-    }
+    },
   });
 
   useEffect(() => {
     if (token && typeof token === 'string') {
-      activate({ variables: { token } })
+      activate({ variables: { token } });
     }
-  }, [token, activate])
+  }, [token, activate]);
 
   return (
     <div className={styles.wrapper}>
       <div className={styles.modal}>
-        <Paper elevation={3}>
+        <Paper elevation={24}>
           <div className={styles.modalWrapper}>
             <Typography
               variant='h2'
@@ -64,7 +65,7 @@ export const Activate: FC = React.memo(() => {
               )}
 
             </Typography>
-            {loading && <Skeleton height='100px' width='100%'/>}
+            {loading && <Skeleton height='100px' width='100%' />}
             {isOk && (
               <div style={{ marginBottom: '40px' }} className={styles.center}>
                 <CheckCircleOutlineIcon
@@ -84,7 +85,7 @@ export const Activate: FC = React.memo(() => {
                   />
                 </div>
                 <div className={styles.center}>
-                  <Link href={'/signUp'}>
+                  <Link href="/signUp">
                     <Button
                       size='large'
                       variant='outlined'
