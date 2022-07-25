@@ -20,6 +20,7 @@ import { useRouter } from 'next/router';
 import { Paper, Skeleton } from '@mui/material';
 import { useApolloClient } from '@apollo/client';
 import { LoadingButton } from '@mui/lab';
+import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 
 function Copyright(props: any) {
   return (
@@ -41,9 +42,7 @@ export const SignIn: FC = React.memo(() => {
 
   const client = useApolloClient();
 
-  const { data: authUserData } = useAuthUserQuery({
-    fetchPolicy: 'cache-and-network',
-  });
+  const authUser = useAuthUser();
   const [signIn, { loading } ] = useSignInMutation({
     onCompleted: async (data) => {
       client.writeQuery<AuthUserQuery>({
@@ -57,12 +56,8 @@ export const SignIn: FC = React.memo(() => {
       await router.push('/')
     },
     onError: res => errorHandler(res.message),
+    fetchPolicy: 'no-cache',
   });
-
-  const authUser = useMemo(() => (authUserData?.authUser
-    ? authUserData.authUser
-    : null
-  ), [authUserData])
 
   const router = useRouter();
 
