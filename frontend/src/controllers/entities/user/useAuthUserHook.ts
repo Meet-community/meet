@@ -4,4 +4,4 @@ export const useAuthUser = () => {
   const { data } = useAuthUserQuery();
 
   return data?.authUser || null;
-}
+};

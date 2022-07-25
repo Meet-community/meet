@@ -1,7 +1,7 @@
 import { Header } from '../../src/components/Header/Header';
 import { SignUp } from '../../src/components/SignUp/SignUp';
 
-export default function () {
+export default function SignUpPage() {
   return (
     <>
       <Header />
@@ -9,4 +9,4 @@ export default function () {
       <SignUp />
     </>
   );
-};
+}

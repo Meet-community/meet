@@ -26,8 +26,7 @@ export const SignUpSuccess: FC = React.memo(() => {
               textAlign='center'
               mb={7}
             >
-              We sent an email with a confirmation link to your email. Let's
-              confirm it to finish registration.
+              {`We sent an email with a confirmation link to your email. Let's confirm it to finish registration.`}
             </Typography>
             <div style={{ marginBottom: '60px' }} className={styles.center}>
               <ForwardToInboxIcon
