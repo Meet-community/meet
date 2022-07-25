@@ -38,10 +38,20 @@ export const SignUp: FC = React.memo(() => {
     const [passwordError, setPasswordError] = useState<string | null>(null);
     const [emailError, setEmailError] = useState<string | null>(null);
 
+    const errorHandler = (typeError: string): void => {
+      switch (typeError) {
+        case 'email_already_exist':
+          setEmailError('Email already exist');
+          break;
+        default:
+          break;
+      }
+    };
+
     const [signUp, {
       loading,
     }] = useSignUpMutation({
-      onError: console.log,
+      onError: res => errorHandler(res.message),
       onCompleted: console.log,
       fetchPolicy: 'network-only',
     });
@@ -58,22 +68,6 @@ export const SignUp: FC = React.memo(() => {
 
     const router = useRouter();
 
-    const errorHandler = useCallback((typeError: string): void => {
-      switch (typeError) {
-        case 'invalid_email':
-          setEmailError('Invalid Email');
-          break;
-        case 'email_not_confirmed':
-          setEmailError('Email not confirmed');
-          break;
-        case 'invalid_password':
-          setPasswordError('Invalid password')
-          break;
-        default:
-          break;
-      }
-    }, []);
-
     const onSubmit = useCallback(async (event: React.FormEvent<HTMLFormElement>) => {
       event.preventDefault();
 
@@ -81,12 +75,11 @@ export const SignUp: FC = React.memo(() => {
         return;
       }
 
-      console.log(password)
-
       if (!password) {
-        setPasswordError('Enter password')
-      }
+        setPasswordError('Enter password');
 
+        return;
+      }
       if (password.length < 4) {
         setPasswordError('Minimum password length is 4')
 
@@ -94,7 +87,7 @@ export const SignUp: FC = React.memo(() => {
       }
 
       await signUpHandler();
-    }, [])
+    }, [email, password, firstName, lastName])
 
     const onChangePassword = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
       setPassword(e.target.value);
@@ -106,6 +99,14 @@ export const SignUp: FC = React.memo(() => {
       setEmailError(null)
     }, []);
 
+    const onFirstName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      setFirstName(e.target.value);
+    }, []);
+
+    const onLastName = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+      setLastName(e.target.value);
+    }, []);
+
     const authUser = useAuthUser();
 
     useEffect(() => {
@@ -113,8 +114,6 @@ export const SignUp: FC = React.memo(() => {
         router.push('/');
       }
     }, [authUser, router]);
-
-  console.log({email, password, firstName, lastName})
 
     return (
       <ThemeProvider theme={theme}>
@@ -157,7 +156,7 @@ export const SignUp: FC = React.memo(() => {
                       autoComplete="given-name"
                       name="firstName"
                       value={firstName}
-                      onChange={e => setFirstName(e.target.value)}
+                      onChange={onFirstName}
                       required
                       fullWidth
                       id="firstName"
@@ -171,7 +170,7 @@ export const SignUp: FC = React.memo(() => {
                       required
                       fullWidth
                       value={lastName}
-                      onChange={e => setLastName(e.target.value)}
+                      onChange={onLastName}
                       id="lastName"
                       label="Last Name"
                       name="lastName"
@@ -179,6 +178,7 @@ export const SignUp: FC = React.memo(() => {
                     />
                   </Grid>
                 </Grid>
+
                 <TextField
                   margin="normal"
                   required
@@ -194,6 +194,7 @@ export const SignUp: FC = React.memo(() => {
                   autoComplete="email"
                   autoFocus
                 />
+
                 <TextField
                   margin="normal"
                   required
@@ -208,15 +209,18 @@ export const SignUp: FC = React.memo(() => {
                   onChange={onChangePassword}
                   autoComplete="current-password"
                 />
+
                 <LoadingButton
                   type="submit"
                   fullWidth
                   variant="contained"
                   loading={loading}
+                  disabled={ !password || !email || !firstName || !lastName }
                   sx={{mt: 3, mb: 2}}
                 >
                   Sign up
                 </LoadingButton>
+
                 <Grid container>
                   <Grid item xs>
                     <Typography variant="body2">
@@ -225,6 +229,7 @@ export const SignUp: FC = React.memo(() => {
                       </Link>
                     </Typography>
                   </Grid>
+
                   <Grid item>
                     <Typography variant="body2">
                       <Link href="/signIn">
@@ -233,6 +238,7 @@ export const SignUp: FC = React.memo(() => {
                     </Typography>
                   </Grid>
                 </Grid>
+
                 <Copyright sx={{mt: 5}}/>
               </Box>
             </Box>
