@@ -58,6 +58,11 @@ export const Header = () => {
     router.push('/signIn');
   }, [])
 
+  const onSignUp = useCallback( () => {
+    handleCloseUserMenu();
+    router.push('/signUp');
+  },[])
+
   return (
     <AppBar position="static">
       <Container maxWidth="xl">
@@ -213,7 +218,7 @@ export const Header = () => {
           {!authUser && (
             <>
               <Button
-                onClick={handleCloseUserMenu}
+                onClick={onSignUp}
                 color="inherit"
                 variant="outlined"
                 style={{ marginRight: 12 }}
