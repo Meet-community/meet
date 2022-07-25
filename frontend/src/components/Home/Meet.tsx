@@ -2,7 +2,6 @@ import {
   FC, memo, useMemo, useState,
 } from 'react';
 import Link from 'next/link';
-import { useRouter } from 'next/router';
 import {
   useCreateUserEventMutation,
   useEventsQuery,
@@ -13,6 +12,7 @@ import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 
 export const Meet: FC = memo(() => {
   const [subscribeToEvent] = useCreateUserEventMutation({
+    // eslint-disable-next-line no-alert
     onError: (e) => window.alert(e.message),
   });
   const { data: eventsData, loading: eventsLoading } = useEventsQuery();
