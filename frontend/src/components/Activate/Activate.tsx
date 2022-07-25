@@ -20,7 +20,7 @@ export const Activate: FC = React.memo(() => {
     onError: () => { /* empty */ },
     onCompleted: () => {
       setIsOk(true);
-      setTimeout(() => router.push('/'), 5000);
+      setTimeout(() => router.push('/signIn'), 5000);
     },
   });
 
