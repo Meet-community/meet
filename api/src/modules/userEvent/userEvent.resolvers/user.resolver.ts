@@ -1,9 +1,9 @@
-import { Resolver } from '../../../core/resolvers/makeResolver';
+import { AuthResolver } from '../../../core/resolvers/makeResolver';
 import { User } from '../../../models/User';
 import { UserEvent } from '../../../models/UserEvent';
 import { UserRepository } from '../../user/user.repository';
 
-export const userResolver: Resolver<
+export const userResolver: AuthResolver<
   Promise<User>,
   undefined,
   UserEvent

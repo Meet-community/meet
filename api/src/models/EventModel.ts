@@ -1,22 +1,29 @@
 import {
-  AllowNull,
+  AllowNull, AutoIncrement,
   BelongsTo,
   Column,
   CreatedAt,
   DataType,
   ForeignKey,
   Index,
-  Model,
+  Model, PrimaryKey,
   Table,
   UpdatedAt,
 } from 'sequelize-typescript';
 import { User } from './User';
 import { EventStatus } from '../modules/event/event.typedefs';
 
+
 @Table({
   tableName: 'events',
 })
-export class EventModel extends Model<EventModel> {
+export class EventModel extends Model {
+  @PrimaryKey
+  @AutoIncrement
+  @AllowNull(false)
+  @Column
+  id: number;
+
   @BelongsTo(() => User)
   creator: User | null;
 

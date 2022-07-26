@@ -7,3 +7,7 @@ export interface Ctx {
   authUser: User | null;
   res:  express.Response<any, Record<string, any>>;
 }
+
+export interface AuthCtx extends Ctx {
+  authUser: User;
+}

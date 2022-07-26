@@ -1,7 +1,8 @@
-import { Resolver } from '../../../core/resolvers/makeResolver';
+import { AuthResolver } from '../../../core/resolvers/makeResolver';
 import { UserEventStatus } from '../userEvent.typedefs';
 import { UserEventRepository } from '../userEvent.repository';
 import { EventModel } from '../../../models/EventModel';
+import { EventRepository } from '../../event/user.repository';
 
 interface Args {
   eventId: number;
@@ -12,17 +13,15 @@ interface Options {
   args: Args;
 }
 
-export const createUserEventResolver: Resolver<Promise<EventModel>,
+export const createUserEventResolver: AuthResolver<Promise<EventModel>,
   Options> = async (_, options, ctx) => {
+  const userEventRepository = new UserEventRepository(ctx);
+  const eventRepository = new EventRepository(ctx);
+
   const { eventId, status = UserEventStatus.Pending } = options.args;
   const userId = ctx.authUser.id;
-  const userEventRepository = new UserEventRepository(ctx);
 
-  const event = await ctx.models.EventModel.findOne(
-    {
-      where: { id: eventId },
-      raw: true,
-  });
+  const event = await eventRepository.getById(eventId);
 
   const existedUserEvent = await userEventRepository.findByUserIdAndEventId({
     userId, eventId,

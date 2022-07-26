@@ -11,7 +11,7 @@ interface FindByUserIdAndEventIdOptions {
 export class UserEventRepository extends Repository {
   findByUserIdAndEventId(
     { userId, eventId }: FindByUserIdAndEventIdOptions
-  ): Promise<UserEvent> {
+  ): Promise<UserEvent | null> {
     return this.models.UserEvent.findOne({
       where: {
         userId, eventId

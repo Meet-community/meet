@@ -7,7 +7,8 @@
     "dev-windows": "next dev",
     "open-browser": "open http://localhost:3000",
     "lint": "npx eslint ./",
-    "lint-fix": "npx eslint ./ --fix"
+    "lint-fix": "npx eslint ./ --fix",
+    "lint-ts": "tsc --noEmit"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
