@@ -6,7 +6,8 @@
   "scripts": {
     "start": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && nodemon --exec ts-node server/server.ts",
     "lint": "eslint . --ext .ts",
-    "lint-fix": "eslint . --ext .ts --fix"
+    "lint-fix": "eslint . --ext .ts --fix",
+    "lint-ts": "tsc --noEmit"
   },
   "author": "Ihor Karpyn",
   "license": "ISC",
