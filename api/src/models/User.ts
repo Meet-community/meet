@@ -1,8 +1,8 @@
 import {
-  AllowNull,
+  AllowNull, AutoIncrement,
   Column, CreatedAt,
   DataType, Default, HasMany,
-  Model,
+  Model, PrimaryKey,
   Table, Unique, UpdatedAt
 } from 'sequelize-typescript';
 import { UserStatus } from '../modules/user/user.typedefs';
@@ -13,7 +13,13 @@ import { UserEvent } from './UserEvent';
   timestamps: false,
 })
 
-export class User extends Model<User> {
+export class User extends Model {
+  @PrimaryKey
+  @AutoIncrement
+  @AllowNull(false)
+  @Column
+  id: number;
+
   @HasMany(() => UserEvent)
   userEvents: User[];
 

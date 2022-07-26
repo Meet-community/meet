@@ -5,5 +5,5 @@ export enum USER_ERROR {
   EmailNotConfirmed = 'email_not_confirmed',
   InvalidPassword = 'invalid_password',
   NotAuthorized = 'login_not_authorized',
-  NotFound = 'not_found',
+  NotFound = 'user_not_found',
 }

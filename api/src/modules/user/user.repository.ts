@@ -7,8 +7,8 @@ export class UserRepository extends Repository {
     return this.models.User.findByPk(id, { raw: true });
   }
 
-  getById(id: number): Promise<User> {
-    const user = this.findById(id);
+  async getById(id: number): Promise<User> {
+    const user = await this.findById(id);
 
     if (!user) {
       throw Error(USER_ERROR.NotFound);

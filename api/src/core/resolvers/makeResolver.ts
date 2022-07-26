@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { Ctx } from '../../../server/typedefs';
+import { AuthCtx, Ctx } from '../../../server/typedefs';
 import { USER_ERROR } from '../../modules/user/user.constans';
 
 export type Resolver<Result, Options = undefined, Parent = undefined> = (
@@ -9,9 +9,16 @@ export type Resolver<Result, Options = undefined, Parent = undefined> = (
   info: GraphQLResolveInfo,
 ) => Result;
 
+export type AuthResolver<Result, Options = undefined, Parent = undefined> = (
+  parent: Parent,
+  args: Options,
+  ctx: AuthCtx,
+  info: GraphQLResolveInfo,
+) => Result;
+
 export const makeAuthResolver = (
-  resolver: Resolver<any, any>
-): Resolver<any, any> => {
+  resolver: AuthResolver<any, any, any>
+): AuthResolver<any, any> => {
   return (parent, args,ctx, info) => {
     if (!ctx.authUser) {
       throw Error(USER_ERROR.NotAuthorized);

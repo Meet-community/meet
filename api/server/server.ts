@@ -1,5 +1,6 @@
-import * as http from 'http';
 import { ApolloServer } from 'apollo-server-express';
+// @ts-ignore
+import * as http from 'http';
 import { ApolloServerPluginDrainHttpServer } from 'apollo-server-core';
 // @ts-ignore
 import dotenv from 'dotenv';
