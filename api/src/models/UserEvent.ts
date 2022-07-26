@@ -5,7 +5,7 @@ import {
   ForeignKey,
   Index,
   Model, Table,
-  BelongsTo, CreatedAt, UpdatedAt, Default
+  BelongsTo, CreatedAt, UpdatedAt,
 } from 'sequelize-typescript';
 import { User } from './User';
 import { EventModel } from './EventModel';

@@ -17,7 +17,7 @@ export class UserEventRepository extends Repository {
         userId, eventId
       },
       raw: true,
-    })
+    });
   }
 
   async findEventParticipants(eventId: number): Promise<User[]> {
@@ -32,6 +32,6 @@ export class UserEventRepository extends Repository {
         attributes: [],
       }],
       raw: true,
-    })
+    });
   }
 }

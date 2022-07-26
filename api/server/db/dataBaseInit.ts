@@ -8,7 +8,6 @@ export const dbInit = async () => {
   const port = Number(process.env.DB_PORT);
   const password = process.env.DB_PASSWORD as string;
 
-  // @ts-ignore
   const sequelize = new Sequelize(
     dbName,
     userName,
@@ -27,10 +26,11 @@ export const dbInit = async () => {
       logging: false,
       models: Object.values(models),
     }
-  )
+  );
 
   await sequelize.authenticate();
+  // eslint-disable-next-line no-console
   console.log('📓📓📓 Connection to db has been established successfully.');
 
   return sequelize;
-}
+};

@@ -1,10 +1,14 @@
-import { Ctx } from '../../../../server/typedefs';
 import { User } from '../../../models/User';
 import { EventModel } from '../../../models/EventModel';
+import { Resolver } from '../../../core/resolvers/makeResolver';
 
-export const creatorResolver = async (
-  event: EventModel, _, ctx: Ctx
-): Promise<User> => {
+export const creatorResolver: Resolver<
+  Promise<User>,
+  undefined,
+  EventModel
+> = async (
+  event, _, ctx
+) => {
   const user = await ctx.models.User.findByPk(event.creatorId);
 
   if (!user) {
@@ -12,4 +16,4 @@ export const creatorResolver = async (
   }
 
   return user;
-}
+};

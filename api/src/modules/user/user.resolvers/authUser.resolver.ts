@@ -5,4 +5,4 @@ export const authUserResolver: Resolver<
   User | null
 > = (_,__,ctx) => {
   return ctx.authUser;
-}
+};

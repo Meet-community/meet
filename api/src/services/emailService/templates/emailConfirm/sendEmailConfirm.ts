@@ -7,11 +7,11 @@ interface Options {
 }
 
 export const sendEmailConfirm = ({ token, email }: Options) => {
-  const confirmLink = `${process.env.CLIENT_URL}/activate/${token}`
+  const confirmLink = `${process.env.CLIENT_URL}/activate/${token}`;
 
   return sendEmail({
     email,
     subject: 'Confirm Email',
     html: getEmailConfirmTemplate({ confirmLink })
-  })
-}
+  });
+};

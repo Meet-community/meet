@@ -23,4 +23,4 @@ export const EVENT_FULL_FRAGMENT = gql`
     }
   }
   ${USERS_FULL_FRAGMENT}
-`
+`;

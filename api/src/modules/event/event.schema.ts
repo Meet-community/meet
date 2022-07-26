@@ -28,4 +28,4 @@ export const EventSchema = gql`
   }
 
   scalar Date
-`
+`;

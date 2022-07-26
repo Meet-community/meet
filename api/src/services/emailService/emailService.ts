@@ -1,4 +1,4 @@
-import nodemailer from 'nodemailer'
+import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import { sendEmailConfirm } from './templates/emailConfirm/sendEmailConfirm';
 
@@ -9,7 +9,7 @@ const port = Number(process.env.SMPT_PORT);
 const user = process.env.SMPT_USER as string;
 const pass = process.env.SMPT_PASSWORD as string;
 
-let transporter = nodemailer.createTransport({
+const transporter = nodemailer.createTransport({
   host,
   port,
   secure: false,
@@ -36,12 +36,12 @@ export const sendEmail = async (options: Options) => {
     text,
     html,
   });
-}
+};
 
 export const emailService = {
   send: sendEmail,
   sendEmailConfirm,
-}
+};
 
 
 

@@ -1,6 +1,8 @@
-import { Ctx } from '../../../../server/typedefs';
 import { UserEvent } from '../../../models/UserEvent';
+import { Resolver } from '../../../core/resolvers/makeResolver';
 
-export const userEventsResolver = async (_, __, ctx: Ctx ): Promise<UserEvent[]> => {
+export const userEventsResolver: Resolver<
+  Promise<UserEvent[]>
+> = async (_, __, ctx) => {
   return ctx.models.UserEvent.findAll();
-}
+};

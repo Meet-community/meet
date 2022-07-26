@@ -22,11 +22,11 @@ export const createUserEventResolver: Resolver<Promise<EventModel>,
     {
       where: { id: eventId },
       raw: true,
-  })
+  });
 
   const existedUserEvent = await userEventRepository.findByUserIdAndEventId({
     userId, eventId,
-  })
+  });
 
   if (existedUserEvent) {
     await ctx.models.UserEvent.update(
@@ -35,7 +35,7 @@ export const createUserEventResolver: Resolver<Promise<EventModel>,
         where: { id: existedUserEvent.id },
         returning: true,
       }
-    )
+    );
 
     return event;
   }
@@ -43,7 +43,7 @@ export const createUserEventResolver: Resolver<Promise<EventModel>,
   await ctx.models.UserEvent.create(
     { userId, eventId, status },
     { returning: true, raw: true }
-  )
+  );
 
   return event;
-}
+};

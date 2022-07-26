@@ -5,4 +5,4 @@ export const usersResolvers: Resolver<
   Promise<User[]>
 > = (_, __, ctx) => {
   return ctx.models.User.findAll();
-}
+};

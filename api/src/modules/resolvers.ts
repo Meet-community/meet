@@ -3,12 +3,8 @@ import { UserResolvers } from './user/user.resolvers';
 import { EventResolvers } from './event/event.resolvers';
 import { UserEventResolvers } from './userEvent/userEvent.resolvers';
 
-const ModulesResolvers = [
+export const resolvers = merge(
   UserResolvers,
   EventResolvers,
   UserEventResolvers,
-]
-
-export const resolvers = merge(
-  ...ModulesResolvers,
 );
