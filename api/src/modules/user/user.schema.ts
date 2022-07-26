@@ -39,4 +39,4 @@ export const UserSchema = gql`
     email: String!
     password: String!
   }
-`
+`;

@@ -15,4 +15,4 @@ export const UserEventResolvers = {
   UserEvent: {
     user: makeAuthResolver(userResolver),
   }
-}
+};

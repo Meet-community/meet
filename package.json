@@ -11,7 +11,9 @@
     "dev": "concurrently --names \"api,frontend\" -c \"green,magenta\" \"npm run server\" \"npm run client\"",
     "dev-windows": "concurrently --names \"api,frontend\" -c \"green,magenta\" \"npm run server\" \"npm run client-windows\"",
     "db": "psql -h ec2-54-77-40-202.eu-west-1.compute.amazonaws.com -p 5432 -d d7vu3j1t71q444 -U bcefiqogqsakpz -W",
-    "graphql:generate": "graphql-codegen --config graphql-codegen-frontend.yml"
+    "graphql:generate": "graphql-codegen --config graphql-codegen-frontend.yml",
+    "lint": "npm --prefix ./api run lint && npm --prefix ./frontend run lint",
+    "lint-fix": "npm --prefix ./api run lint-fix && npm --prefix ./frontend run lint-fix"
   },
   "repository": {
     "type": "git",

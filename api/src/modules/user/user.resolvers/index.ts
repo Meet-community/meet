@@ -1,4 +1,3 @@
-import { usersResolvers } from './users.resolvers';
 import { signUpResolver } from './signUp.resolver';
 import { activateUserResolver } from './activateUser.resolver';
 import { signInResolver } from './signIn.resolver';
@@ -15,4 +14,4 @@ export const UserResolvers = {
     activateUser: activateUserResolver,
     logOut: logOutResolver,
   }
-}
+};

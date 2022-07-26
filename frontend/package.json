@@ -6,7 +6,8 @@
     "dev": "npm run open-browser && next dev",
     "dev-windows": "next dev",
     "open-browser": "open http://localhost:3000",
-    "lint": "npx eslint ./"
+    "lint": "npx eslint ./",
+    "lint-fix": "npx eslint ./ --fix"
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",

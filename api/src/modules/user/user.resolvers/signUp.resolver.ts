@@ -1,40 +1,40 @@
-import { Ctx } from '../../../../server/typedefs';
 import { v4 as uuidV4 } from 'uuid';
 import { emailService } from '../../../services/emailService/emailService';
 import { UserStatus } from '../user.typedefs';
 import { USER_ERROR } from '../user.constans';
-import { raw } from 'express';
 import { User } from '../../../models/User';
+import { Resolver } from '../../../core/resolvers/makeResolver';
 
 interface Args {
-  email: string,
-  password: string,
-  lastName: string,
-  firstName: string,
+  email: string;
+  password: string;
+  lastName: string;
+  firstName: string;
 }
 
 interface Options {
-  args: Args
+  args: Args;
 }
 
-export const signUpResolver = async (
-  _, { args }: Options, { models }: Ctx
-): Promise<User> => {
+export const signUpResolver: Resolver<
+  Promise<User>,
+  Options
+> = async (_, { args }, { models }) => {
   const { email } = args;
 
-  const isUserExist = await models.User.findOne({
+  const isEmailAlreadyTaken = await models.User.findOne({
     where: { email, status: UserStatus.Confirmed },
     raw: true,
-  })
+  });
 
-  if (isUserExist) {
-    throw Error(USER_ERROR.EmailAlreadyExist)
+  if (isEmailAlreadyTaken) {
+    throw Error(USER_ERROR.EmailAlreadyExist);
   }
 
   const isEmailAlreadyExist = await models.User.findOne({
     where: { email },
     raw: true,
-  })
+  });
 
   const token = uuidV4();
   let user;
@@ -46,7 +46,7 @@ export const signUpResolver = async (
         where: { email },
         returning: true,
       },
-    )
+    );
   } else {
     user = await models.User.create(
       { ...args, token },
@@ -54,10 +54,10 @@ export const signUpResolver = async (
         raw: true,
         returning: true,
       },
-    )
+    );
   }
 
-  await emailService.sendEmailConfirm({ token, email })
+  await emailService.sendEmailConfirm({ token, email });
 
   return user;
-}
+};

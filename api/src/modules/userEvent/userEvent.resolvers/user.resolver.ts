@@ -11,4 +11,4 @@ export const userResolver: Resolver<
   const userRepository = new UserRepository(ctx);
 
   return userRepository.getById(userEvent.userId);
-}
+};

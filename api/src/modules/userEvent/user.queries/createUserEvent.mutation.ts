@@ -1,9 +1,5 @@
 import gql from 'graphql-tag';
 import {
-  USERS_FULL_FRAGMENT
-} from '../../user/user.fragments/userFull.fragment';
-import { USER_EVENT_FRAGMENT } from '../userEvent.fragments/userEvent.fragment';
-import {
   EVENT_FULL_FRAGMENT
 } from '../../event/event.fragments/eventFull.fragment';
 

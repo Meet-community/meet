@@ -11,4 +11,4 @@ export const participantsResolver: Resolver<
   const userEventRepository = new UserEventRepository(ctx);
 
   return userEventRepository.findEventParticipants(event.id);
-}
+};

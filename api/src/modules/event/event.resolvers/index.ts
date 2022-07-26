@@ -11,4 +11,4 @@ export const EventResolvers = {
     creator: creatorResolver,
     participants: participantsResolver,
   }
-}
+};
