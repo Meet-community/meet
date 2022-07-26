@@ -13,12 +13,12 @@ export const initApollo = () => {
   }
 
   const link = createHttpLink({
-    uri: 'http://localhost:4000/api',
+    uri: process.env.NEXT_PUBLIC_API_URL,
     credentials: 'include',
   });
 
   client = new ApolloClient({
-    uri: 'http://localhost:4000/api',
+    uri: process.env.NEXT_PUBLIC_API_URL,
     cache: new InMemoryCache(),
     connectToDevTools: true,
     link,
