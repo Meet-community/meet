@@ -2,7 +2,7 @@ import { AuthResolver } from '../../../core/resolvers/makeResolver';
 import { UserEventStatus } from '../userEvent.typedefs';
 import { UserEventRepository } from '../userEvent.repository';
 import { EventModel } from '../../../models/EventModel';
-import { EventRepository } from '../../event/user.repository';
+import { EventRepository } from '../../event/event.repository';
 
 interface Args {
   eventId: number;

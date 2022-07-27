@@ -9,6 +9,8 @@ export const EventResolvers = {
     event: eventResolver,
   },
 
+  Mutation: {},
+
   Event: {
     creator: creatorResolver,
     participants: participantsResolver,
