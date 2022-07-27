@@ -18,6 +18,7 @@ export const useEventSubscribe = () => {
     : false;
 
   const [subscribeToEvent] = useCreateUserEventMutation({
+    // eslint-disable-next-line no-alert
     onError: (e) => window.alert(e.message),
   });
 

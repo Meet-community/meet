@@ -3,7 +3,7 @@ import {
 } from 'react';
 import Link from 'next/link';
 import {
-  useCreateUserEventMutation, useEventQuery,
+  useCreateUserEventMutation,
   useEventsQuery,
   UserEventStatus,
   useSignUpMutation,
