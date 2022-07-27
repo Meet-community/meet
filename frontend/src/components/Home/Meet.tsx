@@ -20,9 +20,6 @@ export const Meet: FC = memo(() => {
     { variables: { args: { id: 11 } } },
   );
 
-  console.log(eventData);
-
-  console.log(eventData?.event);
   const [signUp, {
     loading: signUpLoading,
   }] = useSignUpMutation({
