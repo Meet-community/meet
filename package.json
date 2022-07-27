@@ -14,7 +14,11 @@
     "graphql:generate": "graphql-codegen --config graphql-codegen-frontend.yml",
     "lint": "npm --prefix ./api run lint && npm --prefix ./frontend run lint",
     "lint-fix": "npm --prefix ./api run lint-fix && npm --prefix ./frontend run lint-fix",
-    "i-all": "npm --prefix ./api i ; npm --prefix ./frontend i"
+    "i-all": "npm --prefix ./api i ; npm --prefix ./frontend i",
+
+    "postinstall": "if [ $CLIENT_ENV ]; then npm run postinstall-client; elif [ $SERVER_ENV ]; then npm run postinstall-server; else echo no environment detected, please set CLIENT_ENV or SERVER_ENV; fi",
+    "postinstall-client": "cd packages/client && npm install && npm run build",
+    "postinstall-server": "cd packages/server && npm install"
   },
   "repository": {
     "type": "git",
