@@ -1,12 +1,12 @@
 import { Ctx } from '../../../../server/typedefs';
 import { EventModel } from '../../../models/EventModel';
 import { Resolver } from '../../../core/resolvers/makeResolver';
-import { EventRepository } from '../event.repository';
+import { EventRepository } from '../user.repository';
 
 interface Options {
  options: {
-   id: number
- }
+   id: number;
+ };
 }
 
 export const eventResolver: Resolver<
