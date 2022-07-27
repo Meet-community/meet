@@ -17,11 +17,6 @@ export type Scalars = {
   Upload: any;
 };
 
-export type CreateUserEventArgs = {
-  eventId: Scalars['Int'];
-  status?: InputMaybe<UserEventStatus>;
-};
-
 export type Event = {
   __typename?: 'Event';
   capacity: Scalars['Int'];
@@ -41,20 +36,16 @@ export type Event = {
 export type Mutation = {
   __typename?: 'Mutation';
   activateUser: User;
-  createUserEvent: Event;
   logOut: Scalars['Boolean'];
   signIn: User;
   signUp: User;
+  subscribeToEvent: Event;
+  unsubscribeToEvent: Event;
 };
 
 
 export type MutationActivateUserArgs = {
   token: Scalars['String'];
-};
-
-
-export type MutationCreateUserEventArgs = {
-  args: CreateUserEventArgs;
 };
 
 
@@ -67,11 +58,27 @@ export type MutationSignUpArgs = {
   args: SignUpArgs;
 };
 
+
+export type MutationSubscribeToEventArgs = {
+  eventId: Scalars['Int'];
+};
+
+
+export type MutationUnsubscribeToEventArgs = {
+  eventId: Scalars['Int'];
+};
+
 export type Query = {
   __typename?: 'Query';
   authUser?: Maybe<User>;
+  event: Event;
   events: Array<Event>;
   userEvents: Array<UserEvent>;
+};
+
+
+export type QueryEventArgs = {
+  id: Scalars['Int'];
 };
 
 export type SignInArgs = {
@@ -124,6 +131,13 @@ export enum VacancyStatus {
 
 export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> };
 
+export type EventQueryVariables = Exact<{
+  id: Scalars['Int'];
+}>;
+
+
+export type EventQuery = { __typename?: 'Query', event: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> } };
+
 export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
@@ -162,12 +176,19 @@ export type SignUpMutationVariables = Exact<{
 
 export type SignUpMutation = { __typename?: 'Mutation', signUp: { __typename?: 'User', id: number, firstName: string, lastName: string } };
 
-export type CreateUserEventMutationVariables = Exact<{
-  args: CreateUserEventArgs;
+export type SubscribeToEventMutationVariables = Exact<{
+  eventId: Scalars['Int'];
 }>;
 
 
-export type CreateUserEventMutation = { __typename?: 'Mutation', createUserEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> } };
+export type SubscribeToEventMutation = { __typename?: 'Mutation', subscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> } };
+
+export type UnsubscribeToEventMutationVariables = Exact<{
+  eventId: Scalars['Int'];
+}>;
+
+
+export type UnsubscribeToEventMutation = { __typename?: 'Mutation', unsubscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> } };
 
 export type UserEventFragment = { __typename?: 'UserEvent', id: number, userId: number, eventId: number, status: UserEventStatus };
 
@@ -206,6 +227,41 @@ export const UserEventFragmentDoc = /*#__PURE__*/ gql`
   status
 }
     `;
+export const EventDocument = /*#__PURE__*/ gql`
+    query event($id: Int!) {
+  event(id: $id) {
+    ...EventFull
+  }
+}
+    ${EventFullFragmentDoc}`;
+
+/**
+ * __useEventQuery__
+ *
+ * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventQuery({
+ *   variables: {
+ *      id: // value for 'id'
+ *   },
+ * });
+ */
+export function useEventQuery(baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+      }
+export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+        }
+export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
+export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
+export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
 export const EventsDocument = /*#__PURE__*/ gql`
     query events {
   events {
@@ -403,36 +459,69 @@ export function useSignUpMutation(baseOptions?: Apollo.MutationHookOptions<SignU
 export type SignUpMutationHookResult = ReturnType<typeof useSignUpMutation>;
 export type SignUpMutationResult = Apollo.MutationResult<SignUpMutation>;
 export type SignUpMutationOptions = Apollo.BaseMutationOptions<SignUpMutation, SignUpMutationVariables>;
-export const CreateUserEventDocument = /*#__PURE__*/ gql`
-    mutation createUserEvent($args: CreateUserEventArgs!) {
-  createUserEvent(args: $args) {
+export const SubscribeToEventDocument = /*#__PURE__*/ gql`
+    mutation subscribeToEvent($eventId: Int!) {
+  subscribeToEvent(eventId: $eventId) {
     ...EventFull
   }
 }
     ${EventFullFragmentDoc}`;
-export type CreateUserEventMutationFn = Apollo.MutationFunction<CreateUserEventMutation, CreateUserEventMutationVariables>;
+export type SubscribeToEventMutationFn = Apollo.MutationFunction<SubscribeToEventMutation, SubscribeToEventMutationVariables>;
 
 /**
- * __useCreateUserEventMutation__
+ * __useSubscribeToEventMutation__
  *
- * To run a mutation, you first call `useCreateUserEventMutation` within a React component and pass it any options that fit your needs.
- * When your component renders, `useCreateUserEventMutation` returns a tuple that includes:
+ * To run a mutation, you first call `useSubscribeToEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useSubscribeToEventMutation` returns a tuple that includes:
  * - A mutate function that you can call at any time to execute the mutation
  * - An object with fields that represent the current status of the mutation's execution
  *
  * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
  *
  * @example
- * const [createUserEventMutation, { data, loading, error }] = useCreateUserEventMutation({
+ * const [subscribeToEventMutation, { data, loading, error }] = useSubscribeToEventMutation({
  *   variables: {
- *      args: // value for 'args'
+ *      eventId: // value for 'eventId'
  *   },
  * });
  */
-export function useCreateUserEventMutation(baseOptions?: Apollo.MutationHookOptions<CreateUserEventMutation, CreateUserEventMutationVariables>) {
+export function useSubscribeToEventMutation(baseOptions?: Apollo.MutationHookOptions<SubscribeToEventMutation, SubscribeToEventMutationVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useMutation<CreateUserEventMutation, CreateUserEventMutationVariables>(CreateUserEventDocument, options);
+        return Apollo.useMutation<SubscribeToEventMutation, SubscribeToEventMutationVariables>(SubscribeToEventDocument, options);
       }
-export type CreateUserEventMutationHookResult = ReturnType<typeof useCreateUserEventMutation>;
-export type CreateUserEventMutationResult = Apollo.MutationResult<CreateUserEventMutation>;
-export type CreateUserEventMutationOptions = Apollo.BaseMutationOptions<CreateUserEventMutation, CreateUserEventMutationVariables>;
+export type SubscribeToEventMutationHookResult = ReturnType<typeof useSubscribeToEventMutation>;
+export type SubscribeToEventMutationResult = Apollo.MutationResult<SubscribeToEventMutation>;
+export type SubscribeToEventMutationOptions = Apollo.BaseMutationOptions<SubscribeToEventMutation, SubscribeToEventMutationVariables>;
+export const UnsubscribeToEventDocument = /*#__PURE__*/ gql`
+    mutation unsubscribeToEvent($eventId: Int!) {
+  unsubscribeToEvent(eventId: $eventId) {
+    ...EventFull
+  }
+}
+    ${EventFullFragmentDoc}`;
+export type UnsubscribeToEventMutationFn = Apollo.MutationFunction<UnsubscribeToEventMutation, UnsubscribeToEventMutationVariables>;
+
+/**
+ * __useUnsubscribeToEventMutation__
+ *
+ * To run a mutation, you first call `useUnsubscribeToEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUnsubscribeToEventMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [unsubscribeToEventMutation, { data, loading, error }] = useUnsubscribeToEventMutation({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *   },
+ * });
+ */
+export function useUnsubscribeToEventMutation(baseOptions?: Apollo.MutationHookOptions<UnsubscribeToEventMutation, UnsubscribeToEventMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UnsubscribeToEventMutation, UnsubscribeToEventMutationVariables>(UnsubscribeToEventDocument, options);
+      }
+export type UnsubscribeToEventMutationHookResult = ReturnType<typeof useUnsubscribeToEventMutation>;
+export type UnsubscribeToEventMutationResult = Apollo.MutationResult<UnsubscribeToEventMutation>;
+export type UnsubscribeToEventMutationOptions = Apollo.BaseMutationOptions<UnsubscribeToEventMutation, UnsubscribeToEventMutationVariables>;

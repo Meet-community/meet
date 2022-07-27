@@ -6,7 +6,8 @@ export const UserEventSchema = gql`
   }
   
   type Mutation {
-    createUserEvent(args: CreateUserEventArgs!): Event!
+    subscribeToEvent(eventId: Int!): Event!
+    unsubscribeToEvent(eventId: Int!): Event!
   }
   
   type UserEvent {
@@ -15,11 +16,6 @@ export const UserEventSchema = gql`
     eventId: Int!
     status: UserEventStatus!
     user: User!
-  }
-  
-  input CreateUserEventArgs {
-    eventId: Int!
-    status: UserEventStatus
   }
   
   enum UserEventStatus {

@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 export const EventSchema = gql`
   type Query {
     events: [Event!]!
+    event(id: Int!): Event!
   }
   
   type Event {
@@ -26,6 +27,6 @@ export const EventSchema = gql`
     PENDING
     CANCELED
   }
-
+  
   scalar Date
 `;

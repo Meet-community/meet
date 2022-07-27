@@ -20,6 +20,20 @@ export class UserEventRepository extends Repository {
     });
   }
 
+  async getByUserIdAndEventId(
+    { userId, eventId }: FindByUserIdAndEventIdOptions
+  ): Promise<UserEvent> {
+    const userEvent = await this.findByUserIdAndEventId(
+      { eventId, userId }
+    );
+
+    if (!userEvent) {
+      throw Error('User event not found');
+    }
+
+    return  userEvent;
+  }
+
   async findEventParticipants(eventId: number): Promise<User[]> {
     return this.models.User.findAll({
       include: [{
@@ -33,5 +47,17 @@ export class UserEventRepository extends Repository {
       }],
       raw: true,
     });
+  }
+
+  async update(id: number, options: Partial<UserEvent>): Promise<UserEvent> {
+    const [, [userEvent]] = await this.models.UserEvent.update(
+      options,
+      {
+        where: { id },
+        returning: true,
+      }
+    );
+
+    return userEvent;
   }
 }

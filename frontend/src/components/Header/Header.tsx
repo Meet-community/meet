@@ -20,7 +20,7 @@ import LoginIcon from '@mui/icons-material/Login';
 import { useMediaQuery } from '@mui/material';
 import styles from './Header.module.scss';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
-import { useLogOut } from '../../Hooks/useLogOut';
+import { useLogOut } from '../../hooks/useLogOut';
 
 export function Header() {
   const authUser = useAuthUser();

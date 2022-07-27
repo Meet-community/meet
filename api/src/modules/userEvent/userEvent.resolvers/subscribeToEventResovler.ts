@@ -2,23 +2,17 @@ import { AuthResolver } from '../../../core/resolvers/makeResolver';
 import { UserEventStatus } from '../userEvent.typedefs';
 import { UserEventRepository } from '../userEvent.repository';
 import { EventModel } from '../../../models/EventModel';
-import { EventRepository } from '../../event/user.repository';
-
-interface Args {
-  eventId: number;
-  status?: UserEventStatus;
-}
+import { EventRepository } from '../../event/event.repository';
 
 interface Options {
-  args: Args;
+  eventId: number;
 }
 
-export const createUserEventResolver: AuthResolver<Promise<EventModel>,
-  Options> = async (_, options, ctx) => {
+export const subscribeToEventResolver: AuthResolver<Promise<EventModel>,
+  Options> = async (_, { eventId }, ctx) => {
   const userEventRepository = new UserEventRepository(ctx);
   const eventRepository = new EventRepository(ctx);
 
-  const { eventId, status = UserEventStatus.Pending } = options.args;
   const userId = ctx.authUser.id;
 
   const event = await eventRepository.getById(eventId);
@@ -29,7 +23,7 @@ export const createUserEventResolver: AuthResolver<Promise<EventModel>,
 
   if (existedUserEvent) {
     await ctx.models.UserEvent.update(
-      { status },
+      { status: UserEventStatus.Pending },
       {
         where: { id: existedUserEvent.id },
         returning: true,
@@ -40,7 +34,7 @@ export const createUserEventResolver: AuthResolver<Promise<EventModel>,
   }
 
   await ctx.models.UserEvent.create(
-    { userId, eventId, status },
+    { userId, eventId, status: UserEventStatus.Pending },
     { returning: true, raw: true }
   );
 

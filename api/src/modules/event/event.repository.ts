@@ -1,5 +1,5 @@
 import { Repository } from '../../core/Repository/Repository';
-import { EVENT_ERROR } from './user.constans';
+import { EVENT_ERROR } from './event.constans';
 import { EventModel } from '../../models/EventModel';
 
 export class EventRepository extends Repository {
