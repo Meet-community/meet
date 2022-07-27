@@ -153,6 +153,7 @@ export function Header() {
               <Button
                 sx={{ my: 2, color: 'white', display: 'flex' }}
                 style={{ gap: 8 }}
+                onClick={() => router.push('/')}
               >
                 <HomeRounded fontSize="small" />
 
