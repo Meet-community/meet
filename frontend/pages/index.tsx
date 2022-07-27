@@ -1,12 +1,3 @@
-import { Meet } from '../src/components/Home/Meet';
-import { Header } from '../src/components/Header/Header';
+import EventPage from './events';
 
-export default function IndexPage() {
-  return (
-    <>
-      <Header />
-
-      <Meet />
-    </>
-  );
-}
+export default EventPage;
