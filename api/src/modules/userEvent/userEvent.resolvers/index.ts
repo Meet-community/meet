@@ -1,7 +1,8 @@
 import { userEventsResolver } from './userEventsResolver';
-import { createUserEventResolver } from './createUserEvent.resolver';
 import { makeAuthResolver } from '../../../core/resolvers/makeResolver';
 import { userResolver } from './user.resolver';
+import { subscribeToEventResolver } from './subscribeToEventResovler';
+import { unsubscribeToEventResolver } from './unsubscribeToEventResovler';
 
 export const UserEventResolvers = {
   Query: {
@@ -9,7 +10,8 @@ export const UserEventResolvers = {
   },
 
   Mutation: {
-    createUserEvent: makeAuthResolver(createUserEventResolver),
+    subscribeToEvent: makeAuthResolver(subscribeToEventResolver),
+    unsubscribeToEvent: makeAuthResolver(unsubscribeToEventResolver),
   },
 
   UserEvent: {

@@ -3,15 +3,17 @@ import {
 } from 'react';
 import Link from 'next/link';
 import {
-  useCreateUserEventMutation,
   useEventsQuery,
-  UserEventStatus,
-  useSignUpMutation,
+  useSignUpMutation, useSubscribeToEventMutation, useUnsubscribeToEventMutation,
 } from '../../controllers/graphql/generated';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 
 export const Meet: FC = memo(() => {
-  const [subscribeToEvent] = useCreateUserEventMutation({
+  const [subscribeToEvent] = useSubscribeToEventMutation({
+    // eslint-disable-next-line no-alert
+    onError: (e) => window.alert(e.message),
+  });
+  const [unsubscribeToEvent] = useUnsubscribeToEventMutation({
     // eslint-disable-next-line no-alert
     onError: (e) => window.alert(e.message),
   });
@@ -20,8 +22,10 @@ export const Meet: FC = memo(() => {
   const [signUp, {
     loading: signUpLoading,
   }] = useSignUpMutation({
-    onError: () => { /* empty */ },
-    onCompleted: () => { /* empty */ },
+    onError: () => { /* empty */
+    },
+    onCompleted: () => { /* empty */
+    },
   });
 
   const [email, setEmail] = useState('');
@@ -47,17 +51,11 @@ export const Meet: FC = memo(() => {
   ), [eventsData]);
 
   const subscribeHandler = (eventId: number) => {
-    subscribeToEvent({ variables: { args: { eventId } } });
+    subscribeToEvent({ variables: { eventId } });
   };
 
   const unSubscribeHandler = (eventId: number) => {
-    subscribeToEvent({
-      variables: {
-        args: {
-          eventId, status: UserEventStatus.Canceled,
-        },
-      },
-    });
+    unsubscribeToEvent({ variables: { eventId } });
   };
 
   return (
