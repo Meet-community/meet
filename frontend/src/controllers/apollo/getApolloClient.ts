@@ -12,6 +12,15 @@ export const initApollo = () => {
     return client;
   }
 
+  const prodApiUrl = 'https://meet-200926-backend.herokuapp.com/api';
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || prodApiUrl;
+
+  // eslint-disable-next-line no-console
+  console.log({
+    apiUrl,
+    fromConfig: process.env.NEXT_PUBLIC_API_URL,
+  });
+
   const link = createHttpLink({
     uri: process.env.NEXT_PUBLIC_API_URL,
     credentials: 'include',
