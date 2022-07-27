@@ -16,9 +16,6 @@ export const Meet: FC = memo(() => {
     onError: (e) => window.alert(e.message),
   });
   const { data: eventsData, loading: eventsLoading } = useEventsQuery();
-  const { data: eventData } = useEventQuery(
-    { variables: { args: { id: 11 } } },
-  );
 
   const [signUp, {
     loading: signUpLoading,
