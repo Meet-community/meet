@@ -25,7 +25,7 @@
     "test": "npm run test-api && npm run test-front",
     "deploy": "npm run test && npm run push-frontend-to-heroku && npm run push-backend-to-heroku",
     "cli-frontend": "heroku logs --tail --remote heroku-frontend",
-    "cli-api": "heroku logs --tail --remote heroku-backend"
+    "cli-backend": "heroku logs --tail --remote heroku-backend"
   },
   "repository": {
     "type": "git",
