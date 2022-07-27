@@ -2,12 +2,13 @@
   "name": "api",
   "version": "1.0.0",
   "description": "meet-api",
-  "main": "server/server.ts",
+  "main": "src/server/server.ts",
   "scripts": {
-    "start": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && nodemon --exec ts-node server/server.ts",
+    "dev": "npx sequelize-cli db:migrate && npx sequelize-cli db:seed:all && nodemon --exec ts-node src/server/server.ts",
     "lint": "eslint . --ext .ts",
     "lint-fix": "eslint . --ext .ts --fix",
-    "lint-ts": "tsc --noEmit"
+    "lint-ts": "tsc --noEmit",
+    "start": "node dist/server/server.js"
   },
   "author": "Ihor Karpyn",
   "license": "ISC",

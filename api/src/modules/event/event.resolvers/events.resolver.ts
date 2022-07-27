@@ -1,4 +1,4 @@
-import { Ctx } from '../../../../server/typedefs';
+import { Ctx } from '../../../server/typedefs';
 import { EventModel } from '../../../models/EventModel';
 import { Resolver } from '../../../core/resolvers/makeResolver';
 

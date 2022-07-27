@@ -9,12 +9,12 @@ import cookieParser from 'cookie-parser';
 // @ts-ignore
 import express from 'express';
 import { dbInit } from './db/dataBaseInit';
-import { Models } from '../src/models';
-import { typeDefs } from '../src/modules/schema';
-import { resolvers } from '../src/modules/resolvers';
-import { jwtService } from '../src/services/jwtService/jwtService';
-import { User } from '../src/models/User';
-import { UserStatus } from '../src/modules/user/user.typedefs';
+import { Models } from '../models';
+import { typeDefs } from '../modules/schema';
+import { resolvers } from '../modules/resolvers';
+import { jwtService } from '../services/jwtService/jwtService';
+import { User } from '../models/User';
+import { UserStatus } from '../modules/user/user.typedefs';
 import { Ctx } from './typedefs';
 
 async function initApolloServer(typeDefs: any, resolvers: any) {
@@ -72,8 +72,10 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
     path: '/api',
   });
 
+  const port = Number(process.env.PORT) || 4000;
+
   await new Promise<void>(
-    (resolve) => httpServer.listen({ port: 4000 }, resolve)
+    (resolve) => httpServer.listen({ port }, resolve)
   );
 
   // eslint-disable-next-line no-console
@@ -81,7 +83,7 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
 }
 
 const serverInit = () => {
-  dotenv.config({ path: '.env' });
+  dotenv.config();
   initApolloServer(typeDefs, resolvers);
 };
 

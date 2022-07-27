@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "prepare": "husky install",
-    "server": "npm --prefix ./api run start",
+    "server": "npm --prefix ./api run dev",
     "client": "npm --prefix ./frontend run dev",
     "client-windows": "npm --prefix ./frontend run dev-windows",
     "dev": "concurrently --names \"api,frontend\" -c \"green,magenta\" \"npm run server\" \"npm run client\"",
@@ -18,7 +18,7 @@
 
     "postinstall": "if [ $CLIENT_ENV ]; then npm run postinstall-client; elif [ $SERVER_ENV ]; then npm run postinstall-server; else echo no environment detected, please set CLIENT_ENV or SERVER_ENV; fi",
     "postinstall-client": "cd frontend && npm install && npm run build",
-    "postinstall-server": "cd api && npm install"
+    "postinstall-server": "cd api && npm install && tsc"
   },
   "repository": {
     "type": "git",

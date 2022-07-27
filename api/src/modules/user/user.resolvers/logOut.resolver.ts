@@ -1,4 +1,4 @@
-import { Ctx } from '../../../../server/typedefs';
+import { Ctx } from '../../../server/typedefs';
 import { Resolver } from '../../../core/resolvers/makeResolver';
 
 type Result = boolean;

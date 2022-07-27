@@ -1,5 +1,5 @@
 import { GraphQLResolveInfo } from 'graphql';
-import { AuthCtx, Ctx } from '../../../server/typedefs';
+import { AuthCtx, Ctx } from '../../server/typedefs';
 import { USER_ERROR } from '../../modules/user/user.constans';
 
 export type Resolver<Result, Options = undefined, Parent = undefined> = (

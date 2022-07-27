@@ -1,5 +1,5 @@
-import { Models } from '../src/models';
-import { User } from '../src/models/User';
+import { Models } from '../models';
+import { User } from '../models/User';
 import express from 'express';
 
 export interface Ctx {

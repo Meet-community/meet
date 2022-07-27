@@ -1,5 +1,5 @@
 import { Models } from '../../models';
-import { Ctx } from '../../../server/typedefs';
+import { Ctx } from '../../server/typedefs';
 
 export class Repository {
   protected readonly models: Models;
