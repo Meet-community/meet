@@ -38,6 +38,10 @@ export type Event = {
   title: Scalars['String'];
 };
 
+export type EventArgs = {
+  id: Scalars['Int'];
+};
+
 export type Mutation = {
   __typename?: 'Mutation';
   activateUser: User;
@@ -70,8 +74,14 @@ export type MutationSignUpArgs = {
 export type Query = {
   __typename?: 'Query';
   authUser?: Maybe<User>;
+  event: Event;
   events: Array<Event>;
   userEvents: Array<UserEvent>;
+};
+
+
+export type QueryEventArgs = {
+  args: EventArgs;
 };
 
 export type SignInArgs = {
@@ -123,6 +133,13 @@ export enum VacancyStatus {
 }
 
 export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> };
+
+export type EventQueryVariables = Exact<{
+  args: EventArgs;
+}>;
+
+
+export type EventQuery = { __typename?: 'Query', event: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string }> } };
 
 export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -206,6 +223,41 @@ export const UserEventFragmentDoc = /*#__PURE__*/ gql`
   status
 }
     `;
+export const EventDocument = /*#__PURE__*/ gql`
+    query event($args: EventArgs!) {
+  event(args: $args) {
+    ...EventFull
+  }
+}
+    ${EventFullFragmentDoc}`;
+
+/**
+ * __useEventQuery__
+ *
+ * To run a query within a React component, call `useEventQuery` and pass it any options that fit your needs.
+ * When your component renders, `useEventQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useEventQuery({
+ *   variables: {
+ *      args: // value for 'args'
+ *   },
+ * });
+ */
+export function useEventQuery(baseOptions: Apollo.QueryHookOptions<EventQuery, EventQueryVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+      }
+export function useEventLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<EventQuery, EventQueryVariables>) {
+          const options = {...defaultOptions, ...baseOptions}
+          return Apollo.useLazyQuery<EventQuery, EventQueryVariables>(EventDocument, options);
+        }
+export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
+export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
+export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
 export const EventsDocument = /*#__PURE__*/ gql`
     query events {
   events {

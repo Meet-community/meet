@@ -3,7 +3,7 @@ import {
 } from 'react';
 import Link from 'next/link';
 import {
-  useCreateUserEventMutation,
+  useCreateUserEventMutation, useEventQuery,
   useEventsQuery,
   UserEventStatus,
   useSignUpMutation,
@@ -16,6 +16,11 @@ export const Meet: FC = memo(() => {
     onError: (e) => window.alert(e.message),
   });
   const { data: eventsData, loading: eventsLoading } = useEventsQuery();
+  const { data: eventData } = useEventQuery(
+    { variables: { args: { id: 11 } } },
+  );
+
+  console.log(eventData?.event);
   const [signUp, {
     loading: signUpLoading,
   }] = useSignUpMutation({

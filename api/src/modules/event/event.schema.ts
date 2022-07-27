@@ -5,6 +5,7 @@ import gql from 'graphql-tag';
 export const EventSchema = gql`
   type Query {
     events: [Event!]!
+    event(args: EventArgs!): Event!
   }
   
   type Event {
@@ -25,6 +26,10 @@ export const EventSchema = gql`
   enum VacancyStatus {
     PENDING
     CANCELED
+  }
+  
+  input EventArgs {
+    id: Int!
   }
 
   scalar Date
