@@ -1,20 +1,34 @@
 import { FC, memo } from 'react';
-import { EventFullFragment } from '../../controllers/graphql/generated';
+import {
+  EventFullFragment,
+  UserFullFragment,
+} from '../../controllers/graphql/generated';
 import { EventCard } from './EventCard';
 import styles from './EventsList.module.scss';
 
 interface Props {
   events: EventFullFragment[];
+  user: UserFullFragment | null;
 }
 
 export const EventsList: FC<Props> = memo((props) => {
-  const { events } = props;
+  const { events, user } = props;
 
   return (
     <div className={styles.grid}>
-      {events.map((event) => (
-        <EventCard key={event.id} event={event} />
-      ))}
+      {events.map((event) => {
+        const isParticipant = user
+          ? event.participants.some((el) => el.id === user.id)
+          : false;
+
+        return (
+          <EventCard
+            key={event.id}
+            event={event}
+            isParticipant={isParticipant}
+          />
+        );
+      })}
     </div>
   );
 });
