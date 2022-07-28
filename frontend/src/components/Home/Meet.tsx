@@ -4,20 +4,15 @@ import {
 import Link from 'next/link';
 import {
   useEventsQuery,
-  useSignUpMutation, useSubscribeToEventMutation, useUnsubscribeToEventMutation,
+  useSignUpMutation,
 } from '../../controllers/graphql/generated';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
+import { useEventSubscribe } from '../../hooks/useEventSubscribe';
 
 export const Meet: FC = memo(() => {
-  const [subscribeToEvent] = useSubscribeToEventMutation({
-    // eslint-disable-next-line no-alert
-    onError: (e) => window.alert(e.message),
-  });
-  const [unsubscribeToEvent] = useUnsubscribeToEventMutation({
-    // eslint-disable-next-line no-alert
-    onError: (e) => window.alert(e.message),
-  });
   const { data: eventsData, loading: eventsLoading } = useEventsQuery();
+
+  const { subscribeHandler, unSubscribeHandler } = useEventSubscribe();
 
   const [signUp, {
     loading: signUpLoading,
@@ -49,14 +44,6 @@ export const Meet: FC = memo(() => {
     ? eventsData.events
     : []
   ), [eventsData]);
-
-  const subscribeHandler = (eventId: number) => {
-    subscribeToEvent({ variables: { eventId } });
-  };
-
-  const unSubscribeHandler = (eventId: number) => {
-    unsubscribeToEvent({ variables: { eventId } });
-  };
 
   return (
     <div className="container">

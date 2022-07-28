@@ -3,3 +3,36 @@
   align-items: center;
   gap: 12px;
 }
+
+.description {
+  max-width: 100%;
+  margin-bottom: 12px;
+
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  overflow: hidden;
+}
+
+.groupButton {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+.participants {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+
+  height: 44px;
+  margin-bottom: 24px;
+}
+
+.subtitle {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
