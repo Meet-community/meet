@@ -12,7 +12,7 @@ function getDate() {
 
   endAt.setHours(endAt.getHours() + 1);
 
-  return { start_at: startAt, end_at: endAt }
+  return { start_at: startAt, end_at: endAt };
 }
 
 module.exports = {
@@ -20,12 +20,30 @@ module.exports = {
     const transaction = await queryInterface.sequelize.transaction();
 
     try {
-      const [user1, user2] = await queryInterface.select(
+      let [user1, user2] = await queryInterface.select(
         null,
         'users',
         { limit: 2, raw: true, transaction },
         ['id']
-      )
+      );
+
+      if (!user1 || !user2) {
+        await queryInterface.bulkInsert(
+          'users',
+          [
+            {first_name: 'Ihor', last_name: 'Karpyn', email: 'test1@gmail.com', password: '1111', status: 'CONFIRMED'},
+            {first_name: 'Serhii', last_name: 'Kirichenko', email: 'test1@gmail.com', password: '1111', status: 'CONFIRMED'},
+          ],
+          {transaction}
+        );
+
+        [user1, user2] = await queryInterface.select(
+          null,
+          'users',
+          { limit: 2, raw: true, transaction },
+          ['id']
+        );
+      }
 
       const res = await queryInterface.bulkInsert(
         table,
@@ -36,7 +54,7 @@ module.exports = {
           {creator_id: user2.id, title: 'Coffe break', ...getDate(), capacity: 3, min_capacity: 2, status: 'PENDING', logo: 'https://image.shutterstock.com/image-photo/female-hand-paper-cup-coffee-600w-666304648.jpg', description: 'Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum'},
         ],
         {transaction}
-      )
+      );
 
       await transaction.commit();
 
