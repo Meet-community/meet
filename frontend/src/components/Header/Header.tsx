@@ -21,6 +21,7 @@ import { useMediaQuery } from '@mui/material';
 import styles from './Header.module.scss';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 import { useLogOut } from '../../hooks/useLogOut';
+import { ROUTES } from '../../../routes/routes';
 
 export function Header() {
   const authUser = useAuthUser();
@@ -59,12 +60,12 @@ export function Header() {
 
   const onSignIn = useCallback(() => {
     handleCloseUserMenu();
-    router.push('/signIn');
+    router.push(`/${ROUTES.signIn}`);
   }, [router]);
 
   const onSignUp = useCallback(() => {
     handleCloseUserMenu();
-    router.push('/signUp');
+    router.push(`/${ROUTES.signUp.index}`);
   }, [router]);
 
   return (
@@ -122,7 +123,7 @@ export function Header() {
                 display: { xs: 'block', md: 'none' },
               }}
             >
-              <MenuItem onClick={() => router.push('/')}>
+              <MenuItem onClick={() => router.push(ROUTES.home)}>
                 <Typography textAlign="center">Home</Typography>
               </MenuItem>
             </Menu>
@@ -153,7 +154,7 @@ export function Header() {
               <Button
                 sx={{ my: 2, color: 'white', display: 'flex' }}
                 style={{ gap: 8 }}
-                onClick={() => router.push('/')}
+                onClick={() => router.push(ROUTES.home)}
               >
                 <HomeRounded fontSize="small" />
 

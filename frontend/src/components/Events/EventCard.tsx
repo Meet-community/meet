@@ -7,9 +7,10 @@ import {
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
-import styles from './EventCard.module.scss';
 import { formatDate } from '../helpers/date/formateDate';
 import { EventFullFragment } from '../../controllers/graphql/generated';
+import { ROUTES } from '../../../routes/routes';
+import styles from './EventCard.module.scss';
 
 interface Props {
   event: EventFullFragment;
@@ -25,7 +26,7 @@ export const EventCard: FC<Props> = memo((props) => {
   }, [event]);
 
   return (
-    <Card sx={{ maxWidth: 345 }} onClick={() => router.push(`events/${event.id}`)}>
+    <Card sx={{ maxWidth: 345 }} onClick={() => router.push(`${ROUTES.events}/${event.id}`)}>
       <CardActionArea>
         <CardMedia
           component="img"

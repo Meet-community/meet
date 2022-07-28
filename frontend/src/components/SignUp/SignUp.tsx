@@ -15,6 +15,7 @@ import { LoadingButton } from '@mui/lab';
 import Link from 'next/link';
 import { useSignUpMutation } from '../../controllers/graphql/generated';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
+import { ROUTES } from '../../../routes/routes';
 
 function Copyright(props: any) {
   return (
@@ -58,7 +59,7 @@ export const SignUp: FC = React.memo(() => {
     loading,
   }] = useSignUpMutation({
     onError: (res) => errorHandler(res.message),
-    onCompleted: () => router.push('/signUp/success'),
+    onCompleted: () => router.push(`/${ROUTES.signUp}/${ROUTES.signUp.success}`),
     fetchPolicy: 'network-only',
   });
 
@@ -126,7 +127,7 @@ export const SignUp: FC = React.memo(() => {
 
   useEffect(() => {
     if (authUser) {
-      router.push('/');
+      router.push(ROUTES.home);
     }
   }, [authUser, router]);
 

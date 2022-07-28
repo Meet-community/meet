@@ -10,6 +10,7 @@ import SentimentVeryDissatisfiedIcon
 import Link from 'next/link';
 import styles from './Activate.module.scss';
 import { useActivateUserMutation } from '../../controllers/graphql/generated';
+import { ROUTES } from '../../../routes/routes';
 
 export const Activate: FC = React.memo(() => {
   const router = useRouter();
@@ -20,7 +21,7 @@ export const Activate: FC = React.memo(() => {
     onError: () => { /* empty */ },
     onCompleted: () => {
       setIsOk(true);
-      setTimeout(() => router.push('/signIn'), 5000);
+      setTimeout(() => router.push(`/${ROUTES.signIn}`), 5000);
     },
   });
 

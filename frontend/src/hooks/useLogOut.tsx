@@ -4,6 +4,7 @@ import {
   AuthUserDocument,
   useLogOutMutation,
 } from '../controllers/graphql/generated';
+import { ROUTES } from '../../routes/routes';
 
 export const useLogOut = () => {
   const client = useApolloClient();
@@ -16,7 +17,7 @@ export const useLogOut = () => {
     awaitRefetchQueries: true,
     onCompleted: async () => {
       await client.clearStore();
-      await router.push('/signIn');
+      await router.push(`/${ROUTES.signIn}`);
     },
   });
 
