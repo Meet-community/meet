@@ -55,11 +55,9 @@ export const SignUp: FC = React.memo(() => {
     }
   };
 
-  const [signUp, {
-    loading,
-  }] = useSignUpMutation({
+  const [signUp, { loading }] = useSignUpMutation({
     onError: (res) => errorHandler(res.message),
-    onCompleted: () => router.push(`/${ROUTES.signUp}/${ROUTES.signUp.success}`),
+    onCompleted: () => router.push(`/${ROUTES.signUp.index}/${ROUTES.signUp.success}`),
     fetchPolicy: 'network-only',
   });
 
