@@ -4,9 +4,6 @@ import React, {
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import Checkbox from '@mui/material/Checkbox';
-import Link from '@mui/material/Link';
 import Grid from '@mui/material/Grid';
 import Box from '@mui/material/Box';
 import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
@@ -16,6 +13,7 @@ import { useRouter } from 'next/router';
 import { Paper } from '@mui/material';
 import { useApolloClient } from '@apollo/client';
 import { LoadingButton } from '@mui/lab';
+import Link from 'next/link';
 import {
   AuthUserDocument, AuthUserQuery,
   useSignInMutation,
@@ -111,6 +109,7 @@ export const SignIn: FC = React.memo(() => {
     <ThemeProvider theme={theme}>
       <Grid container component="main" sx={{ height: '100vh' }}>
         <CssBaseline />
+
         <Grid
           item
           xs={false}
@@ -124,6 +123,7 @@ export const SignIn: FC = React.memo(() => {
             backgroundPosition: 'center',
           }}
         />
+
         <Grid item xs={12} sm={8} md={5} component={Paper} elevation={6} square>
           <Box
             sx={{
@@ -137,9 +137,11 @@ export const SignIn: FC = React.memo(() => {
             <Avatar sx={{ m: 1, bgcolor: 'secondary.main' }}>
               <LockOutlinedIcon />
             </Avatar>
+
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
+
             <Box component="form" noValidate onSubmit={signInHandler} sx={{ mt: 1 }}>
               <TextField
                 margin="normal"
@@ -155,6 +157,7 @@ export const SignIn: FC = React.memo(() => {
                 autoComplete="email"
                 autoFocus
               />
+
               <TextField
                 margin="normal"
                 required
@@ -169,10 +172,7 @@ export const SignIn: FC = React.memo(() => {
                 onChange={onChangePassword}
                 autoComplete="current-password"
               />
-              <FormControlLabel
-                control={<Checkbox value="remember" color="primary" />}
-                label="Remember me"
-              />
+
               <LoadingButton
                 type="submit"
                 fullWidth
@@ -183,18 +183,23 @@ export const SignIn: FC = React.memo(() => {
               >
                 Sign In
               </LoadingButton>
+
               <Grid container>
                 <Grid item xs>
-                  <Link href="#" variant="body2">
-                    Forgot password?
-                  </Link>
+                  {/* <Link href="/signIn" variant="body2"> */}
+                  {/*  Forgot password? */}
+                  {/* </Link> */}
                 </Grid>
+
                 <Grid item>
-                  <Link href="#" variant="body2">
-                    {'Don\'t have an account? Sign Up'}
-                  </Link>
+                  <Typography variant="body2">
+                    <Link href="/signUp">
+                      {'Don\'t have an account? Sign Up'}
+                    </Link>
+                  </Typography>
                 </Grid>
               </Grid>
+
               <Copyright sx={{ mt: 5 }} />
             </Box>
           </Box>

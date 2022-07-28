@@ -236,15 +236,7 @@ export const SignUp: FC = React.memo(() => {
                 Sign up
               </LoadingButton>
 
-              <Grid container>
-                <Grid item xs>
-                  <Typography variant="body2">
-                    <Link href="#">
-                      Forgot password?
-                    </Link>
-                  </Typography>
-                </Grid>
-
+              <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Typography variant="body2">
                     <Link href="/signIn">
