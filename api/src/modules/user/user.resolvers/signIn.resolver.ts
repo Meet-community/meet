@@ -43,6 +43,7 @@ export const signInResolver: Resolver<
   res.cookie('Authorization', jwt, {
     secure: true,
     httpOnly: true,
+    sameSite: 'none',
   });
 
   return user;

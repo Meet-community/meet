@@ -6,7 +6,10 @@ type Result = boolean;
 export const logOutResolver: Resolver<Promise<boolean>> = async (
   _, __, { res }: Ctx
 ): Promise<Result> => {
-  res.clearCookie('Authorization');
+  res.clearCookie(
+    'Authorization',
+    { secure: true, sameSite: 'none', httpOnly: true }
+  );
 
   return true;
 };
