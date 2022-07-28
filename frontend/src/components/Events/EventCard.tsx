@@ -4,7 +4,9 @@ import {
   AvatarGroup,
   Card,
   CardContent,
-  CardMedia, ImageListItem, ImageListItemBar,
+  CardMedia,
+  ImageListItem,
+  ImageListItemBar,
 } from '@mui/material';
 import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
@@ -20,6 +22,7 @@ import styles from './EventCard.module.scss';
 import { formatDate } from '../helpers/date/formateDate';
 import { EventFullFragment } from '../../controllers/graphql/generated';
 import { useEventSubscribe } from '../../hooks/useEventSubscribe';
+import { ROUTES } from '../../../routes/routes';
 
 interface Props {
   event: EventFullFragment;
@@ -104,7 +107,7 @@ export const EventCard: FC<Props> = memo((props) => {
           <div className={styles.groupButton}>
             <Button
               variant="contained"
-              onClick={() => router.push(`events/${event.id}`)}
+              onClick={() => router.push(`${ROUTES.events}/${event.id}`)}
               endIcon={<ReadMoreIcon />}
             >
               Show more
