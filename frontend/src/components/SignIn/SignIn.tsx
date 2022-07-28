@@ -21,6 +21,7 @@ import {
   useSignInMutation,
 } from '../../controllers/graphql/generated';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
+import { ROUTES } from '../../../routes/routes';
 
 function Copyright(props: any) {
   return (
@@ -70,8 +71,7 @@ export const SignIn: FC = React.memo(() => {
         },
       });
 
-      // TODO: Add routes const (sergio)
-      await router.push('/');
+      await router.push(ROUTES.home);
     },
     onError: (res) => errorHandler(res.message),
     fetchPolicy: 'no-cache',
@@ -103,7 +103,7 @@ export const SignIn: FC = React.memo(() => {
 
   useEffect(() => {
     if (authUser) {
-      router.push('/');
+      router.push(ROUTES.home);
     }
   }, [authUser, router]);
 

@@ -1,5 +1,6 @@
 import { useRouter } from 'next/router';
 import { useAuthUserQuery } from '../../graphql/generated';
+import { ROUTES } from '../../../../routes/routes';
 
 export const useWithAuthPage = () => {
   const router = useRouter();
@@ -7,8 +8,7 @@ export const useWithAuthPage = () => {
   useAuthUserQuery({
     onCompleted: async (data) => {
       if (!data.authUser) {
-        // TODO: Add routes const (sergio)
-        await router.push('./signIn');
+        await router.push(`./${ROUTES.signIn}`);
       }
     },
   });
