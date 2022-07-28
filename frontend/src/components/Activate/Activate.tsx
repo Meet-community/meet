@@ -39,6 +39,7 @@ export const Activate: FC = React.memo(() => {
               variant='h2'
               textAlign='center'
               mb={2}
+              className={styles.title}
             >
               {loading && (
                 'Email confirmation'

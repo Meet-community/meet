@@ -17,6 +17,7 @@ export const SignUpSuccess: FC = React.memo(() => {
               variant='h2'
               textAlign='center'
               mb={2}
+              className={styles.title}
             >
               Successfully signUp
             </Typography>
