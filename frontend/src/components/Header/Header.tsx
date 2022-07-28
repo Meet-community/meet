@@ -1,246 +1,124 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useState } from 'react';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
 import IconButton from '@mui/material/IconButton';
 import Typography from '@mui/material/Typography';
-import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
-import MenuItem from '@mui/material/MenuItem';
 import { useRouter } from 'next/router';
 import { HomeRounded } from '@mui/icons-material';
-import Link from 'next/link';
 import NearMeIcon from '@mui/icons-material/NearMe';
-import ExitToAppIcon from '@mui/icons-material/ExitToApp';
 import LoginIcon from '@mui/icons-material/Login';
-import { useMediaQuery } from '@mui/material';
-import styles from './Header.module.scss';
-import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
-import { useLogOut } from '../../hooks/useLogOut';
+import { Drawer, useMediaQuery } from '@mui/material';
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemButton from '@mui/material/ListItemButton';
+import ListItemIcon from '@mui/material/ListItemIcon';
+import ListItemText from '@mui/material/ListItemText';
+import Divider from '@mui/material/Divider';
+import LogoutIcon from '@mui/icons-material/Logout';
 import { ROUTES } from '../../../routes/routes';
+import { useLogOut } from '../../hooks/useLogOut';
+import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
+import styles from './Header.module.scss';
 
 export function Header() {
   const authUser = useAuthUser();
 
   const { logOutHandler } = useLogOut();
   const router = useRouter();
-  const matches = useMediaQuery('(max-width:600px)');
+  const matches = useMediaQuery('(max-width:900px)');
 
-  const [anchorElNav, setAnchorElNav] = React.useState<null | HTMLElement>(
-    null,
-  );
-  const [anchorElUser, setAnchorElUser] = React.useState<null | HTMLElement>(
-    null,
-  );
-
-  const handleOpenNavMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElNav(event.currentTarget);
-  };
-
-  const handleOpenUserMenu = (event: React.MouseEvent<HTMLElement>) => {
-    setAnchorElUser(event.currentTarget);
-  };
-
-  const handleCloseNavMenu = () => {
-    setAnchorElNav(null);
-  };
-
-  const handleCloseUserMenu = () => {
-    setAnchorElUser(null);
-  };
+  const [showMenu, setShowMenu] = useState(false);
 
   const onLogOut = useCallback(async () => {
-    handleCloseUserMenu();
+    setShowMenu(false);
     await logOutHandler();
   }, [logOutHandler]);
 
   const onSignIn = useCallback(() => {
-    handleCloseUserMenu();
+    setShowMenu(false);
     router.push(`/${ROUTES.signIn}`);
   }, [router]);
 
   const onSignUp = useCallback(() => {
-    handleCloseUserMenu();
+    setShowMenu(false);
     router.push(`/${ROUTES.signUp.index}`);
   }, [router]);
 
   return (
     <AppBar position="static">
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
+      <Container sx={{ maxWidth: '100%!important' }}>
+        <Toolbar disableGutters sx={{ justifyContent: 'space-between', maxWidth: '100%' }}>
           <Typography
             variant="h6"
             noWrap
             component="a"
             sx={{
-              mr: 2,
-              display: { xs: 'none', md: 'flex' },
+              display: 'flex',
               fontFamily: 'monospace',
               fontWeight: 700,
               letterSpacing: '.3rem',
               color: 'inherit',
               textDecoration: 'none',
               alignItems: 'center',
+              justifyContent: 'start',
+              gap: '12px',
+              cursor: 'pointer',
             }}
+            onClick={() => router.push(ROUTES.home)}
           >
-            <NearMeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
+            <NearMeIcon />
 
             Meet
           </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none' } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-
-            </IconButton>
-
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: 'bottom',
-                horizontal: 'left',
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: 'top',
-                horizontal: 'left',
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: 'block', md: 'none' },
-              }}
-            >
-              <MenuItem onClick={() => router.push(ROUTES.home)}>
-                <Typography textAlign="center">Home</Typography>
-              </MenuItem>
-            </Menu>
-          </Box>
-
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: 'flex', md: 'none' },
-              flexGrow: 1,
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-            }}
-          >
-            Meet
-            <NearMeIcon sx={{ display: { xs: 'none', md: 'flex' }, mr: 1 }} />
-          </Typography>
-
-          <Link href="/">
-            <Box sx={{ flexGrow: 1, display: { xs: 'none', md: 'flex' } }}>
-              <Button
-                sx={{ my: 2, color: 'white', display: 'flex' }}
-                style={{ gap: 8 }}
-                onClick={() => router.push(ROUTES.home)}
-              >
-                <HomeRounded fontSize="small" />
-
-                <Typography
-                  variant="h5"
-                  noWrap
-                  component="a"
-                  href=""
-                  sx={{
-                    display: { xs: 'flex' },
-                    fontFamily: 'Roboto',
-                    fontSize: '16px',
-                    lineHeight: '26px',
-                    fontWeight: 500,
-                    letterSpacing: '.3rem',
-                    color: 'inherit',
-                    textDecoration: 'none',
-                  }}
-                >
-                  Home
-                </Typography>
-              </Button>
-            </Box>
-          </Link>
 
           {authUser && (
-            <>
+            <div className={styles.fullName}>
               <Typography
                 variant='overline'
                 mr="12px"
-                className={styles.fullName}
               >
                 {`${authUser.firstName} ${authUser.lastName}`}
               </Typography>
 
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
-                  <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                    <Avatar src="''" />
+                  <IconButton onClick={() => setShowMenu(true)} sx={{ p: 0 }}>
+                    <Avatar src="/static/images/avatar/1.jpg" alt={authUser.firstName} />
                   </IconButton>
                 </Tooltip>
-
-                <Menu
-                  sx={{ mt: '45px' }}
-                  id="menu-appbar"
-                  anchorEl={anchorElUser}
-                  anchorOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  keepMounted
-                  transformOrigin={{
-                    vertical: 'top',
-                    horizontal: 'right',
-                  }}
-                  open={Boolean(anchorElUser)}
-                  onClose={handleCloseUserMenu}
-                >
-                  <MenuItem onClick={onLogOut}>
-                    <Typography
-                      textAlign="center"
-                      marginRight="4px"
-                    >
-                      Logout
-                    </Typography>
-                    <ExitToAppIcon />
-                  </MenuItem>
-                </Menu>
               </Box>
-            </>
+            </div>
           )}
 
-          {!authUser && (
-            <>
+          {!authUser && matches && (
+            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', justifyContent: 'end' } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={() => setShowMenu(true)}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+            </Box>
+          )}
+
+          {!authUser && !matches && (
+            <div>
               <Button
                 onClick={onSignUp}
                 color="inherit"
                 variant="outlined"
                 style={{ marginRight: 12 }}
                 size={matches ? 'small' : 'large'}
-                sx={{
-                  display: {
-                    xs: 'none',
-                    sm: 'block',
-                  },
-                }}
               >
                 <Typography textAlign="center">Sign up</Typography>
               </Button>
@@ -255,10 +133,67 @@ export function Header() {
                 <Typography textAlign="center" mr={1}>Sign in</Typography>
                 <LoginIcon />
               </Button>
-            </>
+            </div>
           )}
         </Toolbar>
       </Container>
+
+      <Drawer
+        anchor="right"
+        open={showMenu}
+        onClose={() => setShowMenu(false)}
+      >
+        <Box
+          sx={{ width: 250 }}
+          role="presentation"
+        >
+          <List>
+            <ListItem disablePadding>
+              <ListItemButton onClick={() => router.push(ROUTES.home)}>
+                <ListItemIcon>
+                  <HomeRounded />
+                </ListItemIcon>
+                <ListItemText primary="Home" />
+              </ListItemButton>
+            </ListItem>
+
+            <Divider />
+
+            {authUser && (
+              <ListItem disablePadding>
+                <ListItemButton onClick={onLogOut}>
+                  <ListItemIcon>
+                    <LoginIcon />
+                  </ListItemIcon>
+                  <ListItemText primary="Logout" />
+                </ListItemButton>
+              </ListItem>
+            )}
+
+            {!authUser && (
+              <>
+                <ListItem disablePadding>
+                  <ListItemButton onClick={onSignIn}>
+                    <ListItemIcon>
+                      <LoginIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Sign in" />
+                  </ListItemButton>
+                </ListItem>
+
+                <ListItem disablePadding>
+                  <ListItemButton onClick={onSignUp}>
+                    <ListItemIcon>
+                      <LogoutIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Sign up" />
+                  </ListItemButton>
+                </ListItem>
+              </>
+            )}
+          </List>
+        </Box>
+      </Drawer>
     </AppBar>
   );
 }

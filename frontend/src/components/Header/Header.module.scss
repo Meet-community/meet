@@ -1,5 +1,9 @@
 .fullName {
-  @media (max-width: 900px) {
-    display: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+
+  @media (max-width: 760px) {
+    gap: 8px;
   }
 }
