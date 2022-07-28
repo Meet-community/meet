@@ -1,4 +1,5 @@
 const dotenv = require('dotenv');
+
 dotenv.config({ path: '.env' });
 const database = process.env.DB_NAME;
 const username = process.env.DB_USERNAME;
@@ -22,10 +23,19 @@ const dbConfig = {
   },
   logging: false,
   seederStorage: 'sequelize',
-}
+};
 
 module.exports = {
   development: {
     ...dbConfig,
-  }
-}
+  },
+  staging: {
+    ...dbConfig,
+  },
+  production: {
+    ...dbConfig,
+  },
+  local: {
+    ...dbConfig,
+  },
+};

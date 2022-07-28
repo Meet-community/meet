@@ -12,7 +12,7 @@ export const initApollo = () => {
     return client;
   }
 
-  const prodApiUrl = 'https://meet-200926-backend.herokuapp.com/api';
+  const prodApiUrl = 'https://dev-meet-up-to-easy-backend.herokuapp.com/api';
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || prodApiUrl;
 
   // eslint-disable-next-line no-console
