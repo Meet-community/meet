@@ -31,8 +31,8 @@ module.exports = {
         await queryInterface.bulkInsert(
           'users',
           [
-            {first_name: 'Ihor', last_name: 'Karpyn', email: 'test1@gmail.com', password: '1111', status: 'CONFIRMED'},
-            {first_name: 'Serhii', last_name: 'Kirichenko', email: 'test1@gmail.com', password: '1111', status: 'CONFIRMED'},
+            {first_name: 'Test', last_name: 'User1', email: 'test1@gmail.com', password: '1111', status: 'CONFIRMED'},
+            {first_name: 'Test', last_name: 'User2', email: 'test1@gmail.com', password: '1111', status: 'CONFIRMED'},
           ],
           {transaction}
         );
