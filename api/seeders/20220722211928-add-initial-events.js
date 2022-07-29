@@ -32,7 +32,7 @@ module.exports = {
           'users',
           [
             {first_name: 'Test', last_name: 'User1', email: 'test1@gmail.com', password: '1111', status: 'CONFIRMED'},
-            {first_name: 'Test', last_name: 'User2', email: 'test1@gmail.com', password: '1111', status: 'CONFIRMED'},
+            {first_name: 'Test', last_name: 'User2', email: 'test2@gmail.com', password: '1111', status: 'CONFIRMED'},
           ],
           {transaction}
         );
