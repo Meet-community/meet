@@ -14,11 +14,15 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            🚀 🚀 🚀   ${{ github.actor }} {{ github.type }} a pull request   🚀 🚀 🚀 
-            {{ action.pull_request.name }}
+            🚀 🚀 🚀   ${{ github.actor }} created a pull request   🚀 🚀 🚀 
+            1{{ github.payload.action.pull_request.name }}
+            2{{ payload.action.pull_request.name }}
+            3{{ action.pull_request.name }}
+            4{{ github.action.pull_request.name }}
+            5{{ payload.action.pull_request.name }}
             
             {{ action.pull_request.description }}
             
-            ⬇️👀⬇️👀⬇️👀⬇️👀⬇️👀⬇️⬇️👀⬇️👀⬇️👀⬇️👀⬇️👀⬇️
+            ⬇️👀⬇️👀⬇️👀⬇️👀⬇️👀⬇️⬇️👀⬇️👀⬇️
             See changes: https://github.com/${{ github.repository }}/pulls/{{ action.pull_request.id }}
 
