@@ -15,9 +15,9 @@ jobs:
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
             -🚀-🚀-🚀-  ${{ github.actor }} created a pull request -🚀-🚀-🚀-
-            👉 {{ github.pull_request.name }}
+            👉 {{ action.pull_request.name }}
             
-            {{ github.pull_request.description }}
+            {{ action.pull_request.description }}
             
-            See changes: https://github.com/${{ github.repository }}/pulls/{{ github.pull_request.id }}
+            See changes: https://github.com/${{ github.repository }}/pulls/{{ action.pull_request.id }}
 
