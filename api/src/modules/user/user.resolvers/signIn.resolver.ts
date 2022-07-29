@@ -1,9 +1,9 @@
-import bcrypt from 'bcrypt';
 import { UserStatus } from '../user.typedefs';
 import { USER_ERROR } from '../user.constans';
 import { User } from '../../../models/User';
 import { jwtService } from '../../../services/jwtService/jwtService';
 import { Resolver } from '../../../core/resolvers/makeResolver';
+import { hashService } from '../../../services/hashService/hashService';
 
 interface Args {
   email: string;
@@ -35,7 +35,9 @@ export const signInResolver: Resolver<
     throw Error(USER_ERROR.EmailNotConfirmed);
   }
 
-  const isPasswordValid = await bcrypt.compare(password, user.password);
+  const isPasswordValid = await hashService.comparePassword(
+    password, user.password
+  );
 
   if (!isPasswordValid) {
     throw Error(USER_ERROR.InvalidPassword);

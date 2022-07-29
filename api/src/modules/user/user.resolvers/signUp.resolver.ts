@@ -1,10 +1,10 @@
 import { v4 as uuidV4 } from 'uuid';
-import bcrypt from 'bcrypt';
 import { emailService } from '../../../services/emailService/emailService';
 import { UserStatus } from '../user.typedefs';
 import { USER_ERROR } from '../user.constans';
 import { User } from '../../../models/User';
 import { Resolver } from '../../../core/resolvers/makeResolver';
+import { hashService } from '../../../services/hashService/hashService';
 
 interface Args {
   email: string;
@@ -38,7 +38,7 @@ export const signUpResolver: Resolver<
   });
 
   const token = uuidV4();
-  const hash = await bcrypt.hash(password, 10);
+  const hash = await hashService.hashPassword(password);
 
   let user;
 
