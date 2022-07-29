@@ -4,6 +4,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client';
+import getConfig from 'next/config';
 
 let client: ApolloClient<NormalizedCacheObject> | null;
 
@@ -12,7 +13,9 @@ export const initApollo = () => {
     return client;
   }
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const { publicRuntimeConfig } = getConfig();
+
+  const apiUrl = publicRuntimeConfig.API_URL;
 
   // eslint-disable-next-line no-console
   console.log({
