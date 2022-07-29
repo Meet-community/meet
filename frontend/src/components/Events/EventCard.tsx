@@ -12,17 +12,14 @@ import Typography from '@mui/material/Typography';
 import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
-import { LoadingButton } from '@mui/lab';
 import { Group } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
-import GroupAddIcon from '@mui/icons-material/GroupAdd';
-import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import styles from './EventCard.module.scss';
 import { formatDate } from '../helpers/date/formateDate';
 import { EventFullFragment } from '../../controllers/graphql/generated';
-import { useEventSubscribe } from '../../hooks/useEventSubscribe';
 import { ROUTES } from '../../../routes/routes';
+import { SubscribeButton } from '../../ui/SubscribeButton/SubscribeButton';
 
 interface Props {
   event: EventFullFragment;
@@ -32,12 +29,9 @@ interface Props {
 export const EventCard: FC<Props> = memo((props) => {
   const { event, isParticipant } = props;
 
-  const {
-    unSubscribeHandler,
-    subscribeHandler,
-    subscribeLoading,
-    unsubscribeLoading,
-  } = useEventSubscribe();
+  const disableSubscribe = !isParticipant
+    && event.participants.length
+    >= event.capacity;
 
   const router = useRouter();
 
@@ -113,19 +107,11 @@ export const EventCard: FC<Props> = memo((props) => {
               Show more
             </Button>
 
-            <LoadingButton
-              variant={isParticipant ? 'outlined' : 'contained'}
-              color={isParticipant ? 'error' : 'success'}
-              onClick={() => (isParticipant
-                ? unSubscribeHandler(event.id)
-                : subscribeHandler(event.id)
-              )}
-              loading={unsubscribeLoading || subscribeLoading}
-              disabled={event.participants.length >= event.capacity}
-              endIcon={isParticipant ? <GroupRemoveIcon /> : <GroupAddIcon />}
-            >
-              {isParticipant ? 'Unsubscribe' : 'Subscribe'}
-            </LoadingButton>
+            <SubscribeButton
+              isSubscribed={isParticipant}
+              disabled={disableSubscribe}
+              eventId={event.id}
+            />
           </div>
         </CardContent>
       </Box>
