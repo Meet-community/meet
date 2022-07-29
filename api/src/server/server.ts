@@ -63,6 +63,9 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
     ? ['https://studio.apollographql.com']
     : [];
 
+  // eslint-disable-next-line no-console
+  console.log(clientUrl);
+
   server.applyMiddleware({
     app,
     cors: {
