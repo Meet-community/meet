@@ -1,10 +1,11 @@
 import { ApolloProvider } from '@apollo/client';
 import Head from 'next/head';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
+import getConfig from 'next/config';
 import { initApollo } from '../src/controllers/apollo/getApolloClient';
 
-export default function MyApp({ Component, pageProps }: any) {
-  const client = initApollo();
+export default function MyApp({ Component, pageProps, apiUrl }: any) {
+  const client = initApollo(apiUrl);
 
   const darkTheme = createTheme({
     palette: {
@@ -47,3 +48,11 @@ export default function MyApp({ Component, pageProps }: any) {
     </ApolloProvider>
   );
 }
+
+MyApp.getInitialProps = async () => {
+  const { publicRuntimeConfig } = getConfig();
+
+  const apiUrl = publicRuntimeConfig.API_URL;
+
+  return { apiUrl };
+};
