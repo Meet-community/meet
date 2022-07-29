@@ -1,4 +1,5 @@
 import { v4 as uuidV4 } from 'uuid';
+import bcrypt from 'bcrypt';
 import { emailService } from '../../../services/emailService/emailService';
 import { UserStatus } from '../user.typedefs';
 import { USER_ERROR } from '../user.constans';
@@ -20,7 +21,7 @@ export const signUpResolver: Resolver<
   Promise<User>,
   Options
 > = async (_, { args }, { models }) => {
-  const { email } = args;
+  const { email, password } = args;
 
   const isEmailAlreadyTaken = await models.User.findOne({
     where: { email, status: UserStatus.Confirmed },
@@ -37,11 +38,13 @@ export const signUpResolver: Resolver<
   });
 
   const token = uuidV4();
+  const hash = await bcrypt.hash(password, 10);
+
   let user;
 
   if (isEmailAlreadyExist) {
     [,[user]] = await models.User.update(
-      { ...args, token, },
+      { ...args, token, password: hash },
       {
         where: { email },
         returning: true,
@@ -49,7 +52,7 @@ export const signUpResolver: Resolver<
     );
   } else {
     user = await models.User.create(
-      { ...args, token },
+      { ...args, token, password: hash },
       {
         raw: true,
         returning: true,

@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt';
 import { UserStatus } from '../user.typedefs';
 import { USER_ERROR } from '../user.constans';
 import { User } from '../../../models/User';
@@ -34,7 +35,9 @@ export const signInResolver: Resolver<
     throw Error(USER_ERROR.EmailNotConfirmed);
   }
 
-  if (user.password !== password) {
+  const isPasswordValid = await bcrypt.compare(password, user.password);
+
+  if (!isPasswordValid) {
     throw Error(USER_ERROR.InvalidPassword);
   }
 
