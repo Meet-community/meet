@@ -15,25 +15,20 @@ export const initApollo = () => {
 
   const { publicRuntimeConfig } = getConfig();
 
-  // eslint-disable-next-line no-console
-  console.log(publicRuntimeConfig.API_URL);
-
-  const prodApiUrl = 'https://dev-meet-up-to-easy-backend.herokuapp.com/api';
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL || prodApiUrl;
+  const apiUrl = publicRuntimeConfig.API_URL;
 
   // eslint-disable-next-line no-console
   console.log({
     apiUrl,
-    fromConfig: process.env.NEXT_PUBLIC_API_URL,
   });
 
   const link = createHttpLink({
-    uri: process.env.NEXT_PUBLIC_API_URL,
+    uri: apiUrl,
     credentials: 'include',
   });
 
   client = new ApolloClient({
-    uri: process.env.NEXT_PUBLIC_API_URL,
+    uri: apiUrl,
     cache: new InMemoryCache(),
     connectToDevTools: true,
     link,
