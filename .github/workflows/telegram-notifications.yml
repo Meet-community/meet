@@ -5,9 +5,9 @@ on:
 jobs:
 
   build:
-    name: Build
     runs-on: ubuntu-latest
+    name: Build
     steps:
-      - name: send telegram message on push
+      - name: send telegram message on action with pull request
         uses: appleboy/telegram-action@master
 
