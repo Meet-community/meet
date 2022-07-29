@@ -4,7 +4,6 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client';
-import dotenv from 'dotenv';
 
 let client: ApolloClient<NormalizedCacheObject> | null;
 
@@ -12,8 +11,6 @@ export const initApollo = () => {
   if (client) {
     return client;
   }
-
-  dotenv.config({ path: '.env' });
 
   const prodApiUrl = 'https://dev-meet-up-to-easy-backend.herokuapp.com/api';
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || prodApiUrl;
