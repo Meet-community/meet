@@ -4,6 +4,7 @@ import { UserStatus } from '../user.typedefs';
 import { USER_ERROR } from '../user.constans';
 import { User } from '../../../models/User';
 import { Resolver } from '../../../core/resolvers/makeResolver';
+import { hashService } from '../../../services/hashService/hashService';
 
 interface Args {
   email: string;
@@ -20,7 +21,7 @@ export const signUpResolver: Resolver<
   Promise<User>,
   Options
 > = async (_, { args }, { models }) => {
-  const { email } = args;
+  const { email, password } = args;
 
   const isEmailAlreadyTaken = await models.User.findOne({
     where: { email, status: UserStatus.Confirmed },
@@ -37,11 +38,13 @@ export const signUpResolver: Resolver<
   });
 
   const token = uuidV4();
+  const hash = await hashService.hashPassword(password);
+
   let user;
 
   if (isEmailAlreadyExist) {
     [,[user]] = await models.User.update(
-      { ...args, token, },
+      { ...args, token, password: hash },
       {
         where: { email },
         returning: true,
@@ -49,7 +52,7 @@ export const signUpResolver: Resolver<
     );
   } else {
     user = await models.User.create(
-      { ...args, token },
+      { ...args, token, password: hash },
       {
         raw: true,
         returning: true,
