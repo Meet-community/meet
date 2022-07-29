@@ -18,7 +18,7 @@ jobs:
             1{{ github.payload.action.pull_request.name }}
             2{{ payload.action.pull_request.name }}
             3{{ action.pull_request.name }}
-            4{{ github.action.pull_request.name }}
+            4{{ github.pull_request.name }}
             5{{ payload.action.pull_request.name }}
             
             {{ action.pull_request.description }}
