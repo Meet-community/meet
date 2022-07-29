@@ -4,6 +4,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client';
+import getConfig from 'next/config';
 
 let client: ApolloClient<NormalizedCacheObject> | null;
 
@@ -12,20 +13,27 @@ export const initApollo = () => {
     return client;
   }
 
-  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  const { publicRuntimeConfig } = getConfig();
+
+  // eslint-disable-next-line no-console
+  console.log(publicRuntimeConfig.API_URL);
+
+  const prodApiUrl = 'https://dev-meet-up-to-easy-backend.herokuapp.com/api';
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL || prodApiUrl;
 
   // eslint-disable-next-line no-console
   console.log({
     apiUrl,
+    fromConfig: process.env.NEXT_PUBLIC_API_URL,
   });
 
   const link = createHttpLink({
-    uri: apiUrl,
+    uri: process.env.NEXT_PUBLIC_API_URL,
     credentials: 'include',
   });
 
   client = new ApolloClient({
-    uri: apiUrl,
+    uri: process.env.NEXT_PUBLIC_API_URL,
     cache: new InMemoryCache(),
     connectToDevTools: true,
     link,
