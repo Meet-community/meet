@@ -14,10 +14,12 @@ jobs:
           to: ${{ secrets.TELEGRAM_TO }}
           token: ${{ secrets.TELEGRAM_TOKEN }}
           message: |
-            ${{ github.actor }} {{ github.action }} pull request:
-            Commit message: ${{ github.event.commits[0].message }}
+            ${{ github.actor }} {{ github.event.name}} pull request:
             
-            Repository: ${{ github.repository }}
+            event path: {{ github.event.path }}
+            workplace: {{ github.workspace }}
+            workflow: {{ github.workflow }}
+            {{ github }}
             
-            See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+            See changes: https://github.com/${{ github.repository }}/pulls
 
