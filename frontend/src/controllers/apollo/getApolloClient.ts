@@ -4,6 +4,7 @@ import {
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client';
+import getConfig from 'next/config';
 
 let client: ApolloClient<NormalizedCacheObject> | null;
 
@@ -11,6 +12,11 @@ export const initApollo = () => {
   if (client) {
     return client;
   }
+
+  const { publicRuntimeConfig } = getConfig();
+
+  // eslint-disable-next-line no-console
+  console.log(publicRuntimeConfig.API_URL);
 
   const prodApiUrl = 'https://dev-meet-up-to-easy-backend.herokuapp.com/api';
   const apiUrl = process.env.NEXT_PUBLIC_API_URL || prodApiUrl;
