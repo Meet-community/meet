@@ -1,6 +1,9 @@
 import nodemailer from 'nodemailer';
 import dotenv from 'dotenv';
 import { sendEmailConfirm } from './templates/emailConfirm/sendEmailConfirm';
+import {
+  sendForgotPasswordConfirm
+} from './templates/forgotPasswordConfirm/sendForgotPasswordConfirm';
 
 dotenv.config({ path: '.env' });
 
@@ -41,6 +44,7 @@ export const sendEmail = async (options: Options) => {
 export const emailService = {
   send: sendEmail,
   sendEmailConfirm,
+  sendForgotPasswordConfirm,
 };
 
 
