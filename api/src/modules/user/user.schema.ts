@@ -14,7 +14,7 @@ export const UserSchema = gql`
     updateUserAvatar(args: UpdateUserAvatarArgs): User!
     updateUser(args: UpdateUserArgs!): User!
     updateUserPassword(args: UpdateUserPasswordArgs!): User!
-    forgotUserPassword(args: ForgotUserPassword!): Boolean!
+    forgotUserPassword(args: ForgotUserPasswordArgs!): Boolean!
     activateTemporaryPassword(token: String!): Boolean!
   }
 
@@ -63,7 +63,7 @@ export const UserSchema = gql`
     file: Upload!
   }
   
-  input ForgotUserPassword {
+  input ForgotUserPasswordArgs {
     temporaryPassword: String!
     email: String!
   }
