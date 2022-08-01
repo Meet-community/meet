@@ -21,6 +21,6 @@ export const UserResolvers = {
     updateUserAvatar: makeAuthResolver(updateUserAvatarResolver),
     updateUser: makeAuthResolver(updateUserResolver),
     updateUserPassword: makeAuthResolver(updateUserPasswordResolver),
-    forgotUserPassword: makeAuthResolver(forgotUserPasswordResolver)
+    forgotUserPassword: forgotUserPasswordResolver,
   }
 };
