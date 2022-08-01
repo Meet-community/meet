@@ -6,6 +6,7 @@ import { authUserResolver } from './authUser.resolver';
 import { makeAuthResolver } from '../../../core/resolvers/makeResolver';
 import { updateUserAvatarResolver } from './updateUserAvatar.resolver';
 import { updateUserResolver } from './updateUser.resolver';
+import { updateUserPasswordResolver } from './updateUserPassword.resolver';
 
 export const UserResolvers = {
   Query: {
@@ -18,5 +19,6 @@ export const UserResolvers = {
     logOut: logOutResolver,
     updateUserAvatar: makeAuthResolver(updateUserAvatarResolver),
     updateUser: makeAuthResolver(updateUserResolver),
+    updateUserPassword: makeAuthResolver(updateUserPasswordResolver),
   }
 };
