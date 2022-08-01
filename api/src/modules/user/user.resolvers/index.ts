@@ -8,6 +8,9 @@ import { updateUserAvatarResolver } from './updateUserAvatar.resolver';
 import { updateUserResolver } from './updateUser.resolver';
 import { updateUserPasswordResolver } from './updateUserPassword.resolver';
 import { forgotUserPasswordResolver } from './forgotUserPassword.resolver';
+import {
+  activateTemporaryPasswordResolver
+} from './activateTemporaryPassword.resolver';
 
 export const UserResolvers = {
   Query: {
@@ -22,5 +25,6 @@ export const UserResolvers = {
     updateUser: makeAuthResolver(updateUserResolver),
     updateUserPassword: makeAuthResolver(updateUserPasswordResolver),
     forgotUserPassword: forgotUserPasswordResolver,
+    activateTemporaryPassword: activateTemporaryPasswordResolver,
   }
 };

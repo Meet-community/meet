@@ -47,7 +47,7 @@ export class User extends Model {
   @Column({
     type: DataType.STRING,
   })
-  token?: string;
+  token?: string | null;
 
   @AllowNull(false)
   @Unique(true)

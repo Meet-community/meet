@@ -15,6 +15,7 @@ export const UserSchema = gql`
     updateUser(args: UpdateUserArgs!): User!
     updateUserPassword(args: UpdateUserPasswordArgs!): User!
     forgotUserPassword(args: ForgotUserPassword!): Boolean!
+    activateTemporaryPassword(token: String!): Boolean!
   }
 
   type User {
