@@ -1,0 +1,90 @@
+.container {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+  flex-direction: column;
+}
+
+.avatarWrapper {
+  position: relative;
+  border-radius: 50%;
+  overflow: hidden;
+  margin-bottom: 8px;
+  padding: 4px;
+  border: 2px solid #4caf50;
+
+  transition: border-color 0.5s;
+}
+
+.avatarError {
+  border-color: #ff7961;
+}
+
+
+.editAvatarBadge {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 1;
+
+  padding: 8px;
+
+  background-color: rgba(74, 74, 74, 0.61);
+
+  text-align: center;
+
+  cursor: pointer;
+}
+
+.inputHidden {
+  position: absolute;
+  height: 0;
+  width: 0;
+  overflow: hidden;
+  visibility: hidden;
+  padding: 0;
+  margin: 0;
+  z-index: -999;
+}
+
+.errorMessage {
+  opacity: 0;
+  transition: opacity 0.5s;
+}
+
+.errorMessageVisible {
+  opacity: 1;
+}
+
+$loaderPosition: -4px;
+
+.avatarLoader {
+  position: absolute;
+  top: $loaderPosition;
+  bottom: $loaderPosition;
+  left: $loaderPosition;
+  right: $loaderPosition;
+  border: 0 solid transparent;
+  border-top: 16px solid #3498db;
+  border-radius: 50%;
+  animation: spin 100s linear infinite;
+  opacity: 0;
+}
+
+.avatarLoaderActive {
+  transition: opacity 0.3s, animation-duration 3s;
+  border-width: 8px;
+  opacity: 1;
+  animation-duration: 2s;
+  z-index: 2;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -2,8 +2,8 @@ import { FC, memo } from 'react';
 import {
   EventFullFragment,
   UserFullFragment,
-} from '../../controllers/graphql/generated';
-import { EventCard } from './EventCard';
+} from '../../../controllers/graphql/generated';
+import { EventCard } from '../EventCard/EventCard';
 import styles from './EventsList.module.scss';
 
 interface Props {

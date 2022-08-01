@@ -1,9 +1,8 @@
 import { FC, memo, useMemo } from 'react';
-import { CircularProgress, Paper } from '@mui/material';
 import { useEventsQuery } from '../../controllers/graphql/generated';
-import { EventsList } from './EventsList';
-import styles from './Events.module.scss';
+import { EventsList } from './EventsList/EventsList';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
+import { Container } from '../UI/Container/Container';
 
 export const Events: FC = memo(() => {
   const { data: eventsData, loading: eventsLoading } = useEventsQuery();
@@ -16,16 +15,9 @@ export const Events: FC = memo(() => {
   ), [eventsData]);
 
   return (
-    <Paper elevation={6} className={styles.container}>
-      <h1 className={styles.title}>Events</h1>
+    <Container pageTitle="Events" isLoading={eventsLoading}>
 
       <EventsList events={events} user={authUser} />
-
-      {eventsLoading && (
-        <div className={styles.loader}>
-          <CircularProgress size={80} />
-        </div>
-      )}
-    </Paper>
+    </Container>
   );
 });
