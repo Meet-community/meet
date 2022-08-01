@@ -1,9 +1,9 @@
 import {
   ApolloClient,
-  createHttpLink,
   InMemoryCache,
   NormalizedCacheObject,
 } from '@apollo/client';
+import { createUploadLink } from 'apollo-upload-client';
 
 let client: ApolloClient<NormalizedCacheObject> | null;
 
@@ -17,13 +17,15 @@ export const initApollo = (apiUrl: string) => {
     apiUrl,
   });
 
-  const link = createHttpLink({
+  const link = createUploadLink({
     uri: apiUrl,
     credentials: 'include',
+    headers: {
+      'Apollo-Require-Preflight': 'true',
+    },
   });
 
   client = new ApolloClient({
-    uri: apiUrl,
     cache: new InMemoryCache(),
     connectToDevTools: true,
     link,

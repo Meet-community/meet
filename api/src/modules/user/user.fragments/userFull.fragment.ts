@@ -5,5 +5,6 @@ export const USERS_FULL_FRAGMENT = gql`
     id
     firstName
     lastName
+    avatar
   }
 `;

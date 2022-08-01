@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "noUnusedParameters": false,
     "target": "es5",
     "lib": [
       "dom",

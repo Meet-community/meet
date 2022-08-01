@@ -6,4 +6,5 @@ export const ROUTES = {
     success: 'success',
   },
   events: 'events',
+  profile: 'profile',
 };

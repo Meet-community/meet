@@ -16,11 +16,13 @@ import { jwtService } from '../services/jwtService/jwtService';
 import { User } from '../models/User';
 import { UserStatus } from '../modules/user/user.typedefs';
 import { Ctx } from './typedefs';
+import { graphqlUploadExpress } from 'graphql-upload';
 
 async function initApolloServer(typeDefs: any, resolvers: any) {
   const app = express();
 
   app.use(cookieParser());
+  app.use(graphqlUploadExpress());
   const httpServer = http.createServer(app);
 
   const db = await dbInit();

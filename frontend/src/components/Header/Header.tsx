@@ -21,6 +21,8 @@ import ListItemIcon from '@mui/material/ListItemIcon';
 import ListItemText from '@mui/material/ListItemText';
 import Divider from '@mui/material/Divider';
 import LogoutIcon from '@mui/icons-material/Logout';
+import Link from 'next/link';
+import PersonIcon from '@mui/icons-material/Person';
 import { ROUTES } from '../../../routes/routes';
 import { useLogOut } from '../../hooks/useLogOut';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
@@ -53,7 +55,10 @@ export function Header() {
   return (
     <AppBar position="static">
       <Container sx={{ maxWidth: '100%!important' }}>
-        <Toolbar disableGutters sx={{ justifyContent: 'space-between', maxWidth: '100%' }}>
+        <Toolbar
+          disableGutters
+          sx={{ justifyContent: 'space-between', maxWidth: '100%' }}
+        >
           <Typography
             variant="h6"
             noWrap
@@ -89,7 +94,10 @@ export function Header() {
               <Box sx={{ flexGrow: 0 }}>
                 <Tooltip title="Open settings">
                   <IconButton onClick={() => setShowMenu(true)} sx={{ p: 0 }}>
-                    <Avatar src="/static/images/avatar/1.jpg" alt={authUser.firstName} />
+                    <Avatar
+                      src={authUser?.avatar || '/static/images/avatar/1.jpg'}
+                      alt={authUser.firstName}
+                    />
                   </IconButton>
                 </Tooltip>
               </Box>
@@ -97,7 +105,11 @@ export function Header() {
           )}
 
           {!authUser && matches && (
-            <Box sx={{ flexGrow: 1, display: { xs: 'flex', md: 'none', justifyContent: 'end' } }}>
+            <Box sx={{
+              flexGrow: 1,
+              display: { xs: 'flex', md: 'none', justifyContent: 'end' },
+            }}
+            >
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -160,14 +172,27 @@ export function Header() {
             <Divider />
 
             {authUser && (
-              <ListItem disablePadding>
-                <ListItemButton onClick={onLogOut}>
-                  <ListItemIcon>
-                    <LoginIcon />
-                  </ListItemIcon>
-                  <ListItemText primary="Logout" />
-                </ListItemButton>
-              </ListItem>
+              <>
+                <Link href={ROUTES.profile}>
+                  <ListItem disablePadding>
+                    <ListItemButton>
+                      <ListItemIcon>
+                        <PersonIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Profile" />
+                    </ListItemButton>
+                  </ListItem>
+                </Link>
+
+                <ListItem disablePadding>
+                  <ListItemButton onClick={onLogOut}>
+                    <ListItemIcon>
+                      <LoginIcon />
+                    </ListItemIcon>
+                    <ListItemText primary="Logout" />
+                  </ListItemButton>
+                </ListItem>
+              </>
             )}
 
             {!authUser && (
