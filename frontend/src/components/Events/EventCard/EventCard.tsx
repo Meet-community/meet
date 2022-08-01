@@ -16,10 +16,10 @@ import { Group } from '@mui/icons-material';
 import IconButton from '@mui/material/IconButton';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
 import styles from './EventCard.module.scss';
-import { formatDate } from '../helpers/date/formateDate';
-import { EventFullFragment } from '../../controllers/graphql/generated';
-import { ROUTES } from '../../../routes/routes';
-import { SubscribeButton } from '../../ui/SubscribeButton/SubscribeButton';
+import { formatDate } from '../../helpers/date/formateDate';
+import { EventFullFragment } from '../../../controllers/graphql/generated';
+import { ROUTES } from '../../../../routes/routes';
+import { SubscribeButton } from '../../../ui/SubscribeButton/SubscribeButton';
 
 interface Props {
   event: EventFullFragment;
