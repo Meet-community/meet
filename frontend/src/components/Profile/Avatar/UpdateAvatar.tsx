@@ -20,7 +20,7 @@ export const UpdateAvatar: FC = React.memo(() => {
   const validateFile = (fileToUpload: File) => (
     fileToUpload?.size
     && fileToUpload.size <= 1024 * 1024 * 2
-    && ['image/x-png', 'image/png', 'image/jpeg', 'image/gif'].includes(fileToUpload.type)
+    && ['image/x-png', 'image/png', 'image/jpeg'].includes(fileToUpload.type)
   );
 
   const changeFileHandler = (
