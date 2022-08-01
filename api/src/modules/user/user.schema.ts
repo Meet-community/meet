@@ -12,7 +12,7 @@ export const UserSchema = gql`
     signIn(args: SignInArgs!): User!
     logOut: Boolean!
     updateUserAvatar(args: UpdateUserAvatarArgs): User!
-    updateUser(args: UpdateUserArgs): User!
+    updateUser(args: UpdateUserArgs!): User!
   }
   
   type User {

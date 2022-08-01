@@ -17,6 +17,6 @@ export const UserResolvers = {
     activateUser: activateUserResolver,
     logOut: logOutResolver,
     updateUserAvatar: makeAuthResolver(updateUserAvatarResolver),
-    updateUser: updateUserResolver,
+    updateUser: makeAuthResolver(updateUserResolver),
   }
 };
