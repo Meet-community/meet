@@ -17,13 +17,7 @@ export const Activate: FC = React.memo(() => {
   const { token } = router.query;
   const [isOk, setIsOk] = useState(false);
 
-  useEffect(() => {
-    setIsOk(true);
-  }, [isOk]);
-
-  const error = false;
-
-  const [activate, { loading }] = useActivateUserMutation({
+  const [activate, { loading, error }] = useActivateUserMutation({
     onError: () => { /* empty */ },
     onCompleted: () => {
       setIsOk(true);
