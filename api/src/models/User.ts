@@ -47,7 +47,7 @@ export class User extends Model {
   @Column({
     type: DataType.STRING,
   })
-  token?: string;
+  token?: string | null;
 
   @AllowNull(false)
   @Unique(true)
@@ -83,5 +83,5 @@ export class User extends Model {
     type: DataType.STRING,
     field: 'temporary_password'
   })
-  temporaryPassword?: string;
+  temporaryPassword?: string | null;
 }
