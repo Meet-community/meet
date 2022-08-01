@@ -12,6 +12,7 @@ export const UserSchema = gql`
     signIn(args: SignInArgs!): User!
     logOut: Boolean!
     updateUserAvatar(args: UpdateUserAvatarArgs): User!
+    updateUser(args: UpdateUserArgs): User!
   }
   
   type User {
@@ -40,6 +41,11 @@ export const UserSchema = gql`
   input SignInArgs {
     email: String!
     password: String!
+  }
+  
+  input UpdateUserArgs {
+    firstName: String
+    lastName: String
   }
   
   scalar Upload
