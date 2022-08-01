@@ -83,5 +83,5 @@ export class User extends Model {
     type: DataType.STRING,
     field: 'temporary_password'
   })
-  temporaryPassword?: string;
+  temporaryPassword?: string | null;
 }

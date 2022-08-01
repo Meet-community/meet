@@ -26,9 +26,13 @@ export const activateTemporaryPasswordResolver: Resolver<
     throw Error(USER_ERROR.EmailNotConfirmed);
   }
 
+  if (!user.temporaryPassword) {
+    throw Error('bad_request');
+  }
+
   await userRepository.update(
     user.id,
-    { password: user.temporaryPassword, token: null }
+    { password: user.temporaryPassword, token: null, temporaryPassword: null }
   );
 
   return true;
