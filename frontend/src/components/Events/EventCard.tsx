@@ -79,7 +79,7 @@ export const EventCard: FC<Props> = memo((props) => {
               {event.participants.map((person) => (
                 <Avatar
                   alt={`${person.firstName} ${person.lastName}`}
-                  src="/static/images/avatar/1.jpg"
+                  src={person.avatar || '/static/images/avatar/1.jpg'}
                 />
               ))}
             </AvatarGroup>

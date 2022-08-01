@@ -16,4 +16,13 @@ export class UserRepository extends Repository {
 
     return user;
   }
+
+  async update(id: number, options: Partial<User>): Promise<User> {
+    const [, [user]] = await this.models.User.update(
+      options,
+      { where: { id }, returning: true, }
+    );
+
+    return user;
+  }
 }

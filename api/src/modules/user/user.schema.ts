@@ -11,6 +11,7 @@ export const UserSchema = gql`
     activateUser(token: String!): User!
     signIn(args: SignInArgs!): User!
     logOut: Boolean!
+    updateUserAvatar(args: UpdateUserAvatarArgs): User!
   }
   
   type User {
@@ -21,6 +22,7 @@ export const UserSchema = gql`
     password: String!
     token: String
     status: UserStatus!
+    avatar: String
   }
   
   enum UserStatus {
@@ -38,5 +40,11 @@ export const UserSchema = gql`
   input SignInArgs {
     email: String!
     password: String!
+  }
+  
+  scalar Upload
+  
+  input UpdateUserAvatarArgs {
+    file: Upload!
   }
 `;

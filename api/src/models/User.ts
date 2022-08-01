@@ -73,4 +73,9 @@ export class User extends Model {
     field: 'updated_at',
   })
   updatedAt: Date;
+
+  @Column({
+    type: DataType.TEXT,
+  })
+  avatar: string;
 }
