@@ -55,6 +55,7 @@ export const UpdateAvatar: FC = React.memo(() => {
         accept="image/x-png, image/png, image/jpeg, image/gif"
         className={styles.inputHidden}
         onChange={changeFileHandler}
+        disabled={loading}
       />
       <div className={styles.container}>
         <span
@@ -103,36 +104,3 @@ export const UpdateAvatar: FC = React.memo(() => {
     </form>
   );
 });
-
-// const a: FC = () => (
-//   <input
-//     type="file"
-//     accept="image/x-png, image/png, image/jpeg, image/gif"
-//     onChange={({ target: { validity, files } }) => {
-//       const uploadedFile = files?.[0];
-//
-//       if (!uploadedFile) {
-//         return;
-//       }
-//
-//       if (validity.valid && validateFile(uploadedFile)) {
-//         const reader = new FileReader();
-//
-//         setFile(uploadedFile);
-//         reader.readAsDataURL(uploadedFile);
-//         reader.onloadend = () => setPreviewSource(
-//           String(reader.result),
-//         );
-//       } else {
-//         // eslint-disable-next-line no-alert
-//         alert('Something wrong');
-//       }
-//     }}
-//   />
-// {
-//   loading && <p>Loading...</p>
-// }
-// <button disabled={!previewSource || !file} type="submit">Save</button>
-// </form>
-// <img src={previewSource || ''} alt="avatar"/>
-// )
