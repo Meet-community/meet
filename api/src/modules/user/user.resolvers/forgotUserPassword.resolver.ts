@@ -3,6 +3,8 @@ import { UserRepository } from '../user.repository';
 import { v4 as uuidV4 } from 'uuid';
 import { emailService } from '../../../services/emailService/emailService';
 import { hashService } from '../../../services/hashService/hashService';
+import { UserStatus } from '../user.typedefs';
+import { USER_ERROR } from '../user.constans';
 
 interface Options {
   args: {
@@ -19,6 +21,10 @@ export const forgotUserPasswordResolver: Resolver<
   const userRepository = new UserRepository(ctx);
 
   const user = await userRepository.getByEmail(email);
+
+  if (user.status !== UserStatus.Confirmed) {
+    throw Error(USER_ERROR.EmailNotConfirmed);
+  }
 
   const token = uuidV4();
 

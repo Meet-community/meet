@@ -7,4 +7,9 @@ export const ROUTES = {
   },
   events: 'events',
   profile: 'profile',
+  forgotPassword: {
+    index: 'forgotPassword',
+    activate: 'activate',
+    success: 'success',
+  },
 };

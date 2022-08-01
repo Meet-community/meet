@@ -9,7 +9,7 @@ interface Options {
 }
 
 export const sendForgotPasswordConfirm = ({ token, email }: Options) => {
-  const confirmLink = `${process.env.CLIENT_URL}/forgot-password/${token}`;
+  const confirmLink = `${process.env.CLIENT_URL}/forgotPassword/activate/${token}`;
 
   return sendEmail({
     email,
