@@ -61,7 +61,7 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
   await server.start();
 
   const clientUrl = process.env.CLIENT_URL as string;
-  const graphqlSendBoxUrl = process.env.STAGE === 'development'
+  const graphqlSendBoxUrl = process.env.NODE_ENV === 'development'
     ? ['https://studio.apollographql.com']
     : [];
 

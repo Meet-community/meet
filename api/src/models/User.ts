@@ -78,4 +78,10 @@ export class User extends Model {
     type: DataType.TEXT,
   })
   avatar: string;
+
+  @Column({
+    type: DataType.STRING,
+    field: 'temporary_password'
+  })
+  temporaryPassword?: string;
 }
