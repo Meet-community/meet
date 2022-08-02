@@ -18,12 +18,12 @@ export class UserRepository extends Repository {
   }
 
   async update(id: number, options: Partial<User>): Promise<User> {
-    const [, [user]] = await this.models.User.update(
+    const [, res] = await this.models.User.update(
       options,
       { where: { id }, returning: true, }
     );
 
-    return user;
+    return res[0];
   }
 
   async getByEmail(email: string): Promise<User> {

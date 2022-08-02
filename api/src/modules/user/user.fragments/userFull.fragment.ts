@@ -7,5 +7,8 @@ export const USERS_FULL_FRAGMENT = gql`
     lastName
     avatar
     email
+    telegram
+    facebook
+    instagram
   }
 `;

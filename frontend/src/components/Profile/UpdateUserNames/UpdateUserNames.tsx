@@ -3,10 +3,15 @@ import TextField from '@mui/material/TextField';
 import { LoadingButton } from '@mui/lab';
 import { useUpdateUserMutation } from '../../../controllers/graphql/generated';
 import styles from '../Profile.module.scss';
+import {
+  useAuthUser,
+} from '../../../controllers/entities/user/useAuthUserHook';
 
 export const UpdateUserNames = memo(() => {
-  const [firstName, setFirstName] = useState<string | undefined>();
-  const [lastName, setLastName] = useState<string | undefined>();
+  const authUser = useAuthUser();
+
+  const [firstName, setFirstName] = useState<string | undefined>(authUser?.firstName);
+  const [lastName, setLastName] = useState<string | undefined>(authUser?.lastName);
 
   const [updateUser, { loading }] = useUpdateUserMutation();
 
@@ -35,7 +40,6 @@ export const UpdateUserNames = memo(() => {
           onChange={(e) => setFirstName(e.target.value)}
           label="First name"
           name="firstName"
-          autoFocus
         />
 
         <TextField
@@ -46,7 +50,6 @@ export const UpdateUserNames = memo(() => {
           onChange={(e) => setLastName(e.target.value)}
           label="Last name"
           name="lastName"
-          autoFocus
         />
       </div>
 
