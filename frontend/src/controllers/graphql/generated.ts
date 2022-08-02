@@ -180,21 +180,21 @@ export enum VacancyStatus {
   Pending = 'PENDING'
 }
 
-export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null }> };
+export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string }> };
 
 export type EventQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
 
 
-export type EventQuery = { __typename?: 'Query', event: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null }> } };
+export type EventQuery = { __typename?: 'Query', event: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string }> } };
 
 export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null }> }> };
+export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string }> }> };
 
-export type UserFullFragment = { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null };
+export type UserFullFragment = { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string };
 
 export type ActivateTemporaryPasswordMutationVariables = Exact<{
   token: Scalars['String'];
@@ -208,12 +208,12 @@ export type ActivateUserMutationVariables = Exact<{
 }>;
 
 
-export type ActivateUserMutation = { __typename?: 'Mutation', activateUser: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null } };
+export type ActivateUserMutation = { __typename?: 'Mutation', activateUser: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string } };
 
 export type AuthUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type AuthUserQuery = { __typename?: 'Query', authUser?: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null } | null };
+export type AuthUserQuery = { __typename?: 'Query', authUser?: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string } | null };
 
 export type ForgotUserPasswordMutationVariables = Exact<{
   args: ForgotUserPasswordArgs;
@@ -232,49 +232,49 @@ export type SignInMutationVariables = Exact<{
 }>;
 
 
-export type SignInMutation = { __typename?: 'Mutation', signIn: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null } };
+export type SignInMutation = { __typename?: 'Mutation', signIn: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string } };
 
 export type SignUpMutationVariables = Exact<{
   args: SignUpArgs;
 }>;
 
 
-export type SignUpMutation = { __typename?: 'Mutation', signUp: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null } };
+export type SignUpMutation = { __typename?: 'Mutation', signUp: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string } };
 
 export type UpdateUserPasswordMutationVariables = Exact<{
   args: UpdateUserPasswordArgs;
 }>;
 
 
-export type UpdateUserPasswordMutation = { __typename?: 'Mutation', updateUserPassword: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null } };
+export type UpdateUserPasswordMutation = { __typename?: 'Mutation', updateUserPassword: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string } };
 
 export type UpdateUserMutationVariables = Exact<{
   args: UpdateUserArgs;
 }>;
 
 
-export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null } };
+export type UpdateUserMutation = { __typename?: 'Mutation', updateUser: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string } };
 
 export type UpdateUserAvatarMutationVariables = Exact<{
   args: UpdateUserAvatarArgs;
 }>;
 
 
-export type UpdateUserAvatarMutation = { __typename?: 'Mutation', updateUserAvatar: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null } };
+export type UpdateUserAvatarMutation = { __typename?: 'Mutation', updateUserAvatar: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string } };
 
 export type SubscribeToEventMutationVariables = Exact<{
   eventId: Scalars['Int'];
 }>;
 
 
-export type SubscribeToEventMutation = { __typename?: 'Mutation', subscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null }> } };
+export type SubscribeToEventMutation = { __typename?: 'Mutation', subscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string }> } };
 
 export type UnsubscribeToEventMutationVariables = Exact<{
   eventId: Scalars['Int'];
 }>;
 
 
-export type UnsubscribeToEventMutation = { __typename?: 'Mutation', unsubscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null }> } };
+export type UnsubscribeToEventMutation = { __typename?: 'Mutation', unsubscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: VacancyStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string }> } };
 
 export type UserEventFragment = { __typename?: 'UserEvent', id: number, userId: number, eventId: number, status: UserEventStatus };
 
@@ -284,6 +284,7 @@ export const UserFullFragmentDoc = /*#__PURE__*/ gql`
   firstName
   lastName
   avatar
+  email
 }
     `;
 export const EventFullFragmentDoc = /*#__PURE__*/ gql`
