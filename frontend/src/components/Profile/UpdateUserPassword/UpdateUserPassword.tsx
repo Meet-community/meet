@@ -41,28 +41,27 @@ export const UpdateUserPassword = memo(() => {
     await changePassword({ variables: { args: { newPassword, oldPassword } } });
     setNewPassword('');
     setOldPassword('');
+    setRepeatNewPassword('');
   };
 
   return (
     <form onSubmit={onSubmitPassword}>
-      <div className={styles.input}>
-        <PasswordInputWrapper textProps={{
-          margin: 'normal',
-          required: true,
-          fullWidth: true,
-          id: 'oldPassword',
-          value: oldPassword,
-          error: !!currentPasswordError,
-          helperText: currentPasswordError,
-          onChange: (e) => {
-            setOldPassword(e.target.value);
-            setCurrentPasswordError(null);
-          },
-          label: 'Current password',
-          name: 'oldPassword',
-        }}
-        />
-      </div>
+      <PasswordInputWrapper textProps={{
+        margin: 'normal',
+        required: true,
+        fullWidth: true,
+        id: 'oldPassword',
+        value: oldPassword,
+        error: !!currentPasswordError,
+        helperText: currentPasswordError,
+        onChange: (e) => {
+          setOldPassword(e.target.value);
+          setCurrentPasswordError(null);
+        },
+        label: 'Current password',
+        name: 'oldPassword',
+      }}
+      />
 
       <div className={styles.inputs}>
         <PasswordInputWrapper textProps={{
@@ -74,28 +73,25 @@ export const UpdateUserPassword = memo(() => {
           onChange: (e) => setNewPassword(e.target.value),
           label: 'New Password',
           name: 'newPassword',
-          autoComplete: 'current-password',
         }}
         />
 
-        <div className={styles.input}>
-          <PasswordInputWrapper textProps={{
-            margin: 'normal',
-            required: true,
-            fullWidth: true,
-            id: 'repeatNewPassword',
-            value: repeatNewPassword,
-            error: !!newPasswordError,
-            helperText: newPasswordError,
-            onChange: (e) => {
-              setRepeatNewPassword(e.target.value);
-              setNewPasswordError(null);
-            },
-            label: 'Repeat new password',
-            name: 'repeatNewPassword',
-          }}
-          />
-        </div>
+        <PasswordInputWrapper textProps={{
+          margin: 'normal',
+          required: true,
+          fullWidth: true,
+          id: 'repeatNewPassword',
+          value: repeatNewPassword,
+          error: !!newPasswordError,
+          helperText: newPasswordError,
+          onChange: (e) => {
+            setRepeatNewPassword(e.target.value);
+            setNewPasswordError(null);
+          },
+          label: 'Repeat new password',
+          name: 'repeatNewPassword',
+        }}
+        />
       </div>
 
       <LoadingButton
