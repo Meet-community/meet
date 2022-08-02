@@ -39,12 +39,23 @@
 }
 
 .inputs {
-  display: flex;
-  flex-direction: column;
+  display: grid;
+  grid-template-columns: 1fr;
   margin-bottom: 20px;
 
   @media (min-width: 500px) {
-    flex-direction: row;
+    grid-template-columns: 1fr 1fr;
     gap: 20px;
   }
+}
+
+.button {
+  position: absolute;
+  top: 55%;
+  right: 0;
+  padding: 0;
+  min-width: initial;
+  color: white;
+
+  transform: translate(-50%, -50%);
 }

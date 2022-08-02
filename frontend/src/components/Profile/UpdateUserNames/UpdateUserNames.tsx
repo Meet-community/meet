@@ -1,11 +1,11 @@
-import React, { memo, useCallback, useState } from 'react';
+import React, {
+  memo, useCallback, useState,
+} from 'react';
 import TextField from '@mui/material/TextField';
 import { LoadingButton } from '@mui/lab';
 import { useUpdateUserMutation } from '../../../controllers/graphql/generated';
+import { useAuthUser } from '../../../controllers/entities/user/useAuthUserHook';
 import styles from '../Profile.module.scss';
-import {
-  useAuthUser,
-} from '../../../controllers/entities/user/useAuthUserHook';
 
 export const UpdateUserNames = memo(() => {
   const authUser = useAuthUser();
