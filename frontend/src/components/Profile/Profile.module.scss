@@ -1,0 +1,50 @@
+.content {
+  max-width: 800px;
+  padding: 20px;
+  margin: 0 auto 40px;
+
+  @media (min-width: 500px) {
+    padding: 40px;
+  }
+
+  &:last-child {
+    margin: 0 auto;
+  }
+}
+
+.avatar {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  margin-bottom: 20px;
+
+  @media (min-width: 500px) {
+    flex-direction: row;
+    gap: 20px;
+  }
+}
+
+.fullName {
+  margin-bottom: 8px;
+
+  font-family: "Roboto", sans-serif;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.email {
+  color: #b2b2b2;
+}
+
+.inputs {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 20px;
+
+  @media (min-width: 500px) {
+    flex-direction: row;
+    gap: 20px;
+  }
+}

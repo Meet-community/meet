@@ -85,8 +85,10 @@ export function Header() {
           {authUser && (
             <div className={styles.fullName}>
               <Typography
+                sx={{ cursor: 'pointer' }}
                 variant='overline'
                 mr="12px"
+                onClick={() => setShowMenu(true)}
               >
                 {`${authUser.firstName} ${authUser.lastName}`}
               </Typography>

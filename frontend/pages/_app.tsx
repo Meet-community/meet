@@ -31,6 +31,9 @@ export default function MyApp({ Component, pageProps, apiUrl }: any) {
         <meta name="viewport" content="initial-scale=1, width=device-width" />
         <style>
           {`
+            * {
+              box-sizing: border-box;
+            }
             body {
               margin: 0;
               padding: 0;

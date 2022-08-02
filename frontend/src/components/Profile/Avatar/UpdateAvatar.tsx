@@ -20,7 +20,7 @@ export const UpdateAvatar: FC = React.memo(() => {
   const validateFile = (fileToUpload: File) => (
     fileToUpload?.size
     && fileToUpload.size <= 1024 * 1024 * 2
-    && ['image/x-png', 'image/png', 'image/jpeg'].includes(fileToUpload.type)
+    && ['image/x-png', 'image/png', 'image/jpeg, image/jpg'].includes(fileToUpload.type)
   );
 
   const changeFileHandler = (
@@ -52,7 +52,7 @@ export const UpdateAvatar: FC = React.memo(() => {
       <input
         id='uploadAvatarInput'
         type="file"
-        accept="image/x-png, image/png, image/jpeg, image/gif"
+        accept="image/x-png, image/png, image/jpeg, image/jpg"
         className={styles.inputHidden}
         onChange={changeFileHandler}
         disabled={loading}
@@ -64,15 +64,18 @@ export const UpdateAvatar: FC = React.memo(() => {
             { [styles.avatarError]: isError },
           )}
         >
-          <Avatar
-            alt='user avatar'
-            src={authUser?.avatar || '/static/images/avatar/1.jpg'}
-            sx={{
-              width: { xs: 200, md: 300 },
-              height: { xs: 200, md: 300 },
-            }}
-          />
           <label htmlFor='uploadAvatarInput'>
+            <Avatar
+              alt='user avatar'
+              src={authUser?.avatar || '/static/images/avatar/1.jpg'}
+              sx={{
+                width: 128,
+                height: 128,
+                cursor: 'pointer',
+                zIndex: 1,
+              }}
+              id="uploadAvatarInput"
+            />
             <Typography
               variant="overline"
               noWrap
@@ -98,7 +101,7 @@ export const UpdateAvatar: FC = React.memo(() => {
             { [styles.errorMessageVisible]: isError },
           )}
         >
-          Supported by .jpg, .jpeg, .png; Maximum 2mb
+          Supported by .jpg, .jpeg, .png, .x-png; Maximum 2mb
         </Typography>
       </div>
     </form>
