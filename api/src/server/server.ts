@@ -65,9 +65,6 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
     ? ['https://studio.apollographql.com']
     : [];
 
-  // eslint-disable-next-line no-console
-  console.log(clientUrl);
-
   server.applyMiddleware({
     app,
     cors: {
@@ -85,6 +82,10 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
 
   // eslint-disable-next-line no-console
   console.log(`🚀🚀🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
+  // eslint-disable-next-line no-console
+  console.log(`👤👤👤 Client ready at ${clientUrl}`);
+  // eslint-disable-next-line no-console
+  console.log('➖➖➖➖➖➖➖➖➖🛬➖➖➖➖➖➖➖➖➖➖➖🛬➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖🛫');
 }
 
 const serverInit = () => {

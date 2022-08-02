@@ -12,11 +12,6 @@ export const initApollo = (apiUrl: string) => {
     return client;
   }
 
-  // eslint-disable-next-line no-console
-  console.log({
-    apiUrl,
-  });
-
   const link = createUploadLink({
     uri: apiUrl,
     credentials: 'include',
