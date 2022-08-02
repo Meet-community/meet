@@ -28,6 +28,9 @@ export const UserSchema = gql`
     status: UserStatus!
     avatar: String
     temporaryPassword: String
+    telegram: String
+    facebook: String
+    instagram: String
   }
 
   enum UserStatus {
@@ -50,6 +53,9 @@ export const UserSchema = gql`
   input UpdateUserArgs {
     firstName: String
     lastName: String
+    telegram: String
+    instagram: String
+    facebook: String
   }
 
   input UpdateUserPasswordArgs {
