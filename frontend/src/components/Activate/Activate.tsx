@@ -8,20 +8,27 @@ import Typography from '@mui/material/Typography';
 import SentimentVeryDissatisfiedIcon
   from '@mui/icons-material/SentimentVeryDissatisfied';
 import Link from 'next/link';
+import PersonIcon from '@mui/icons-material/Person';
 import styles from './Activate.module.scss';
 import { useActivateUserMutation } from '../../controllers/graphql/generated';
 import { ROUTES } from '../../../routes/routes';
+import { useSecondsTimer } from '../../hooks/useSecondsTimer';
 
 export const Activate: FC = React.memo(() => {
   const router = useRouter();
   const { token } = router.query;
   const [isOk, setIsOk] = useState(false);
 
+  const [runTimer, leftSeconds] = useSecondsTimer(
+    8,
+    () => router.push(`/${ROUTES.profile}`),
+  );
+
   const [activate, { loading, error }] = useActivateUserMutation({
     onError: () => { /* empty */ },
     onCompleted: () => {
       setIsOk(true);
-      setTimeout(() => router.push(`/${ROUTES.signIn}`), 5000);
+      runTimer();
     },
   });
 
@@ -60,7 +67,7 @@ export const Activate: FC = React.memo(() => {
                 'We are already checking your email...'
               )}
               {isOk && (
-                'Your email has already been confirmed. You can now login to the application.\n Auto redirect after 5 seconds.'
+                `Your email has already been confirmed. You can now login to the application.\n Auto redirect after ${leftSeconds} seconds.`
               )}
               {error && (
                 'Something went wrong. The link is invalid or out of date. Try to signUp again.'
@@ -69,13 +76,27 @@ export const Activate: FC = React.memo(() => {
             </Typography>
             {loading && <Skeleton height='100px' width='100%' />}
             {isOk && (
-              <div style={{ marginBottom: '40px' }} className={styles.center}>
-                <CheckCircleOutlineIcon
-                  color='success'
-                  fontSize='large'
-                  style={{ transform: 'scale(4)' }}
-                />
-              </div>
+              <>
+                <div style={{ marginBottom: '60px' }} className={styles.center}>
+                  <CheckCircleOutlineIcon
+                    color='success'
+                    fontSize='large'
+                    style={{ transform: 'scale(4)' }}
+                  />
+                </div>
+                <div className={styles.center}>
+                  <Link href={`/${ROUTES.profile}`}>
+                    <Button
+                      size='large'
+                      variant='outlined'
+                      color='inherit'
+                      endIcon={<PersonIcon />}
+                    >
+                      {`Profile ${leftSeconds}`}
+                    </Button>
+                  </Link>
+                </div>
+              </>
             )}
             {error && (
               <>
