@@ -38,7 +38,7 @@ export const ForgotPasswordSuccess: FC = React.memo(() => {
               />
             </div>
             <div className={styles.center}>
-              <Link href={ROUTES.signIn}>
+              <Link href={`/${ROUTES.signIn}`}>
                 <Button
                   size='large'
                   variant='outlined'
