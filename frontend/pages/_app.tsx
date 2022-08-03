@@ -38,9 +38,10 @@ export default function MyApp({ Component, pageProps, apiUrl }: any) {
               margin: 0;
               padding: 0;
             }
-            a {
+             a, a:hover, a:focus, a:active {
               text-decoration: none !important;
-            }
+              color: inherit !important;
+           }
           `}
         </style>
       </Head>

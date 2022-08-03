@@ -23,6 +23,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'prefer-regex-literals': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
     'react/button-has-type': 'off',
     'react/prop-types': 'off',
@@ -61,7 +62,7 @@ module.exports = {
     'import/no-dynamic-require': 'off',
     'import/extensions': 'off',
     'max-classes-per-file': 'off',
-    'max-len': ['error', 80, {
+    'max-len': ['error', 100, {
       ignoreStrings: true,
       ignoreTemplateLiterals: true,
       ignoreRegExpLiterals: true,

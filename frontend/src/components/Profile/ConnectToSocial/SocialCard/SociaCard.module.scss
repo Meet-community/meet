@@ -1,0 +1,23 @@
+.infoContainer {
+  display: flex;
+  align-items: center;
+  justify-items: flex-start;
+}
+
+.wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 44px;
+}
+
+.accordion {
+  padding-top: 8px;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  max-height: 0;
+}
+
+.accordionOpen {
+  max-height: 80px;
+}
