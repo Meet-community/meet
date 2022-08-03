@@ -2,6 +2,7 @@ import { UserStatus } from '../user.typedefs';
 import { USER_ERROR } from '../user.constans';
 import { User } from '../../../models/User';
 import { Resolver } from '../../../core/resolvers/makeResolver';
+import { jwtService } from '../../../services/jwtService/jwtService';
 
 interface Options {
   token: string;
@@ -23,6 +24,14 @@ export const activateUserResolver: Resolver<
     { status: UserStatus.Confirmed, token: null },
     { where: { id: user.id }, returning: true }
   );
+
+  const jwt = jwtService.generateAccessToken(user);
+
+  ctx.res.cookie('Authorization', jwt, {
+    secure: true,
+    httpOnly: true,
+    sameSite: 'none',
+  });
 
   return user;
 };

@@ -65,7 +65,7 @@ export const SocialCard: FC<Props> = React.memo((props) => {
                 maxWidth='250px'
                 noWrap
               >
-                <a href={link} target='_blank' rel="noreferrer">
+                <a style={{ color: 'inherit' }} href={link} target='_blank' rel="noreferrer">
                   {link}
                 </a>
               </Typography>
