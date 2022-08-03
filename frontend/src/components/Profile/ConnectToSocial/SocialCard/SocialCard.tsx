@@ -28,7 +28,7 @@ export const SocialCard: FC<Props> = React.memo((props) => {
   const isLoading = useMemo(() => loading && isEdit, [loading, isEdit]);
 
   const submitHandler = async () => {
-    if (!isLink(linkToAdd)) {
+    if (!linkToAdd.startsWith('https://') || linkToAdd.length < 9) {
       setIsError(true);
 
       return;

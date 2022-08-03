@@ -79,9 +79,6 @@ export class User extends Model {
 
   @Column({
     type: DataType.TEXT,
-    validate: {
-      isUrl: true,
-    }
   })
   avatar: string;
 
@@ -93,25 +90,16 @@ export class User extends Model {
 
   @Column({
     type: DataType.STRING,
-    validate: {
-      isUrl: true,
-    }
   })
   telegram?: string | null;
 
   @Column({
     type: DataType.STRING,
-    validate: {
-      isUrl: true,
-    }
   })
   facebook?: string | null;
 
   @Column({
     type: DataType.STRING,
-    validate: {
-      isUrl: true,
-    }
   })
   instagram?: string | null;
 }
