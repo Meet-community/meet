@@ -46,7 +46,7 @@ export const Activate: FC = React.memo(() => {
                 'Email confirmation'
               )}
               {isOk && (
-                'Congratulations!'
+                'Congrats!'
               )}
               {error && ('Oops...')}
             </Typography>
