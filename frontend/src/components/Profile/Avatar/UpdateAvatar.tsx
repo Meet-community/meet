@@ -20,7 +20,7 @@ export const UpdateAvatar: FC = React.memo(() => {
   const validateFile = (fileToUpload: File) => (
     fileToUpload?.size
     && fileToUpload.size <= 1024 * 1024 * 2
-    && ['image/x-png', 'image/png', 'image/jpeg, image/jpg'].includes(fileToUpload.type)
+    && ['image/x-png', 'image/png', 'image/jpeg', 'image/jpg'].includes(fileToUpload.type)
   );
 
   const changeFileHandler = (
@@ -57,7 +57,7 @@ export const UpdateAvatar: FC = React.memo(() => {
         onChange={changeFileHandler}
         disabled={loading}
       />
-      <div className={styles.container}>
+      <div style={{ overflow: 'hidden' }} className={styles.container}>
         <span
           className={cn(
             styles.avatarWrapper,

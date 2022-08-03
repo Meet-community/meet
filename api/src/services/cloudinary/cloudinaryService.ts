@@ -18,7 +18,7 @@ export class CloudinaryService {
   private async upload(options: UploadOptions): Promise<UploadApiResponse> {
     const { createReadStream, mimetype } = await options.file;
 
-    if (!['image/x-png', 'image/png', 'image/jpeg'].includes(mimetype)) {
+    if (!['image/x-png', 'image/png', 'image/jpeg', 'image/jpg'].includes(mimetype)) {
       throw Error('BAD_REQUEST');
     }
 

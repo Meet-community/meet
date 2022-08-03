@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import getConfig from 'next/config';
 import { initApollo } from '../src/controllers/apollo/getApolloClient';
+import './_app.css';
 
 export default function MyApp({ Component, pageProps, apiUrl }: any) {
   const client = initApollo(apiUrl);
@@ -29,21 +30,6 @@ export default function MyApp({ Component, pageProps, apiUrl }: any) {
         <title>Meet</title>
 
         <meta name="viewport" content="initial-scale=1, width=device-width" />
-        <style>
-          {`
-            * {
-              box-sizing: border-box;
-            }
-            body {
-              margin: 0;
-              padding: 0;
-            }
-             a, a:hover, a:focus, a:active {
-              text-decoration: none !important;
-              color: inherit !important;
-           }
-          `}
-        </style>
       </Head>
 
       <ThemeProvider theme={darkTheme}>
