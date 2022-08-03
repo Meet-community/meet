@@ -48,7 +48,7 @@ export const PasswordActivate: FC = React.memo(() => {
                 'Password confirmation'
               )}
               {isOk && (
-                'Congratulations!'
+                'Congrats!'
               )}
               {error && ('Oops...')}
             </Typography>
