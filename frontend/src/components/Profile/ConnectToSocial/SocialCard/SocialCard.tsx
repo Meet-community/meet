@@ -6,7 +6,6 @@ import { LoadingButton } from '@mui/lab';
 import TextField from '@mui/material/TextField';
 import cn from 'classnames';
 import styles from './SociaCard.module.scss';
-import { isLink } from '../../../../helpers/validationRules';
 
 interface Props {
   Icon: FC<any>
@@ -28,7 +27,7 @@ export const SocialCard: FC<Props> = React.memo((props) => {
   const isLoading = useMemo(() => loading && isEdit, [loading, isEdit]);
 
   const submitHandler = async () => {
-    if (!isLink(linkToAdd)) {
+    if (!linkToAdd.startsWith('https://') || linkToAdd.length < 9) {
       setIsError(true);
 
       return;
