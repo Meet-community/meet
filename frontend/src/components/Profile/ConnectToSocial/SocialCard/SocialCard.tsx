@@ -6,7 +6,6 @@ import { LoadingButton } from '@mui/lab';
 import TextField from '@mui/material/TextField';
 import cn from 'classnames';
 import styles from './SociaCard.module.scss';
-import { isLink } from '../../../../helpers/validationRules';
 
 interface Props {
   Icon: FC<any>
