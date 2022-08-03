@@ -1,5 +1,6 @@
 import React, { memo, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
+import Typography from '@mui/material/Typography';
 import { useUpdateUserPasswordMutation } from '../../../controllers/graphql/generated';
 import { PasswordInputWrapper } from '../../../ui/PasswordInputWrapper/PasswordInputWrapper';
 import styles from '../Profile.module.scss';
@@ -45,68 +46,77 @@ export const UpdateUserPassword = memo(() => {
   };
 
   return (
-    <form onSubmit={onSubmitPassword}>
-      <PasswordInputWrapper textProps={{
-        margin: 'normal',
-        required: true,
-        fullWidth: true,
-        id: 'oldPassword',
-        value: oldPassword,
-        error: !!currentPasswordError,
-        helperText: currentPasswordError,
-        onChange: (e) => {
-          setOldPassword(e.target.value);
-          setCurrentPasswordError(null);
-        },
-        label: 'Current password',
-        name: 'oldPassword',
-      }}
-      />
-
-      <div className={styles.inputs}>
-        <PasswordInputWrapper textProps={{
-          margin: 'normal',
-          required: true,
-          fullWidth: true,
-          id: 'newPassword',
-          value: newPassword,
-          onChange: (e) => setNewPassword(e.target.value),
-          label: 'New Password',
-          name: 'newPassword',
-        }}
-        />
-
-        <PasswordInputWrapper textProps={{
-          margin: 'normal',
-          required: true,
-          fullWidth: true,
-          id: 'repeatNewPassword',
-          value: repeatNewPassword,
-          error: !!newPasswordError,
-          helperText: newPasswordError,
-          onChange: (e) => {
-            setRepeatNewPassword(e.target.value);
-            setNewPasswordError(null);
-          },
-          label: 'Repeat new password',
-          name: 'repeatNewPassword',
-        }}
-        />
-      </div>
-
-      <LoadingButton
-        sx={{
-          width: { xs: '100%', sm: 240 },
-          marginLeft: { sm: 'auto' },
-          display: 'block',
-        }}
-        type="submit"
-        loading={loading}
-        variant="contained"
-        color="success"
+    <>
+      <Typography
+        sx={{ fontSize: { md: 24 } }}
+        variant="h6"
+        component="p"
       >
-        Save
-      </LoadingButton>
-    </form>
+        Password
+      </Typography>
+      <form onSubmit={onSubmitPassword}>
+        <PasswordInputWrapper textProps={{
+          margin: 'normal',
+          required: true,
+          fullWidth: true,
+          id: 'oldPassword',
+          value: oldPassword,
+          error: !!currentPasswordError,
+          helperText: currentPasswordError,
+          onChange: (e) => {
+            setOldPassword(e.target.value);
+            setCurrentPasswordError(null);
+          },
+          label: 'Current password',
+          name: 'oldPassword',
+        }}
+        />
+
+        <div className={styles.inputs}>
+          <PasswordInputWrapper textProps={{
+            margin: 'normal',
+            required: true,
+            fullWidth: true,
+            id: 'newPassword',
+            value: newPassword,
+            onChange: (e) => setNewPassword(e.target.value),
+            label: 'New Password',
+            name: 'newPassword',
+          }}
+          />
+
+          <PasswordInputWrapper textProps={{
+            margin: 'normal',
+            required: true,
+            fullWidth: true,
+            id: 'repeatNewPassword',
+            value: repeatNewPassword,
+            error: !!newPasswordError,
+            helperText: newPasswordError,
+            onChange: (e) => {
+              setRepeatNewPassword(e.target.value);
+              setNewPasswordError(null);
+            },
+            label: 'Repeat new password',
+            name: 'repeatNewPassword',
+          }}
+          />
+        </div>
+
+        <LoadingButton
+          sx={{
+            width: { xs: '100%', sm: 240 },
+            marginLeft: { sm: 'auto' },
+            display: 'block',
+          }}
+          type="submit"
+          loading={loading}
+          variant="contained"
+          color="success"
+        >
+          Save
+        </LoadingButton>
+      </form>
+    </>
   );
 });
