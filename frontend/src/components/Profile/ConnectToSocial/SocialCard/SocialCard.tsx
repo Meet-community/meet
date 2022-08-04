@@ -13,7 +13,7 @@ interface Props {
   Icon: FC<any>
   title: string,
   link?: string,
-  onUpdate: (link: string | null) => void,
+  onUpdate: (link: string | null) => Promise<any>,
   isLoading: boolean,
 }
 
@@ -151,7 +151,7 @@ export const SocialCard: FC<Props> = React.memo((props) => {
 
       </div>
       <div className={cn(styles.accordion, { [styles.accordionOpen]: isEdit })}>
-
+        <div style={{ height: '8px' }} />
         <TextField
           margin="none"
           id="linkToAdd"
