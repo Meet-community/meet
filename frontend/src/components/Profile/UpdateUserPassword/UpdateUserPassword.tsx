@@ -1,49 +1,73 @@
-import React, { memo, useState } from 'react';
+import React, { memo, useCallback, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import Typography from '@mui/material/Typography';
-import { useUpdateUserPasswordMutation } from '../../../controllers/graphql/generated';
+import { Tooltip } from '@mui/material';
+import {
+  useUpdateUserPasswordMutation,
+} from '../../../controllers/graphql/generated';
 import styles from '../Profile.module.scss';
 import { PasswordInput } from '../../UI/Inputs/PasswordInput/PasswordInput';
+import { useSaveShortcut } from '../../../hooks/useSaveShortcut';
 
 export const UpdateUserPassword = memo(() => {
   const [newPassword, setNewPassword] = useState('');
   const [repeatNewPassword, setRepeatNewPassword] = useState('');
-  const [oldPassword, setOldPassword] = useState<string>();
+  const [currentPassword, setCurrentPassword] = useState<string>();
 
-  const [
-    currentPasswordError,
-    setCurrentPasswordError,
-  ] = useState<string | null>(null);
+  const [currentPasswordError, setCurrentPasswordError] = useState<string | null>(null);
   const [newPasswordError, setNewPasswordError] = useState<string | null>(null);
+  const [repeatPasswordError, setRepeatPasswordError] = useState<string | null>(null);
 
   const [changePassword, { loading }] = useUpdateUserPasswordMutation({
-    onError: (res) => setCurrentPasswordError(res.message),
+    onError: () => setCurrentPasswordError('Invalid error'),
   });
 
-  const onSubmitPassword = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const submitHandler = useCallback(async () => {
     if (currentPasswordError) {
       return;
     }
 
-    if (!newPassword || !oldPassword) {
-      setCurrentPasswordError('Enter password');
+    if (!currentPassword || !newPasswordError || !repeatNewPassword) {
+      setCurrentPasswordError(currentPassword ? null : 'Enter password');
+      setNewPasswordError(newPassword ? null : 'Enter password');
+      setRepeatPasswordError(repeatNewPassword ? null : 'Enter password');
 
       return;
     }
 
     if (newPassword !== repeatNewPassword) {
-      setNewPasswordError('Password mismatch');
+      setRepeatPasswordError('Password mismatch');
 
       return;
     }
 
-    await changePassword({ variables: { args: { newPassword, oldPassword } } });
+    await changePassword({
+      variables: {
+        args: {
+          newPassword,
+          oldPassword: currentPassword,
+        },
+      },
+    });
     setNewPassword('');
-    setOldPassword('');
+    setCurrentPassword('');
     setRepeatNewPassword('');
-  };
+  }, [
+    currentPasswordError,
+    currentPassword,
+    newPasswordError,
+    repeatNewPassword,
+    newPassword,
+    changePassword,
+  ]);
+
+  const shortcutSubmit = useCallback(() => {
+    if (currentPassword || newPassword || repeatNewPassword) {
+      submitHandler();
+    }
+  }, [newPassword, currentPassword, repeatNewPassword, submitHandler]);
+
+  useSaveShortcut(shortcutSubmit);
 
   return (
     <>
@@ -54,17 +78,21 @@ export const UpdateUserPassword = memo(() => {
       >
         Password
       </Typography>
-      <form onSubmit={onSubmitPassword}>
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        submitHandler();
+      }}
+      >
         <PasswordInput inputProps={{
-          margin: 'normal',
           required: true,
+          margin: 'normal',
           fullWidth: true,
           id: 'oldPassword',
-          value: oldPassword,
+          value: currentPassword,
           error: !!currentPasswordError,
           helperText: currentPasswordError,
           onChange: (e) => {
-            setOldPassword(e.target.value);
+            setCurrentPassword(e.target.value);
             setCurrentPasswordError(null);
           },
           label: 'Current password',
@@ -74,27 +102,34 @@ export const UpdateUserPassword = memo(() => {
 
         <div className={styles.inputs}>
           <PasswordInput inputProps={{
-            margin: 'normal',
             required: true,
+            margin: 'normal',
             fullWidth: true,
             id: 'newPassword',
             value: newPassword,
-            onChange: (e) => setNewPassword(e.target.value),
+            onChange: (e) => {
+              setNewPassword(e.target.value);
+              setRepeatPasswordError(null);
+              setNewPasswordError(null);
+            },
             label: 'New Password',
             name: 'newPassword',
+            error: !!newPasswordError,
+            helperText: newPasswordError,
           }}
           />
 
           <PasswordInput inputProps={{
-            margin: 'normal',
             required: true,
+            margin: 'normal',
             fullWidth: true,
             id: 'repeatNewPassword',
             value: repeatNewPassword,
-            error: !!newPasswordError,
-            helperText: newPasswordError,
+            error: !!repeatPasswordError,
+            helperText: repeatPasswordError,
             onChange: (e) => {
               setRepeatNewPassword(e.target.value);
+              setRepeatPasswordError(null);
               setNewPasswordError(null);
             },
             label: 'Repeat new password',
@@ -103,19 +138,21 @@ export const UpdateUserPassword = memo(() => {
           />
         </div>
 
-        <LoadingButton
-          sx={{
-            width: { xs: '100%', sm: 240 },
-            marginLeft: { sm: 'auto' },
-            display: 'block',
-          }}
-          type="submit"
-          loading={loading}
-          variant="contained"
-          color="success"
-        >
-          Save
-        </LoadingButton>
+        <Tooltip title="ctr / cmd + s">
+          <LoadingButton
+            sx={{
+              width: { xs: '100%', sm: 240 },
+              marginLeft: { sm: 'auto' },
+              display: 'block',
+            }}
+            type="submit"
+            loading={loading}
+            variant="contained"
+            color="success"
+          >
+            Save
+          </LoadingButton>
+        </Tooltip>
       </form>
     </>
   );

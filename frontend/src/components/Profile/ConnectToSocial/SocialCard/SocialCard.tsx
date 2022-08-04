@@ -1,11 +1,13 @@
 import React, {
-  FC, useEffect, useMemo, useState,
+  FC, useCallback, useEffect, useMemo, useState,
 } from 'react';
 import Typography from '@mui/material/Typography';
 import { LoadingButton } from '@mui/lab';
 import TextField from '@mui/material/TextField';
 import cn from 'classnames';
+import Tooltip from '@mui/material/Tooltip';
 import styles from './SociaCard.module.scss';
+import { useSaveShortcut } from '../../../../hooks/useSaveShortcut';
 
 interface Props {
   Icon: FC<any>
@@ -26,7 +28,7 @@ export const SocialCard: FC<Props> = React.memo((props) => {
 
   const isLoading = useMemo(() => loading && isEdit, [loading, isEdit]);
 
-  const submitHandler = async () => {
+  const submitHandler = useCallback(async () => {
     if (!linkToAdd.startsWith('https://') || linkToAdd.length < 9) {
       setIsError(true);
 
@@ -36,13 +38,21 @@ export const SocialCard: FC<Props> = React.memo((props) => {
     setIsError(false);
 
     onUpdate(linkToAdd);
-  };
+  }, [linkToAdd, onUpdate]);
 
   useEffect(() => {
     setIsEdit(false);
     setLinkToAdd('');
     setIsError(false);
   }, [link]);
+
+  const shortcutSubmit = useCallback(() => {
+    if (isEdit) {
+      submitHandler();
+    }
+  }, [isEdit, submitHandler]);
+
+  useSaveShortcut(shortcutSubmit);
 
   return (
     <>
@@ -61,11 +71,22 @@ export const SocialCard: FC<Props> = React.memo((props) => {
                 variant='caption'
                 component='p'
                 color='silver'
-                sx={{ marginTop: '-8px' }}
-                maxWidth='250px'
+                sx={{
+                  marginTop: '-8px',
+                  maxWidth: {
+                    xs: '150px',
+                    sm: '300px',
+                    md: '450px',
+                  },
+                }}
                 noWrap
               >
-                <a style={{ color: 'inherit' }} href={link} target='_blank' rel="noreferrer">
+                <a
+                  style={{ color: 'inherit' }}
+                  href={link}
+                  target='_blank'
+                  rel="noreferrer"
+                >
                   {link}
                 </a>
               </Typography>
@@ -102,15 +123,17 @@ export const SocialCard: FC<Props> = React.memo((props) => {
                 >
                   cancel
                 </LoadingButton>
-                <LoadingButton
-                  loading={isLoading}
-                  onClick={submitHandler}
-                  variant="outlined"
-                  color="success"
-                  sx={{ width: 100 }}
-                >
-                  save
-                </LoadingButton>
+                <Tooltip title="ctr / cmd + s">
+                  <LoadingButton
+                    loading={isLoading}
+                    onClick={submitHandler}
+                    variant="outlined"
+                    color="success"
+                    sx={{ width: 100 }}
+                  >
+                    save
+                  </LoadingButton>
+                </Tooltip>
               </div>
             )
             : (
@@ -133,7 +156,10 @@ export const SocialCard: FC<Props> = React.memo((props) => {
           margin="none"
           id="linkToAdd"
           value={linkToAdd}
-          onChange={(e) => setLinkToAdd(e.target.value)}
+          onChange={(e) => {
+            setIsError(false);
+            setLinkToAdd(e.target.value);
+          }}
           label="Link"
           name="linkToAdd"
           placeholder='https://link/example.com'

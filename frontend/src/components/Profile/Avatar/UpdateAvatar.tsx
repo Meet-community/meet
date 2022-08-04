@@ -76,14 +76,17 @@ export const UpdateAvatar: FC = React.memo(() => {
               }}
               id="uploadAvatarInput"
             />
-            <Typography
-              variant="overline"
-              noWrap
-              component="div"
+            <div
               className={styles.editAvatarBadge}
             >
-              edit avatar
-            </Typography>
+              <Typography
+                variant="overline"
+                noWrap
+                component="div"
+              >
+                edit avatar
+              </Typography>
+            </div>
           </label>
           <div
             className={cn(
