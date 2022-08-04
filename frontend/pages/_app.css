@@ -9,3 +9,8 @@ a, a:hover, a:focus, a:active {
   text-decoration: none;
   color: #1976d2;
 }
+
+input:-webkit-autofill, input:-webkit-autofill:active, input:-webkit-autofill:focus, input:-webkit-autofill:hover {
+  -webkit-background-clip: text;
+  -webkit-box-shadow: initial!important;
+}

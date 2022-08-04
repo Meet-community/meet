@@ -15,24 +15,23 @@ export const PasswordInput: FC<Props> = memo((props) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <div className={className}>
-      <TextField
-        type={!showPassword ? 'password' : 'text'}
-        InputProps={{
-          endAdornment: (
-            <InputAdornment position="end">
-              <IconButton
-                aria-label="toggle password visibility"
-                onClick={() => setShowPassword((prev) => !prev)}
-                edge="end"
-              >
-                {showPassword ? <VisibilityOff /> : <Visibility />}
-              </IconButton>
-            </InputAdornment>
-          ),
-        }}
-        {...inputProps}
-      />
-    </div>
+    <TextField
+      className={className}
+      type={!showPassword ? 'password' : 'text'}
+      InputProps={{
+        endAdornment: (
+          <InputAdornment position="end">
+            <IconButton
+              aria-label="toggle password visibility"
+              onClick={() => setShowPassword((prev) => !prev)}
+              edge="end"
+            >
+              {showPassword ? <VisibilityOff /> : <Visibility />}
+            </IconButton>
+          </InputAdornment>
+        ),
+      }}
+      {...inputProps}
+    />
   );
 });
