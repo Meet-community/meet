@@ -35,7 +35,6 @@
     "@types/lodash": "^4.14.182"
   },
   "devDependencies": {
-    "@types/apollo-upload-client": "^17.0.1",
     "@types/autosuggest-highlight": "^3.2.0",
     "@types/node": "^18.0.6",
     "@types/react": "^18.0.15",
