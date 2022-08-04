@@ -18,12 +18,12 @@ export const ConnectToSocial = memo(() => {
     onError: () => { /* TODO: add message */ },
   });
 
-  const onUpdate = useCallback((args: UpdateUserArgs) => {
+  const onUpdate = useCallback((args: UpdateUserArgs): Promise<any> => {
     if (!authUser) {
-      return;
+      return Promise.resolve();
     }
 
-    update({
+    return update({
       variables: { args },
       optimisticResponse: {
         updateUser: {
