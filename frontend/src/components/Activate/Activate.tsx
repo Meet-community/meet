@@ -9,6 +9,7 @@ import SentimentVeryDissatisfiedIcon
   from '@mui/icons-material/SentimentVeryDissatisfied';
 import Link from 'next/link';
 import PersonIcon from '@mui/icons-material/Person';
+import { useApolloClient } from '@apollo/client';
 import styles from './Activate.module.scss';
 import { useActivateUserMutation } from '../../controllers/graphql/generated';
 import { ROUTES } from '../../../routes/routes';
@@ -19,6 +20,7 @@ export const Activate: FC = React.memo(() => {
   const { token } = router.query;
   const [isOk, setIsOk] = useState(false);
 
+  const apollo = useApolloClient();
   const [runTimer, leftSeconds] = useSecondsTimer(
     8,
     () => router.push(`/${ROUTES.profile}`),
@@ -26,7 +28,8 @@ export const Activate: FC = React.memo(() => {
 
   const [activate, { loading, error }] = useActivateUserMutation({
     onError: () => { /* empty */ },
-    onCompleted: () => {
+    onCompleted: async () => {
+      await apollo.clearStore();
       setIsOk(true);
       runTimer();
     },
