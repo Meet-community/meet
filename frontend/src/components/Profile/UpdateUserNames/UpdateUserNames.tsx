@@ -6,31 +6,46 @@ import { LoadingButton } from '@mui/lab';
 import { useUpdateUserMutation } from '../../../controllers/graphql/generated';
 import { useAuthUser } from '../../../controllers/entities/user/useAuthUserHook';
 import styles from '../Profile.module.scss';
+import { useSaveShortcut } from '../../../hooks/useSaveShortcut';
 
 export const UpdateUserNames = memo(() => {
   const authUser = useAuthUser();
 
   const [firstName, setFirstName] = useState<string | undefined>(authUser?.firstName);
   const [lastName, setLastName] = useState<string | undefined>(authUser?.lastName);
+  const [isFirstNameError, setIsFirstNameError] = useState<boolean>(false);
+  const [isLastNameError, setIsLastNameError] = useState<boolean>(false);
 
   const [updateUser, { loading }] = useUpdateUserMutation();
 
-  const onSubmit = useCallback(async (
-    event: React.FormEvent<HTMLFormElement>,
-  ) => {
-    event.preventDefault();
+  const submitHandler = useCallback(() => {
+    setIsFirstNameError(!firstName);
+    setIsLastNameError(!lastName);
 
-    if (!firstName && !lastName) {
+    if (!firstName || !lastName) {
       return;
     }
 
-    await updateUser({ variables: { args: { firstName, lastName } } });
-    setFirstName('');
-    setLastName('');
+    updateUser({ variables: { args: { firstName, lastName } } });
   }, [firstName, lastName, updateUser]);
 
+  const shortCutSubmit = useCallback(() => {
+    const isFirstNameChanged = authUser?.firstName !== firstName;
+    const isLastNameChanged = authUser?.lastName !== lastName;
+
+    if (isFirstNameChanged || isLastNameChanged) {
+      submitHandler();
+    }
+  }, [authUser?.firstName, authUser?.lastName, firstName, lastName, submitHandler]);
+
+  useSaveShortcut(shortCutSubmit);
+
   return (
-    <form onSubmit={onSubmit}>
+    <form onSubmit={(e) => {
+      e.preventDefault();
+      submitHandler();
+    }}
+    >
       <div className={styles.inputs}>
         <TextField
           margin="normal"
@@ -40,6 +55,8 @@ export const UpdateUserNames = memo(() => {
           onChange={(e) => setFirstName(e.target.value)}
           label="First name"
           name="firstName"
+          helperText={isFirstNameError && 'Required field'}
+          error={isFirstNameError}
         />
 
         <TextField
@@ -50,6 +67,8 @@ export const UpdateUserNames = memo(() => {
           onChange={(e) => setLastName(e.target.value)}
           label="Last name"
           name="lastName"
+          helperText={isLastNameError && 'Required field'}
+          error={isLastNameError}
         />
       </div>
 
