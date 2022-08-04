@@ -31,9 +31,9 @@ export const createEventResolver: AuthResolver<
   const cityService = new CityService(ctx);
   const cloudinaryService = new CloudinaryService();
 
-  const { logoFile } = args;
+  const { logoFile, googleCityId } = args;
   const { id: creatorId } = ctx.authUser;
-  const { id: cityId } = await cityService.ensureCity({ googleId: args.googleCityId });
+  const { id: cityId } = await cityService.ensureCity({ googleId: googleCityId });
   let event = await eventRepository.create({
     ...args,
     creatorId,
