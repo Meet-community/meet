@@ -6,17 +6,21 @@ export enum GoogleSelectTypes {
   Cities = '(cities)',
 }
 
-export interface MainTextMatchedSubstrings {
-  offset: number;
-  length: number;
-}
-
 export interface StructuredFormatting {
   main_text: string;
   secondary_text: string;
-  main_text_matched_substrings: readonly MainTextMatchedSubstrings[];
 }
+
+export interface SelectValueType {
+  description: string;
+  place_id: string;
+  structured_formatting: StructuredFormatting;
+  types: string[];
+}
+
 export interface PlaceType {
   description: string;
-  structured_formatting: StructuredFormatting;
+  name: string;
+  placeId: string;
+  types: string[];
 }

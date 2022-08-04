@@ -9,12 +9,15 @@ import throttle from 'lodash/throttle';
 import parse from 'autosuggest-highlight/parse';
 import {
   FC,
-  memo,
+  memo, useCallback,
   useEffect,
   useMemo,
 } from 'react';
 import getConfig from 'next/config';
-import { GoogleSelectTypes, PlaceType } from './GoogleSelect.typedefs';
+import {
+  GoogleSelectTypes,
+  PlaceType,
+} from './GoogleSelect.typedefs';
 
 function loadScript(src: string, position: HTMLElement | null, id: string) {
   if (!position) {
@@ -116,6 +119,20 @@ export const GoogleSelect: FC<Props> = memo((props) => {
     };
   }, [value, inputValue, fetch, type]);
 
+  const handleChange = useCallback((event: any, newValue: any) => {
+    if (!newValue) {
+      return;
+    }
+
+    setOptions(newValue ? [newValue, ...options] : options);
+    onChange({
+      description: newValue.description,
+      types: newValue.types,
+      name: newValue.structured_formatting.main_text,
+      placeId: newValue.place_id,
+    });
+  }, [onChange, options]);
+
   return (
     <Autocomplete
       id="google-map-demo"
@@ -127,17 +144,18 @@ export const GoogleSelect: FC<Props> = memo((props) => {
       filterSelectedOptions
       fullWidth
       value={value}
-      onChange={(event: any, newValue: any) => {
-        setOptions(newValue ? [newValue, ...options] : options);
-        onChange(newValue);
-      }}
+      isOptionEqualToValue={(
+        option: any,
+        newValue: any,
+      ) => option.description === newValue.description}
+      onChange={handleChange}
       onInputChange={(event, newInputValue) => {
         setInputValue(newInputValue);
       }}
       renderInput={(params) => (
         <TextField {...params} label="Add a location" fullWidth />
       )}
-      renderOption={(prop, option) => {
+      renderOption={(prop, option: any) => {
         const matches = option.structured_formatting.main_text_matched_substrings;
         const parts = parse(
           option.structured_formatting.main_text,
