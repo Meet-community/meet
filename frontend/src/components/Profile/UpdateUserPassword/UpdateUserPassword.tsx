@@ -84,6 +84,7 @@ export const UpdateUserPassword = memo(() => {
       }}
       >
         <PasswordInput inputProps={{
+          required: true,
           margin: 'normal',
           fullWidth: true,
           id: 'oldPassword',
@@ -101,6 +102,7 @@ export const UpdateUserPassword = memo(() => {
 
         <div className={styles.inputs}>
           <PasswordInput inputProps={{
+            required: true,
             margin: 'normal',
             fullWidth: true,
             id: 'newPassword',
@@ -118,6 +120,7 @@ export const UpdateUserPassword = memo(() => {
           />
 
           <PasswordInput inputProps={{
+            required: true,
             margin: 'normal',
             fullWidth: true,
             id: 'repeatNewPassword',

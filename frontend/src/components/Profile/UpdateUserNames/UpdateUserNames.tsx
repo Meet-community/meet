@@ -1,5 +1,5 @@
 import React, {
-  memo, useCallback, useState,
+  memo, useCallback, useMemo, useState,
 } from 'react';
 import TextField from '@mui/material/TextField';
 import { LoadingButton } from '@mui/lab';
@@ -19,25 +19,29 @@ export const UpdateUserNames = memo(() => {
 
   const [updateUser, { loading }] = useUpdateUserMutation();
 
+  const isFieldsChange = useMemo(() => {
+    const isFirstNameChanged = authUser?.firstName !== firstName;
+    const isLastNameChanged = authUser?.lastName !== lastName;
+
+    return isFirstNameChanged || isLastNameChanged;
+  }, [authUser?.firstName, authUser?.lastName, firstName, lastName]);
+
   const submitHandler = useCallback(() => {
     setIsFirstNameError(!firstName);
     setIsLastNameError(!lastName);
 
-    if (!firstName || !lastName) {
+    if (!firstName || !lastName || !isFieldsChange) {
       return;
     }
 
     updateUser({ variables: { args: { firstName, lastName } } });
-  }, [firstName, lastName, updateUser]);
+  }, [firstName, isFieldsChange, lastName, updateUser]);
 
   const shortcutSubmit = useCallback(() => {
-    const isFirstNameChanged = authUser?.firstName !== firstName;
-    const isLastNameChanged = authUser?.lastName !== lastName;
-
-    if (isFirstNameChanged || isLastNameChanged) {
+    if (isFieldsChange) {
       submitHandler();
     }
-  }, [authUser?.firstName, authUser?.lastName, firstName, lastName, submitHandler]);
+  }, [isFieldsChange, submitHandler]);
 
   useSaveShortcut(shortcutSubmit);
 
@@ -49,6 +53,7 @@ export const UpdateUserNames = memo(() => {
     >
       <div className={styles.inputs}>
         <TextField
+          required
           margin="normal"
           fullWidth
           id="firstName"
@@ -61,6 +66,7 @@ export const UpdateUserNames = memo(() => {
         />
 
         <TextField
+          required
           margin="normal"
           fullWidth
           id="lastName"
