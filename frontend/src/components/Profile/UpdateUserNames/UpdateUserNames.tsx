@@ -30,7 +30,7 @@ export const UpdateUserNames = memo(() => {
     updateUser({ variables: { args: { firstName, lastName } } });
   }, [firstName, lastName, updateUser]);
 
-  const shortCutSubmit = useCallback(() => {
+  const shortcutSubmit = useCallback(() => {
     const isFirstNameChanged = authUser?.firstName !== firstName;
     const isLastNameChanged = authUser?.lastName !== lastName;
 
@@ -39,7 +39,7 @@ export const UpdateUserNames = memo(() => {
     }
   }, [authUser?.firstName, authUser?.lastName, firstName, lastName, submitHandler]);
 
-  useSaveShortcut(shortCutSubmit);
+  useSaveShortcut(shortcutSubmit);
 
   return (
     <form onSubmit={(e) => {

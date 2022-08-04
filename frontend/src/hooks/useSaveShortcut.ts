@@ -7,6 +7,8 @@ export const useSaveShortcut = (callback: () => any) => {
       e.stopPropagation();
 
       callback();
+
+      return;
     }
 
     if (e.metaKey && String.fromCharCode(e.keyCode).toLowerCase() === 's') {

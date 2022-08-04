@@ -61,13 +61,13 @@ export const UpdateUserPassword = memo(() => {
     changePassword,
   ]);
 
-  const shortCutSubmit = useCallback(() => {
+  const shortcutSubmit = useCallback(() => {
     if (currentPassword || newPassword || repeatNewPassword) {
       submitHandler();
     }
   }, [newPassword, currentPassword, repeatNewPassword, submitHandler]);
 
-  useSaveShortcut(shortCutSubmit);
+  useSaveShortcut(shortcutSubmit);
 
   return (
     <>

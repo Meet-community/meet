@@ -46,13 +46,13 @@ export const SocialCard: FC<Props> = React.memo((props) => {
     setIsError(false);
   }, [link]);
 
-  const shortCutSubmit = useCallback(() => {
+  const shortcutSubmit = useCallback(() => {
     if (isEdit) {
       submitHandler();
     }
   }, [isEdit, submitHandler]);
 
-  useSaveShortcut(shortCutSubmit);
+  useSaveShortcut(shortcutSubmit);
 
   return (
     <>
