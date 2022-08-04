@@ -1,6 +1,7 @@
 import {
+  AddressType,
   Client,
-  Language, PlaceData,
+  Language,
 } from '@googlemaps/google-maps-services-js';
 
 export class GooglePlaceService {
@@ -10,28 +11,36 @@ export class GooglePlaceService {
     key: this.key,
   };
 
-  async getCityByGoogleId(google_id: string): Promise<Partial<PlaceData>> {
+  async getCityByGoogleId(
+    google_id: string
+  ): Promise<{ name: string; place_id: string; types: string[] }> {
     try {
 
-      console.log(this.requestConfig);
+      const response = await this.client.placeDetails({
+        params: {
+          ...this.requestConfig,
+          place_id: google_id,
+          language: Language.en,
+          fields: ['types', 'place_id', 'name']
+        }
+      });
 
-    const res = await this.client.placeDetails({
-      params: {
-        ...this.requestConfig,
-        place_id: google_id,
-        language: Language.en,
+      const { name, types, place_id } = response.data.result;
+
+      if (!name || !types || !place_id) {
+        throw Error(`Can not get city for googleId: ${google_id}`);
       }
-    });
 
-    // const data = res.data.result;
-    // const error = res.data.error_message;
-    // const { place_id, name, types } = data;
-    console.log(res.data.result);
+      if (
+        !types.includes(AddressType.locality)
+        || !types.includes(AddressType.political)
+      ) {
+        throw Error(`GoogleId: ${google_id} it's not a city. Name: ${name}, types: ${types}`);
+      }
 
-    return res.data.result;
+      return { name, place_id, types };
+
     } catch (e) {
-      console.log(e);
-
       throw Error(e);
     }
   }
