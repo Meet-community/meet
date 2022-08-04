@@ -24,6 +24,7 @@ module.exports = {
   ],
   rules: {
     'no-alert': 'off',
+    'no-continue': 'off',
     'prefer-regex-literals': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
     'react/button-has-type': 'off',
