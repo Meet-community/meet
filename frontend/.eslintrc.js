@@ -23,6 +23,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'no-alert': 'off',
     'prefer-regex-literals': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
     'react/button-has-type': 'off',
