@@ -19,7 +19,7 @@ import styles from './EventCard.module.scss';
 import { formatDate } from '../../helpers/date/formateDate';
 import { EventFullFragment } from '../../../controllers/graphql/generated';
 import { ROUTES } from '../../../../routes/routes';
-import { SubscribeButton } from '../../../ui/SubscribeButton/SubscribeButton';
+import { SubscribeButton } from '../../UI/SubscribeButton/SubscribeButton';
 
 interface Props {
   event: EventFullFragment;

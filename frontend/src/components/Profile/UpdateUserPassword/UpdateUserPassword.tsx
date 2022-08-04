@@ -3,7 +3,7 @@ import { LoadingButton } from '@mui/lab';
 import Typography from '@mui/material/Typography';
 import { useUpdateUserPasswordMutation } from '../../../controllers/graphql/generated';
 import styles from '../Profile.module.scss';
-import { PasswordInput } from '../../../ui/Inputs/PasswordInput/PasswordInput';
+import { PasswordInput } from '../../UI/Inputs/PasswordInput/PasswordInput';
 
 export const UpdateUserPassword = memo(() => {
   const [newPassword, setNewPassword] = useState('');

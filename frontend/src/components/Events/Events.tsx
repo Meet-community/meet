@@ -6,7 +6,6 @@ import { Container } from '../UI/Container/Container';
 
 export const Events: FC = memo(() => {
   const { data: eventsData, loading: eventsLoading } = useEventsQuery();
-
   const authUser = useAuthUser();
 
   const events = useMemo(() => (eventsData?.events
@@ -16,7 +15,6 @@ export const Events: FC = memo(() => {
 
   return (
     <Container pageTitle="Events" isLoading={eventsLoading}>
-
       <EventsList events={events} user={authUser} />
     </Container>
   );
