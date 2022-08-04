@@ -35,7 +35,7 @@ export const createEventResolver: AuthResolver<
   const { logoFile } = args;
   const { id: creatorId } = ctx.authUser;
   const { id: cityId } = await cityService.ensureCity({ googleId: args.googleCityId });
-  const event = await eventRepository.create({
+  let event = await eventRepository.create({
     ...args,
     creatorId,
     cityId,
@@ -49,9 +49,12 @@ export const createEventResolver: AuthResolver<
       eventId: event.id,
       file: logoFile,
     });
+
+    event = await eventRepository.update(
+      event.id,
+      { logo: createAvatarResult.secure_url }
+    );
   }
 
-  return createAvatarResult
-    ? eventRepository.update(event.id, { logo: createAvatarResult.secure_url })
-    : event;
+  return event;
 };
