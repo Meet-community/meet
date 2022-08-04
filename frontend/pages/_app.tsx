@@ -4,8 +4,10 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import getConfig from 'next/config';
 import { initApollo } from '../src/controllers/apollo/getApolloClient';
 import './_app.css';
+import { useStageGuards } from '../src/hooks/useStageGuards';
 
 export default function MyApp({ Component, pageProps, apiUrl }: any) {
+  useStageGuards();
   const client = initApollo(apiUrl);
 
   const darkTheme = createTheme({

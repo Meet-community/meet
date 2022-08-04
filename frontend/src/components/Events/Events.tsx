@@ -1,4 +1,6 @@
-import { FC, memo, useMemo } from 'react';
+import {
+  FC, memo, useMemo,
+} from 'react';
 import { useEventsQuery } from '../../controllers/graphql/generated';
 import { EventsList } from './EventsList/EventsList';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';

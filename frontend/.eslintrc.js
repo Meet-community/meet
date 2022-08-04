@@ -10,7 +10,7 @@ module.exports = {
     ecmaVersion: 6,
     sourceType: 'module',
   },
-  ignorePatterns: ['generated.ts'],
+  ignorePatterns: ['generated.ts', 'next.config.js'],
   parser: '@typescript-eslint/parser',
   extends: [
     'airbnb',
