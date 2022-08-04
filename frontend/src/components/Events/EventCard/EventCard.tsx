@@ -84,6 +84,7 @@ export const EventCard: FC<Props> = memo((props) => {
                     <Avatar
                       alt={`${person.firstName} ${person.lastName}`}
                       src={person.avatar || '/static/images/avatar/1.jpg'}
+                      key={person.id}
                     />
                   ))}
                 </AvatarGroup>

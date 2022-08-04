@@ -10,7 +10,7 @@ module.exports = {
     ecmaVersion: 6,
     sourceType: 'module',
   },
-  ignorePatterns: ['generated.ts'],
+  ignorePatterns: ['generated.ts', 'next.config.js'],
   parser: '@typescript-eslint/parser',
   extends: [
     'airbnb',
@@ -23,6 +23,7 @@ module.exports = {
     '@typescript-eslint',
   ],
   rules: {
+    'no-alert': 'off',
     'prefer-regex-literals': 'off',
     'jsx-a11y/label-has-associated-control': 'off',
     'react/button-has-type': 'off',
