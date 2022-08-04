@@ -57,6 +57,16 @@ export class CloudinaryService {
       folder: `users/${userId}/avatar`,
     });
   }
+
+  async updateEventLogo(options: UpdateEventLogo) {
+    const { eventId, file } = options;
+
+    return await this.upload({
+      file,
+      publicId: String(eventId),
+      folder: `events/${eventId}/logo`,
+    });
+  }
 }
 
 interface UploadOptions {
@@ -67,5 +77,10 @@ interface UploadOptions {
 
 interface UpdateUserAvatar {
   userId: number;
+  file: FileUpload;
+}
+
+interface UpdateEventLogo {
+  eventId: number;
   file: FileUpload;
 }

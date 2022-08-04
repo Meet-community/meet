@@ -15,7 +15,6 @@ export class GooglePlaceService {
     google_id: string
   ): Promise<{ name: string; place_id: string; types: string[] }> {
     try {
-
       const response = await this.client.placeDetails({
         params: {
           ...this.requestConfig,
