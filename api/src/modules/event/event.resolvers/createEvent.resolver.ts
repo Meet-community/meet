@@ -29,7 +29,7 @@ export const createEventResolver: AuthResolver<
   Options
 > = async (_, { args }, ctx) => {
   const eventRepository = new EventRepository(ctx);
-  const cityService = await new CityService(ctx);
+  const cityService = new CityService(ctx);
   const cloudinaryService = new CloudinaryService();
 
   const { logoFile } = args;
