@@ -23,6 +23,7 @@ import Divider from '@mui/material/Divider';
 import LogoutIcon from '@mui/icons-material/Logout';
 import Link from 'next/link';
 import PersonIcon from '@mui/icons-material/Person';
+import cn from 'classnames';
 import { ROUTES } from '../../../routes/routes';
 import { useLogOut } from '../../hooks/useLogOut';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
@@ -53,174 +54,177 @@ export function Header() {
   }, [router]);
 
   return (
-    <AppBar position="static">
-      <Container sx={{ maxWidth: '100%!important' }}>
-        <Toolbar
-          disableGutters
-          sx={{ justifyContent: 'space-between', maxWidth: '100%' }}
-        >
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            sx={{
-              display: 'flex',
-              fontFamily: 'monospace',
-              fontWeight: 700,
-              letterSpacing: '.3rem',
-              color: 'inherit',
-              textDecoration: 'none',
-              alignItems: 'center',
-              justifyContent: 'start',
-              gap: '12px',
-              cursor: 'pointer',
-            }}
-            onClick={() => router.push(ROUTES.home)}
+    <div>
+      <div style={{ height: '64px', backgroundColor: '#2C2C2C' }} />
+      <AppBar className={cn(styles.navBar)} position="fixed" sx={{ top: 0, left: 0, right: 0 }}>
+        <Container sx={{ maxWidth: '100%!important' }}>
+          <Toolbar
+            disableGutters
+            sx={{ justifyContent: 'space-between', maxWidth: '100%' }}
           >
-            <NearMeIcon />
-
-            Meet
-          </Typography>
-
-          {authUser && (
-            <div className={styles.fullName}>
-              <Typography
-                sx={{ cursor: 'pointer' }}
-                variant='overline'
-                mr="12px"
-                onClick={() => setShowMenu(true)}
-              >
-                {`${authUser.firstName} ${authUser.lastName}`}
-              </Typography>
-
-              <Box sx={{ flexGrow: 0 }}>
-                <Tooltip title="Open settings">
-                  <IconButton onClick={() => setShowMenu(true)} sx={{ p: 0 }}>
-                    <Avatar
-                      src={authUser?.avatar || '/static/images/avatar/1.jpg'}
-                      alt={authUser.firstName}
-                    />
-                  </IconButton>
-                </Tooltip>
-              </Box>
-            </div>
-          )}
-
-          {!authUser && matches && (
-            <Box sx={{
-              flexGrow: 1,
-              display: { xs: 'flex', md: 'none', justifyContent: 'end' },
-            }}
+            <Typography
+              variant="h6"
+              noWrap
+              component="a"
+              sx={{
+                display: 'flex',
+                fontFamily: 'monospace',
+                fontWeight: 700,
+                letterSpacing: '.3rem',
+                color: 'inherit',
+                textDecoration: 'none',
+                alignItems: 'center',
+                justifyContent: 'start',
+                gap: '12px',
+                cursor: 'pointer',
+              }}
+              onClick={() => router.push(ROUTES.home)}
             >
-              <IconButton
-                size="large"
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={() => setShowMenu(true)}
-                color="inherit"
-              >
-                <MenuIcon />
-              </IconButton>
-            </Box>
-          )}
+              <NearMeIcon />
 
-          {!authUser && !matches && (
-            <div>
-              <Button
-                onClick={onSignUp}
-                color="inherit"
-                variant="outlined"
-                style={{ marginRight: 12 }}
-                size={matches ? 'small' : 'large'}
-              >
-                <Typography textAlign="center">Sign up</Typography>
-              </Button>
-
-              <Button
-                onClick={onSignIn}
-                color="inherit"
-                variant="outlined"
-                size={matches ? 'small' : 'large'}
-                style={{ marginRight: 8 }}
-              >
-                <Typography textAlign="center" mr={1}>Sign in</Typography>
-                <LoginIcon />
-              </Button>
-            </div>
-          )}
-        </Toolbar>
-      </Container>
-
-      <Drawer
-        anchor="right"
-        open={showMenu}
-        onClose={() => setShowMenu(false)}
-      >
-        <Box
-          sx={{ width: 250 }}
-          role="presentation"
-        >
-          <List>
-            <ListItem disablePadding>
-              <ListItemButton onClick={() => router.push(ROUTES.home)}>
-                <ListItemIcon>
-                  <HomeRounded />
-                </ListItemIcon>
-                <ListItemText primary="Home" />
-              </ListItemButton>
-            </ListItem>
-
-            <Divider />
+              Meet
+            </Typography>
 
             {authUser && (
-              <>
-                <Link href={ROUTES.profile}>
+              <div className={styles.fullName}>
+                <Typography
+                  sx={{ cursor: 'pointer' }}
+                  variant='overline'
+                  mr="12px"
+                  onClick={() => setShowMenu(true)}
+                >
+                  {`${authUser.firstName} ${authUser.lastName}`}
+                </Typography>
+
+                <Box sx={{ flexGrow: 0 }}>
+                  <Tooltip title="Open settings">
+                    <IconButton onClick={() => setShowMenu(true)} sx={{ p: 0 }}>
+                      <Avatar
+                        src={authUser?.avatar || '/static/images/avatar/1.jpg'}
+                        alt={authUser.firstName}
+                      />
+                    </IconButton>
+                  </Tooltip>
+                </Box>
+              </div>
+            )}
+
+            {!authUser && matches && (
+              <Box sx={{
+                flexGrow: 1,
+                display: { xs: 'flex', md: 'none', justifyContent: 'end' },
+              }}
+              >
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={() => setShowMenu(true)}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+              </Box>
+            )}
+
+            {!authUser && !matches && (
+              <div>
+                <Button
+                  onClick={onSignUp}
+                  color="inherit"
+                  variant="outlined"
+                  style={{ marginRight: 12 }}
+                  size={matches ? 'small' : 'large'}
+                >
+                  <Typography textAlign="center">Sign up</Typography>
+                </Button>
+
+                <Button
+                  onClick={onSignIn}
+                  color="inherit"
+                  variant="outlined"
+                  size={matches ? 'small' : 'large'}
+                  style={{ marginRight: 8 }}
+                >
+                  <Typography textAlign="center" mr={1}>Sign in</Typography>
+                  <LoginIcon />
+                </Button>
+              </div>
+            )}
+          </Toolbar>
+        </Container>
+
+        <Drawer
+          anchor="right"
+          open={showMenu}
+          onClose={() => setShowMenu(false)}
+        >
+          <Box
+            sx={{ width: 250 }}
+            role="presentation"
+          >
+            <List>
+              <ListItem disablePadding>
+                <ListItemButton onClick={() => router.push(ROUTES.home)}>
+                  <ListItemIcon>
+                    <HomeRounded />
+                  </ListItemIcon>
+                  <ListItemText primary="Home" />
+                </ListItemButton>
+              </ListItem>
+
+              <Divider />
+
+              {authUser && (
+                <>
+                  <Link href={ROUTES.profile}>
+                    <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <PersonIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Profile" />
+                      </ListItemButton>
+                    </ListItem>
+                  </Link>
+
                   <ListItem disablePadding>
-                    <ListItemButton>
+                    <ListItemButton onClick={onLogOut}>
                       <ListItemIcon>
-                        <PersonIcon />
+                        <LoginIcon />
                       </ListItemIcon>
-                      <ListItemText primary="Profile" />
+                      <ListItemText primary="Logout" />
                     </ListItemButton>
                   </ListItem>
-                </Link>
+                </>
+              )}
 
-                <ListItem disablePadding>
-                  <ListItemButton onClick={onLogOut}>
-                    <ListItemIcon>
-                      <LoginIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Logout" />
-                  </ListItemButton>
-                </ListItem>
-              </>
-            )}
+              {!authUser && (
+                <>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={onSignIn}>
+                      <ListItemIcon>
+                        <LoginIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Sign in" />
+                    </ListItemButton>
+                  </ListItem>
 
-            {!authUser && (
-              <>
-                <ListItem disablePadding>
-                  <ListItemButton onClick={onSignIn}>
-                    <ListItemIcon>
-                      <LoginIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Sign in" />
-                  </ListItemButton>
-                </ListItem>
-
-                <ListItem disablePadding>
-                  <ListItemButton onClick={onSignUp}>
-                    <ListItemIcon>
-                      <LogoutIcon />
-                    </ListItemIcon>
-                    <ListItemText primary="Sign up" />
-                  </ListItemButton>
-                </ListItem>
-              </>
-            )}
-          </List>
-        </Box>
-      </Drawer>
-    </AppBar>
+                  <ListItem disablePadding>
+                    <ListItemButton onClick={onSignUp}>
+                      <ListItemIcon>
+                        <LogoutIcon />
+                      </ListItemIcon>
+                      <ListItemText primary="Sign up" />
+                    </ListItemButton>
+                  </ListItem>
+                </>
+              )}
+            </List>
+          </Box>
+        </Drawer>
+      </AppBar>
+    </div>
   );
 }
