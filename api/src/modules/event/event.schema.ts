@@ -8,6 +8,10 @@ export const EventSchema = gql`
     event(id: Int!): Event!
   }
   
+  type Mutation {
+    createEvent(args: CreateEventArgs!): Event!
+  }
+  
   type Event {
     id: Int!
     creatorId: Int!
@@ -18,14 +22,30 @@ export const EventSchema = gql`
     logo: String
     capacity: Int!
     minCapacity: Int!
-    status: VacancyStatus!
+    status: EventStatus!
     creator: User!
     participants: [User!]!
+    city: City!
+    cityId: Int!
+    googlePlaceId: String
   }
   
-  enum VacancyStatus {
+  enum EventStatus {
     PENDING
     CANCELED
+  }
+  
+  input CreateEventArgs {
+    title: String!
+    description: String!
+    startAt: Date!
+    endAt: Date!
+    logoFile: Upload
+    capacity: Int!
+    minCapacity: Int!
+    googleCityId: String!
+    googlePlaceId: String
+    logo: String
   }
   
   scalar Date

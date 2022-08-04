@@ -17,7 +17,6 @@ module.exports = {
         },
         [columns.googleId]: {
           type: Sequelize.STRING,
-          primaryKey: true,
           allowNull: false,
         },
         [columns.name]: {

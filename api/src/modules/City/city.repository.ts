@@ -20,4 +20,18 @@ export class CityRepository extends Repository {
       { raw: true, returning: true }
     );
   }
+
+  findById(id: number): Promise<City | null> {
+    return this.models.City.findByPk(id, { raw: true });
+  }
+
+  async getById(id: number): Promise<City> {
+    const city = await this.findById(id);
+
+    if (!city) {
+      throw Error('city_not_found');
+    }
+
+    return city;
+  }
 }

@@ -12,6 +12,7 @@ import {
 } from 'sequelize-typescript';
 import { User } from './User';
 import { EventStatus } from '../modules/event/event.typedefs';
+import { City } from './City';
 
 
 @Table({
@@ -34,6 +35,17 @@ export class EventModel extends Model {
     field: 'creator_id',
   })
   creatorId: number;
+
+  @BelongsTo(() => City)
+  city: City | null;
+
+  @AllowNull(false)
+  @ForeignKey(() => City)
+  @Index('events_city_id')
+  @Column({
+    field: 'city_id',
+  })
+  cityId: number;
 
   @AllowNull(false)
   @Column({
@@ -98,4 +110,10 @@ export class EventModel extends Model {
     field: 'updated_at',
   })
   updatedAt: Date;
+
+  @Column({
+    type: DataType.STRING,
+    field: 'google_place_id',
+  })
+  googlePlaceId: string;
 }
