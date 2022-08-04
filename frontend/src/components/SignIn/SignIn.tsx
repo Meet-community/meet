@@ -20,6 +20,7 @@ import {
 } from '../../controllers/graphql/generated';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 import { ROUTES } from '../../../routes/routes';
+import { PasswordInput } from '../../ui/Inputs/PasswordInput/PasswordInput';
 
 function Copyright(props: any) {
   return (
@@ -158,19 +159,19 @@ export const SignIn: FC = React.memo(() => {
                 autoFocus
               />
 
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                helperText={passwordError}
-                error={!!passwordError}
-                value={password}
-                onChange={onChangePassword}
-                autoComplete="current-password"
+              <PasswordInput inputProps={{
+                margin: 'normal',
+                required: true,
+                fullWidth: true,
+                name: 'password',
+                label: 'Password',
+                id: 'password',
+                helperText: passwordError,
+                error: !!passwordError,
+                value: password,
+                onChange: onChangePassword,
+                autoComplete: 'current-password',
+              }}
               />
 
               <LoadingButton

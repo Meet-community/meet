@@ -2,8 +2,8 @@ import React, { memo, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import Typography from '@mui/material/Typography';
 import { useUpdateUserPasswordMutation } from '../../../controllers/graphql/generated';
-import { PasswordInputWrapper } from '../../../ui/PasswordInputWrapper/PasswordInputWrapper';
 import styles from '../Profile.module.scss';
+import { PasswordInput } from '../../../ui/Inputs/PasswordInput/PasswordInput';
 
 export const UpdateUserPassword = memo(() => {
   const [newPassword, setNewPassword] = useState('');
@@ -55,7 +55,7 @@ export const UpdateUserPassword = memo(() => {
         Password
       </Typography>
       <form onSubmit={onSubmitPassword}>
-        <PasswordInputWrapper textProps={{
+        <PasswordInput inputProps={{
           margin: 'normal',
           required: true,
           fullWidth: true,
@@ -73,7 +73,7 @@ export const UpdateUserPassword = memo(() => {
         />
 
         <div className={styles.inputs}>
-          <PasswordInputWrapper textProps={{
+          <PasswordInput inputProps={{
             margin: 'normal',
             required: true,
             fullWidth: true,
@@ -85,7 +85,7 @@ export const UpdateUserPassword = memo(() => {
           }}
           />
 
-          <PasswordInputWrapper textProps={{
+          <PasswordInput inputProps={{
             margin: 'normal',
             required: true,
             fullWidth: true,

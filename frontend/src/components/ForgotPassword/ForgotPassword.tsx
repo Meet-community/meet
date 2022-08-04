@@ -16,6 +16,7 @@ import {
   useForgotUserPasswordMutation,
 } from '../../controllers/graphql/generated';
 import { ROUTES } from '../../../routes/routes';
+import { PasswordInput } from '../../ui/Inputs/PasswordInput/PasswordInput';
 
 function Copyright(props: any) {
   return (
@@ -135,38 +136,38 @@ export const ForgotPassword: FC = React.memo(() => {
                 autoFocus
               />
 
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="password"
-                label="Password"
-                type="password"
-                id="password"
-                value={password}
-                onChange={(e) => {
+              <PasswordInput inputProps={{
+                margin: 'normal',
+                required: true,
+                fullWidth: true,
+                name: 'password',
+                label: 'Password',
+                id: 'password',
+                value: password,
+                onChange: (e) => {
                   setPasswordError(null);
                   setPassword(e.target.value);
-                }}
-                autoComplete="current-password"
+                },
+                autoComplete: 'current-password',
+              }}
               />
 
-              <TextField
-                margin="normal"
-                required
-                fullWidth
-                name="repeatPassword"
-                label="Repeat password"
-                type="password"
-                id="repeatPassword"
-                helperText={passwordError}
-                error={!!passwordError}
-                value={repeatPassword}
-                onChange={(e) => {
+              <PasswordInput inputProps={{
+                margin: 'normal',
+                required: true,
+                fullWidth: true,
+                name: 'repeatPassword',
+                label: 'Repeat password',
+                id: 'repeatPassword',
+                helperText: passwordError,
+                error: !!passwordError,
+                value: repeatPassword,
+                onChange: (e) => {
                   setPasswordError(null);
                   setRepeatPassword(e.target.value);
-                }}
-                autoComplete="current-password"
+                },
+                autoComplete: 'current-password',
+              }}
               />
 
               <LoadingButton
