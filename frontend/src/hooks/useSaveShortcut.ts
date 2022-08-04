@@ -13,8 +13,6 @@ export const useSaveShortcut = (callback: () => any) => {
       e.preventDefault();
       e.stopPropagation();
 
-      console.log('i am alive');
-
       callback();
     }
   }, [callback]);
