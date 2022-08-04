@@ -7,7 +7,6 @@ import { EventStatus } from '../event.typedefs';
 import {
   CloudinaryService
 } from '../../../services/cloudinary/cloudinaryService';
-import { UploadApiResponse } from 'cloudinary';
 
 interface Options {
   args: {
@@ -42,10 +41,8 @@ export const createEventResolver: AuthResolver<
     status: EventStatus.Pending,
   });
 
-  let createAvatarResult: UploadApiResponse | undefined;
-
   if (logoFile) {
-    createAvatarResult = await cloudinaryService.updateEventLogo({
+    const createAvatarResult = await cloudinaryService.updateEventLogo({
       eventId: event.id,
       file: logoFile,
     });
