@@ -2,7 +2,7 @@ import { FC, memo } from 'react';
 import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { LoadingButton } from '@mui/lab';
-import { useEventSubscribe } from '../../hooks/useEventSubscribe';
+import { useEventSubscribe } from '../../../hooks/useEventSubscribe';
 
 interface Props {
   disabled: boolean;

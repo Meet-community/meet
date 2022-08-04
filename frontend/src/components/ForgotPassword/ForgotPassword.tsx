@@ -16,7 +16,7 @@ import {
   useForgotUserPasswordMutation,
 } from '../../controllers/graphql/generated';
 import { ROUTES } from '../../../routes/routes';
-import { PasswordInput } from '../../ui/Inputs/PasswordInput/PasswordInput';
+import { PasswordInput } from '../UI/Inputs/PasswordInput/PasswordInput';
 
 function Copyright(props: any) {
   return (
