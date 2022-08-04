@@ -5,6 +5,7 @@ import Typography from '@mui/material/Typography';
 import { LoadingButton } from '@mui/lab';
 import TextField from '@mui/material/TextField';
 import cn from 'classnames';
+import Tooltip from '@mui/material/Tooltip';
 import styles from './SociaCard.module.scss';
 import { useSaveShortcut } from '../../../../hooks/useSaveShortcut';
 
@@ -122,15 +123,17 @@ export const SocialCard: FC<Props> = React.memo((props) => {
                 >
                   cancel
                 </LoadingButton>
-                <LoadingButton
-                  loading={isLoading}
-                  onClick={submitHandler}
-                  variant="outlined"
-                  color="success"
-                  sx={{ width: 100 }}
-                >
-                  save
-                </LoadingButton>
+                <Tooltip title="ctr / cmd + s">
+                  <LoadingButton
+                    loading={isLoading}
+                    onClick={submitHandler}
+                    variant="outlined"
+                    color="success"
+                    sx={{ width: 100 }}
+                  >
+                    save
+                  </LoadingButton>
+                </Tooltip>
               </div>
             )
             : (
@@ -153,7 +156,10 @@ export const SocialCard: FC<Props> = React.memo((props) => {
           margin="none"
           id="linkToAdd"
           value={linkToAdd}
-          onChange={(e) => setLinkToAdd(e.target.value)}
+          onChange={(e) => {
+            setIsError(false);
+            setLinkToAdd(e.target.value);
+          }}
           label="Link"
           name="linkToAdd"
           placeholder='https://link/example.com'

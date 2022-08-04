@@ -1,6 +1,7 @@
 import React, { memo, useCallback, useState } from 'react';
 import { LoadingButton } from '@mui/lab';
 import Typography from '@mui/material/Typography';
+import { Tooltip } from '@mui/material';
 import {
   useUpdateUserPasswordMutation,
 } from '../../../controllers/graphql/generated';
@@ -134,19 +135,21 @@ export const UpdateUserPassword = memo(() => {
           />
         </div>
 
-        <LoadingButton
-          sx={{
-            width: { xs: '100%', sm: 240 },
-            marginLeft: { sm: 'auto' },
-            display: 'block',
-          }}
-          type="submit"
-          loading={loading}
-          variant="contained"
-          color="success"
-        >
-          Save
-        </LoadingButton>
+        <Tooltip title="ctr / cmd + s">
+          <LoadingButton
+            sx={{
+              width: { xs: '100%', sm: 240 },
+              marginLeft: { sm: 'auto' },
+              display: 'block',
+            }}
+            type="submit"
+            loading={loading}
+            variant="contained"
+            color="success"
+          >
+            Save
+          </LoadingButton>
+        </Tooltip>
       </form>
     </>
   );

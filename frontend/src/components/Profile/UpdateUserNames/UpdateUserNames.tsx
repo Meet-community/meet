@@ -3,6 +3,7 @@ import React, {
 } from 'react';
 import TextField from '@mui/material/TextField';
 import { LoadingButton } from '@mui/lab';
+import { Tooltip } from '@mui/material';
 import { useUpdateUserMutation } from '../../../controllers/graphql/generated';
 import { useAuthUser } from '../../../controllers/entities/user/useAuthUserHook';
 import styles from '../Profile.module.scss';
@@ -72,19 +73,21 @@ export const UpdateUserNames = memo(() => {
         />
       </div>
 
-      <LoadingButton
-        sx={{
-          width: { xs: '100%', sm: 240 },
-          marginLeft: { sm: 'auto' },
-          display: 'block',
-        }}
-        type="submit"
-        loading={loading}
-        variant="contained"
-        color="success"
-      >
-        Save
-      </LoadingButton>
+      <Tooltip title="ctr / cmd + s">
+        <LoadingButton
+          sx={{
+            width: { xs: '100%', sm: 240 },
+            marginLeft: { sm: 'auto' },
+            display: 'block',
+          }}
+          type="submit"
+          loading={loading}
+          variant="contained"
+          color="success"
+        >
+          Save
+        </LoadingButton>
+      </Tooltip>
     </form>
   );
 });
