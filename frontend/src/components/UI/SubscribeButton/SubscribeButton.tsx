@@ -23,7 +23,7 @@ export const SubscribeButton: FC<Props> = memo((props) => {
   return (
     <LoadingButton
       variant={isSubscribed ? 'outlined' : 'contained'}
-      color={isSubscribed ? 'error' : 'success'}
+      color={isSubscribed ? 'warning' : 'success'}
       onClick={() => (isSubscribed
         ? unSubscribeHandler(eventId)
         : subscribeHandler(eventId)
