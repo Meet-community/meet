@@ -4,7 +4,7 @@ import {
 import { useEventsQuery } from '../../controllers/graphql/generated';
 import { EventsList } from './EventsList/EventsList';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
-import { Container } from '../UI/Container/Container';
+import { PageContainer } from '../UI/Container/PageContainer';
 
 export const Events: FC = memo(() => {
   const { data: eventsData, loading: eventsLoading } = useEventsQuery();
@@ -16,8 +16,8 @@ export const Events: FC = memo(() => {
   ), [eventsData]);
 
   return (
-    <Container pageTitle="Events" isLoading={eventsLoading}>
+    <PageContainer pageTitle="Events" isLoading={eventsLoading}>
       <EventsList events={events} user={authUser} />
-    </Container>
+    </PageContainer>
   );
 });

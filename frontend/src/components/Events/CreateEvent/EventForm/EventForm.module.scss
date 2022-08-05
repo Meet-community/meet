@@ -1,0 +1,13 @@
+.content {
+  max-width: 1000px;
+  padding: 20px;
+  margin: 0 auto 40px;
+
+  @media (min-width: 500px) {
+    padding: 40px;
+  }
+
+  &:last-child {
+    margin: 0 auto;
+  }
+}
