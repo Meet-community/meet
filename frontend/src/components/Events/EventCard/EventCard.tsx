@@ -30,8 +30,7 @@ export const EventCard: FC<Props> = memo((props) => {
   const { event, isParticipant } = props;
 
   const disableSubscribe = !isParticipant
-    && event.participants.length
-    >= event.capacity;
+    && event.participants.length >= event.capacity;
 
   const router = useRouter();
 
@@ -40,7 +39,7 @@ export const EventCard: FC<Props> = memo((props) => {
       elevation={10}
       sx={{ borderRadius: { xs: '0', md: '16px' } }}
     >
-      <Card sx={{ maxWidth: 345 }}>
+      <Card>
         <Box>
           <ImageListItem sx={{ width: '100%' }}>
             <CardMedia
@@ -105,7 +104,9 @@ export const EventCard: FC<Props> = memo((props) => {
 
             <div className={styles.groupButton}>
               <Button
-                variant="contained"
+                sx={{ flexGrow: 1 }}
+                color='info'
+                variant="outlined"
                 onClick={() => router.push(`${ROUTES.events}/${event.id}`)}
                 endIcon={<ReadMoreIcon />}
               >
