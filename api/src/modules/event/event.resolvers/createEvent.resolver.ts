@@ -18,7 +18,7 @@ interface Options {
     capacity: number;
     minCapacity: number;
     googleCityId: string;
-    googlePlaceId: string;
+    googlePlaceId?: string;
     logo?: string;
   };
 }

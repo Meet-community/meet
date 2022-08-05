@@ -34,7 +34,8 @@ export function Header() {
 
   const { logOutHandler } = useLogOut();
   const router = useRouter();
-  const matches = useMediaQuery('(max-width:900px)');
+  const matches900 = useMediaQuery('(max-width:900px)');
+  const matches600 = useMediaQuery('(min-width:600px)');
 
   const [showMenu, setShowMenu] = useState(false);
 
@@ -55,7 +56,7 @@ export function Header() {
 
   return (
     <div>
-      <div style={{ height: '64px', backgroundColor: '#2C2C2C' }} />
+      <div style={{ height: matches600 ? '64px' : '56px', backgroundColor: '#2C2C2C' }} />
       <AppBar className={cn(styles.navBar)} position="fixed" sx={{ top: 0, left: 0, right: 0 }}>
         <Container sx={{ maxWidth: '100%!important' }}>
           <Toolbar
@@ -109,7 +110,7 @@ export function Header() {
               </div>
             )}
 
-            {!authUser && matches && (
+            {!authUser && matches900 && (
               <Box sx={{
                 flexGrow: 1,
                 display: { xs: 'flex', md: 'none', justifyContent: 'end' },
@@ -128,14 +129,14 @@ export function Header() {
               </Box>
             )}
 
-            {!authUser && !matches && (
+            {!authUser && !matches900 && (
               <div>
                 <Button
                   onClick={onSignUp}
                   color="inherit"
                   variant="outlined"
                   style={{ marginRight: 12 }}
-                  size={matches ? 'small' : 'large'}
+                  size={matches900 ? 'small' : 'large'}
                 >
                   <Typography textAlign="center">Sign up</Typography>
                 </Button>
@@ -144,7 +145,7 @@ export function Header() {
                   onClick={onSignIn}
                   color="inherit"
                   variant="outlined"
-                  size={matches ? 'small' : 'large'}
+                  size={matches900 ? 'small' : 'large'}
                   style={{ marginRight: 8 }}
                 >
                   <Typography textAlign="center" mr={1}>Sign in</Typography>
@@ -166,7 +167,7 @@ export function Header() {
           >
             <List>
               <ListItem disablePadding>
-                <ListItemButton onClick={() => router.push(ROUTES.home)}>
+                <ListItemButton onClick={() => router.push(`/${ROUTES.home}`)}>
                   <ListItemIcon>
                     <HomeRounded />
                   </ListItemIcon>
@@ -178,7 +179,7 @@ export function Header() {
 
               {authUser && (
                 <>
-                  <Link href={ROUTES.profile}>
+                  <Link href={`/${ROUTES.profile}`}>
                     <ListItem disablePadding>
                       <ListItemButton>
                         <ListItemIcon>

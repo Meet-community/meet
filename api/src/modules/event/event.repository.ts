@@ -11,7 +11,7 @@ interface CreateOptions {
   capacity: number;
   minCapacity: number;
   cityId: number;
-  googlePlaceId: string;
+  googlePlaceId?: string;
   creatorId: number;
   logo?: string;
   status: EventStatus;

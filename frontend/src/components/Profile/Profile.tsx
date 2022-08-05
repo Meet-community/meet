@@ -2,7 +2,7 @@ import React, { FC } from 'react';
 import Typography from '@mui/material/Typography';
 import { Paper } from '@mui/material';
 import { UpdateAvatar } from './Avatar/UpdateAvatar';
-import { Container } from '../UI/Container/Container';
+import { PageContainer } from '../UI/Container/PageContainer';
 import styles from './Profile.module.scss';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 import { useWithAuthPage } from '../../controllers/entities/user/useWithAuthPage';
@@ -21,7 +21,7 @@ export const Profile: FC = React.memo(() => {
   }
 
   return (
-    <Container pageTitle="Profile">
+    <PageContainer pageTitle="Profile">
       <div>
 
         <Paper
@@ -63,6 +63,6 @@ export const Profile: FC = React.memo(() => {
         </Paper>
 
       </div>
-    </Container>
+    </PageContainer>
   );
 });
