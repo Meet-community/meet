@@ -1,5 +1,5 @@
 import React, {
-  FC, useCallback, useEffect, useMemo, useState,
+  FC, useCallback, useEffect, useMemo, useRef, useState,
 } from 'react';
 import {
   ImageList,
@@ -24,6 +24,7 @@ export const ImageSearch: FC<Props> = React.memo((props) => {
 
   const unsplashService = useMemo(() => new UnsplashService(), []);
   const matches = useMediaQuery('(min-width:600px)');
+  const listRef = useRef<HTMLUListElement>(null);
 
   const [images, setImages] = useState<Basic[]>([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -52,6 +53,7 @@ export const ImageSearch: FC<Props> = React.memo((props) => {
       .then((res) => {
         setImages(res.images);
         setHasMore(res.hasMore);
+        listRef.current?.scroll({ top: 0 });
       });
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]);
@@ -91,6 +93,7 @@ export const ImageSearch: FC<Props> = React.memo((props) => {
           rowHeight={matches ? config.height.pc : config.height.m}
           gap={matches ? config.gap.pc : config.gap.m}
           id='scrollableImageList'
+          ref={listRef}
         >
           {images.map((image) => (
             <ImageCard
