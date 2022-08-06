@@ -4,19 +4,16 @@ import Typography from '@mui/material/Typography';
 import styles from './Image.module.scss';
 import { ImagePreview } from './ImagePreview/ImagePreview';
 import { ImageSearch } from '../../ImageSearch/ImageSearch';
+import {
+  useCreateEventContext,
+} from '../../CreateEventContext/useCreateEventContext';
 
-interface Props {
-  file?: File | null;
-  setFile: (v: File | null) => void;
-  logo?: string | null;
-  setLogo: (v: string) => void;
-}
-
-export const LoadEventLogo: FC<Props> = React.memo((props) => {
+export const LoadEventLogo: FC = React.memo(() => {
   const {
-    setFile, setLogo,
-  } = props;
-  const [isError, setIsError] = useState(false);
+    setLogo,
+    isLogoError, setIsLogoError,
+    setFile,
+  } = useCreateEventContext();
   const [preview, setPreview] = useState<null | string>(null);
 
   const validateFile = (fileToUpload: File) => (
@@ -38,10 +35,10 @@ export const LoadEventLogo: FC<Props> = React.memo((props) => {
       const previewImg = URL.createObjectURL(uploadedFile);
 
       setPreview(previewImg);
-      setIsError(false);
+      setIsLogoError(false);
       setFile(uploadedFile);
     } else {
-      setIsError(true);
+      setIsLogoError(true);
     }
   };
 
@@ -72,7 +69,7 @@ export const LoadEventLogo: FC<Props> = React.memo((props) => {
         color='#ff7961'
         className={cn(
           styles.errorMessage,
-          { [styles.errorMessageVisible]: isError },
+          { [styles.errorMessageVisible]: isLogoError },
         )}
       >
         Supported by .jpg, .jpeg, .png, .x-png; Maximum 5mb

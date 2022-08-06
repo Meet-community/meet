@@ -123,7 +123,7 @@ export const SocialCard: FC<Props> = React.memo((props) => {
                 >
                   cancel
                 </LoadingButton>
-                <Tooltip title="ctr / cmd + s">
+                <Tooltip title="ctrl / cmd + s">
                   <LoadingButton
                     loading={isLoading}
                     onClick={submitHandler}

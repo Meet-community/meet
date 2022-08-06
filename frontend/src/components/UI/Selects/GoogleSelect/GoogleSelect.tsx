@@ -18,6 +18,7 @@ import {
   GoogleSelectTypes,
   PlaceType,
 } from './GoogleSelect.typedefs';
+import { TextFieldVariant } from '../../Inputs/input.typdefs';
 
 function loadScript(src: string, position: HTMLElement | null, id: string) {
   if (!position) {
@@ -35,13 +36,25 @@ function loadScript(src: string, position: HTMLElement | null, id: string) {
 const autocompleteService = { current: null };
 
 interface Props {
-  type: GoogleSelectTypes[],
-  onChange: (value: PlaceType | null) => void,
-  value: PlaceType | null,
+  type: GoogleSelectTypes[];
+  onChange: (value: PlaceType | null) => void;
+  value: PlaceType | null;
+  variant?: TextFieldVariant;
+  label: string;
+  placeholder: string;
+  required?: boolean;
 }
 
 export const GoogleSelect: FC<Props> = memo((props) => {
-  const { type, onChange, value } = props;
+  const {
+    type,
+    onChange,
+    value,
+    variant = TextFieldVariant.Standard,
+    required = false,
+    label,
+    placeholder,
+  } = props;
 
   const [inputValue, setInputValue] = React.useState('');
   const [options, setOptions] = React.useState<readonly PlaceType[]>([]);
@@ -121,6 +134,9 @@ export const GoogleSelect: FC<Props> = memo((props) => {
 
   const handleChange = useCallback((event: any, newValue: any) => {
     if (!newValue) {
+      onChange(null);
+      setOptions([]);
+
       return;
     }
 
@@ -153,7 +169,14 @@ export const GoogleSelect: FC<Props> = memo((props) => {
         setInputValue(newInputValue);
       }}
       renderInput={(params) => (
-        <TextField {...params} label="Add a location" fullWidth />
+        <TextField
+          {...params}
+          label={label}
+          placeholder={placeholder}
+          fullWidth
+          variant={variant}
+          required={required}
+        />
       )}
       renderOption={(prop, option: any) => {
         const matches = option.structured_formatting.main_text_matched_substrings;

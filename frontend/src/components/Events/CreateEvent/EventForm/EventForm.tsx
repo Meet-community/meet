@@ -1,8 +1,11 @@
-import React, { FC, useState } from 'react';
+import React, { FC } from 'react';
 import { Paper } from '@mui/material';
+import { LoadingButton } from '@mui/lab';
 import { EventFormValues } from './eventForm.typedfs';
 import styles from './EventForm.module.scss';
 import { LoadEventLogo } from './Image/LoadEventLogo';
+import { EventInformation } from './EventInformation/EventInformation';
+import { EventLocation } from './EventLocation/EventLocation';
 
 interface Props {
   onSubmit: (v: EventFormValues) => Promise<any>;
@@ -10,23 +13,51 @@ interface Props {
 }
 
 export const EventForm: FC<Props> = React.memo(() => {
-  const [file, setFile] = useState<File | null>(null);
-  const [logo, setLogo] = useState<string | null>(null);
-
   return (
     <div>
-      <Paper
-        className={styles.content}
-        elevation={10}
-        sx={{ borderRadius: { xs: '0', md: '16px' }, overflow: 'hidden' }}
+      <form onSubmit={(e) => {
+        e.preventDefault();
+        // eslint-disable-next-line no-console
+        console.log('submit');
+      }}
       >
-        <LoadEventLogo
-          file={file}
-          setFile={setFile}
-          logo={logo}
-          setLogo={setLogo}
-        />
-      </Paper>
+
+        <Paper
+          className={styles.content}
+          elevation={10}
+          sx={{ borderRadius: { xs: '0', md: '16px' }, overflow: 'hidden' }}
+        >
+          <LoadEventLogo />
+        </Paper>
+
+        <Paper
+          className={styles.content}
+          elevation={10}
+          sx={{ borderRadius: { xs: '0', md: '16px' }, overflow: 'hidden' }}
+          style={{ paddingBottom: 0 }}
+        >
+          <EventLocation />
+        </Paper>
+
+        <Paper
+          className={styles.content}
+          elevation={10}
+          sx={{ borderRadius: { xs: '0', md: '16px' }, overflow: 'hidden' }}
+        >
+          <EventInformation />
+          <LoadingButton
+            type="submit"
+            color='success'
+            fullWidth
+            variant='contained'
+            sx={{
+              marginTop: { xs: '32px', md: '64px' },
+            }}
+          >
+            Save
+          </LoadingButton>
+        </Paper>
+      </form>
     </div>
   );
 });
