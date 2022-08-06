@@ -9,8 +9,12 @@ import {
   useCreateEventMutation,
 } from '../../../controllers/graphql/generated';
 import { ROUTES } from '../../../../routes/routes';
+import {
+  useWithAuthPage,
+} from '../../../controllers/entities/user/useWithAuthPage';
 
 export const CreateEvent: FC = React.memo(() => {
+  useWithAuthPage();
   const router = useRouter();
   const [create, { loading }] = useCreateEventMutation({
     onError: () => { /* empty */ },

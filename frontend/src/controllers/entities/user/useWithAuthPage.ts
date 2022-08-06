@@ -8,7 +8,7 @@ export const useWithAuthPage = () => {
   useAuthUserQuery({
     onCompleted: async (data) => {
       if (!data.authUser) {
-        await router.push(`./${ROUTES.signIn}`);
+        await router.push(`/${ROUTES.signIn}`);
       }
     },
   });
