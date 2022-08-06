@@ -1,16 +1,17 @@
 import React from 'react';
+import { Maybe } from '../../../../controllers/graphql/generated';
 import {
   PlaceType,
 } from '../../../UI/Selects/GoogleSelect/GoogleSelect.typedefs';
 
 export interface CreateEventContextProps {
   // Avatar block
-  file?: File | null;
-  setFile: (v: File | null) => void;
-  logo?: string | null;
-  setLogo: (v: string) => void;
-  isLogoError: boolean;
-  setIsLogoError: (v: boolean) => void;
+  file?: Maybe<File>;
+  setFile: (v:Maybe<File>) => void;
+  logo?: Maybe<string>;
+  setLogo: (v: Maybe<string>) => void;
+  logoError: Maybe<string>;
+  setLogoError: (v: Maybe<string>) => void;
 
   // Info block
   title: string;
@@ -23,22 +24,29 @@ export interface CreateEventContextProps {
   setEndAt: (v: Date) => void;
   eventLink: string;
   setEventLink: (v: string) => void;
+  eventLinkError: Maybe<string>;
+  setEventLinkError: (v: Maybe<string>) => void;
   capacity: number;
   setCapacity: (v: number) => void;
+  capacityError: Maybe<string>,
+  setCapacityError: (v: Maybe<string>) => void
 
   // location block
-  googleCity: PlaceType | null;
-  setGoogleCity: (v: PlaceType | null) => void;
-  googlePlace: PlaceType | null;
-  setGooglePlace: (v: PlaceType | null) => void;
+  googleCity: Maybe<PlaceType>;
+  setGoogleCity: (v: Maybe<PlaceType>) => void;
+  googlePlace: Maybe<PlaceType>;
+  setGooglePlace: (v: Maybe<PlaceType>) => void;
+
+  // utils
+  checkFields: () => boolean;
 }
 
 export const CreateEventContext = React.createContext<CreateEventContextProps>({
   // Avatar block
   setFile: () => { /* empty */ },
   setLogo: () => { /* empty */ },
-  isLogoError: false,
-  setIsLogoError: () => { /* empty */ },
+  logoError: '',
+  setLogoError: () => { /* empty */ },
 
   // Info block
   title: '',
@@ -51,12 +59,19 @@ export const CreateEventContext = React.createContext<CreateEventContextProps>({
   setEndAt: () => { /* empty */ },
   eventLink: '',
   setEventLink: () => { /* empty */ },
+  eventLinkError: null,
+  setEventLinkError: () => { /* empty */ },
   capacity: 5,
   setCapacity: () => { /* empty */ },
+  capacityError: null,
+  setCapacityError: () => { /* empty */ },
 
   // location block
   googleCity: null,
   setGoogleCity: () => { /* empty */ },
   googlePlace: null,
   setGooglePlace: () => { /* empty */ },
+
+  // utils
+  checkFields: () => false,
 });

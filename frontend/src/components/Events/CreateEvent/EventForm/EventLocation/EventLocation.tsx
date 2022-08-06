@@ -1,14 +1,15 @@
-import React, { FC, useMemo } from 'react';
+import React, { FC, useCallback, useMemo } from 'react';
 import { Grid, Typography } from '@mui/material';
 import {
   useCreateEventContext,
 } from '../../CreateEventContext/useCreateEventContext';
 import { GoogleSelect } from '../../../../UI/Selects/GoogleSelect/GoogleSelect';
 import {
-  GoogleSelectTypes,
+  GoogleSelectTypes, PlaceType,
 } from '../../../../UI/Selects/GoogleSelect/GoogleSelect.typedefs';
 import { GoogleMaps } from '../../GoogleMaps/GoogleMaps';
 import styles from './EventLocation.module.scss';
+import { Maybe } from '../../../../../controllers/graphql/generated';
 
 export const EventLocation: FC = React.memo(() => {
   const {
@@ -21,6 +22,11 @@ export const EventLocation: FC = React.memo(() => {
   const placeId = useMemo(() => (
     googlePlace?.placeId || googleCity?.placeId || null
   ), [googleCity?.placeId, googlePlace?.placeId]);
+
+  const changeCityHandler = useCallback((v: Maybe<PlaceType>) => {
+    setGoogleCity(v);
+    setGooglePlace(null);
+  }, [setGoogleCity, setGooglePlace]);
 
   return (
     <div>
@@ -37,7 +43,7 @@ export const EventLocation: FC = React.memo(() => {
           <Grid item xs={12} md={6}>
             <GoogleSelect
               type={[GoogleSelectTypes.Cities]}
-              onChange={setGoogleCity}
+              onChange={changeCityHandler}
               value={googleCity}
               required
               label="City"

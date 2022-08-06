@@ -16,14 +16,20 @@ import styles from './EventInformation.module.scss';
 
 const variant: TextFieldVariant = TextFieldVariant.Standard;
 
-export const EventInformation: FC = React.memo(() => {
+interface Props {
+  loading: boolean;
+}
+
+export const EventInformation: FC<Props> = React.memo(({ loading }) => {
   const {
     title, setTitle,
     description, setDescription,
     startAt, setStartAt,
     endAt, setEndAt,
     eventLink, setEventLink,
+    eventLinkError, setEventLinkError,
     capacity, setCapacity,
+    capacityError, setCapacityError,
   } = useCreateEventContext();
 
   const minTime = useMemo(() => {
@@ -62,11 +68,16 @@ export const EventInformation: FC = React.memo(() => {
             margin="none"
             id="eventLink"
             value={eventLink}
-            onChange={(e) => setEventLink(e.target.value)}
+            onChange={(e) => {
+              setEventLinkError(null);
+              setEventLink(e.target.value);
+            }}
             label="Event link"
             placeholder='If event have website add link here'
             fullWidth
             variant={variant}
+            helperText={eventLinkError}
+            error={!!eventLinkError}
           />
         </Grid>
 
@@ -111,9 +122,14 @@ export const EventInformation: FC = React.memo(() => {
           <NumberInput
             label="Capacity"
             value={capacity}
-            setValue={setCapacity}
+            setValue={(v) => {
+              setCapacity(v);
+              setCapacityError(null);
+            }}
             required
             variant={variant}
+            error={!!capacityError}
+            helperText={capacityError}
           />
         </Grid>
 
@@ -127,6 +143,7 @@ export const EventInformation: FC = React.memo(() => {
         sx={{
           marginTop: { xs: '24px', md: '36px', lg: '40px' },
         }}
+        loading={loading}
       >
         Save
       </LoadingButton>

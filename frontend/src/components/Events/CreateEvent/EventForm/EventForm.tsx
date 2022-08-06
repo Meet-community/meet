@@ -1,4 +1,4 @@
-import React, { FC } from 'react';
+import React, { FC, FormEvent } from 'react';
 import { Paper } from '@mui/material';
 import { EventFormValues } from './eventForm.typedfs';
 import styles from './EventForm.module.scss';
@@ -7,19 +7,17 @@ import { EventInformation } from './EventInformation/EventInformation';
 import { EventLocation } from './EventLocation/EventLocation';
 
 interface Props {
-  onSubmit: (v: EventFormValues) => Promise<any>;
-  defaultValues: Partial<EventFormValues>
+  onSubmit: (v: FormEvent<HTMLFormElement>) => any;
+  defaultValues: Partial<EventFormValues>;
+  loading: boolean;
 }
 
-export const EventForm: FC<Props> = React.memo(() => {
+export const EventForm: FC<Props> = React.memo((props) => {
+  const { onSubmit, loading } = props;
+
   return (
     <div>
-      <form onSubmit={(e) => {
-        e.preventDefault();
-        // eslint-disable-next-line no-console
-        console.log('submit');
-      }}
-      >
+      <form onSubmit={onSubmit}>
 
         <Paper
           className={styles.box}
@@ -39,7 +37,7 @@ export const EventForm: FC<Props> = React.memo(() => {
           className={styles.box}
           elevation={10}
         >
-          <EventInformation />
+          <EventInformation loading={loading} />
         </Paper>
       </form>
     </div>
