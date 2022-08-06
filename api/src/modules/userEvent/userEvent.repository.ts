@@ -8,6 +8,11 @@ interface FindByUserIdAndEventIdOptions {
   eventId: number;
 }
 
+interface CreateOptions {
+  eventId: number;
+  userId: number;
+}
+
 export class UserEventRepository extends Repository {
   findByUserIdAndEventId(
     { userId, eventId }: FindByUserIdAndEventIdOptions
@@ -59,5 +64,12 @@ export class UserEventRepository extends Repository {
     );
 
     return userEvent;
+  }
+
+  async create(options: CreateOptions): Promise<UserEvent> {
+    return this.models.UserEvent.create(
+      { ...options },
+      { returning: true, raw: true }
+    );
   }
 }

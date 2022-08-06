@@ -7,6 +7,7 @@ import { EventStatus } from '../event.typedefs';
 import {
   CloudinaryService
 } from '../../../services/cloudinary/cloudinaryService';
+import { UserEventRepository } from '../../userEvent/userEvent.repository';
 
 interface Options {
   args: {
@@ -20,6 +21,7 @@ interface Options {
     googleCityId: string;
     googlePlaceId?: string;
     logo?: string;
+    eventLink?: string;
   };
 }
 
@@ -28,17 +30,24 @@ export const createEventResolver: AuthResolver<
   Options
 > = async (_, { args }, ctx) => {
   const eventRepository = new EventRepository(ctx);
+  const userEventRepository = new UserEventRepository(ctx);
   const cityService = new CityService(ctx);
   const cloudinaryService = new CloudinaryService();
 
   const { logoFile, googleCityId } = args;
   const { id: creatorId } = ctx.authUser;
   const { id: cityId } = await cityService.ensureCity({ googleId: googleCityId });
+
   let event = await eventRepository.create({
     ...args,
     creatorId,
     cityId,
     status: EventStatus.Pending,
+  });
+
+  await userEventRepository.create({
+    eventId: event.id,
+    userId: creatorId,
   });
 
   if (logoFile) {

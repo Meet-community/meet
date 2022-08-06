@@ -115,5 +115,11 @@ export class EventModel extends Model {
     type: DataType.STRING,
     field: 'google_place_id',
   })
-  googlePlaceId: string;
+  googlePlaceId?: string;
+
+  @Column({
+    type: DataType.STRING,
+    field: 'event_link',
+  })
+  eventLink?: string;
 }
