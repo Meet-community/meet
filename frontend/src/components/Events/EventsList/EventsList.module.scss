@@ -5,10 +5,9 @@
   justify-content: center;
   gap: 40px;
 
-  max-width: 1115px;
+  max-width: 1139px;
   margin: 0 auto;
-  padding-top: 12px;
-  padding-bottom: 12px;
+  padding: 12px 12px;
 
   @include breakpoint-tablet {
     padding-top: 24px;

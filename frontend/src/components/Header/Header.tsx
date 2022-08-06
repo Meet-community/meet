@@ -24,6 +24,7 @@ import LogoutIcon from '@mui/icons-material/Logout';
 import Link from 'next/link';
 import PersonIcon from '@mui/icons-material/Person';
 import cn from 'classnames';
+import FiberNewIcon from '@mui/icons-material/FiberNew';
 import { ROUTES } from '../../../routes/routes';
 import { useLogOut } from '../../hooks/useLogOut';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
@@ -186,6 +187,17 @@ export function Header() {
                           <PersonIcon />
                         </ListItemIcon>
                         <ListItemText primary="Profile" />
+                      </ListItemButton>
+                    </ListItem>
+                  </Link>
+
+                  <Link href={`/${ROUTES.events.index}/${ROUTES.events.create}`}>
+                    <ListItem disablePadding>
+                      <ListItemButton>
+                        <ListItemIcon>
+                          <FiberNewIcon />
+                        </ListItemIcon>
+                        <ListItemText primary="Create event" />
                       </ListItemButton>
                     </ListItem>
                   </Link>

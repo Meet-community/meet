@@ -5,7 +5,10 @@ export const ROUTES = {
     index: 'signUp',
     success: 'success',
   },
-  events: 'events',
+  events: {
+    index: 'events',
+    create: 'create',
+  },
   profile: 'profile',
   forgotPassword: {
     index: 'forgotPassword',
