@@ -8,6 +8,7 @@ import {
   CloudinaryService
 } from '../../../services/cloudinary/cloudinaryService';
 import { UserEventRepository } from '../../userEvent/userEvent.repository';
+import { UserEventStatus } from '../../userEvent/userEvent.typedefs';
 
 interface Options {
   args: {
@@ -48,6 +49,7 @@ export const createEventResolver: AuthResolver<
   await userEventRepository.create({
     eventId: event.id,
     userId: creatorId,
+    status: UserEventStatus.Pending,
   });
 
   if (logoFile) {

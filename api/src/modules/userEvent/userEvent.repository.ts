@@ -11,6 +11,7 @@ interface FindByUserIdAndEventIdOptions {
 interface CreateOptions {
   eventId: number;
   userId: number;
+  status: UserEventStatus;
 }
 
 export class UserEventRepository extends Repository {

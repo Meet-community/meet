@@ -14,16 +14,9 @@
 .errorMessage {
   margin-top: 8px;
 
-  opacity: 0;
-  transition: opacity 0.5s;
-
   @include breakpoint-tablet {
     width: max-content;
   }
-}
-
-.errorMessageVisible {
-  opacity: 1;
 }
 
 .imageWrapper {

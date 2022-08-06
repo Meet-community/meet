@@ -8,3 +8,15 @@ export const isToday = (date: Date): boolean => {
 
   return isSameYear && isSameMonth && isSameDate;
 };
+
+export const getNearCoolTime = (date: Date = new Date()): Date => {
+  const result = new Date(date);
+
+  result.setHours(date.getHours() + 1);
+
+  result.setMinutes(0);
+  result.setSeconds(0);
+  result.setMilliseconds(0);
+
+  return result;
+};

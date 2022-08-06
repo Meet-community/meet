@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import { TextField } from '@mui/material';
 import { TextFieldVariant } from '../input.typdefs';
+import { Maybe } from '../../../../controllers/graphql/generated';
 
 interface Props {
   minValue?: number | null;
@@ -10,6 +11,8 @@ interface Props {
   value: number;
   setValue: (v: number) => void;
   required?: boolean;
+  error?: boolean;
+  helperText?: Maybe<string>
 }
 
 export const NumberInput: FC<Props> = React.memo((props) => {
@@ -19,6 +22,8 @@ export const NumberInput: FC<Props> = React.memo((props) => {
     value,
     setValue,
     required = false,
+    error = false,
+    helperText,
   } = props;
 
   return (
@@ -29,6 +34,8 @@ export const NumberInput: FC<Props> = React.memo((props) => {
       variant={variant}
       value={value}
       fullWidth
+      error={error}
+      helperText={helperText}
       onChange={(e) => {
         const n = Number(e.target.value);
 

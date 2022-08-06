@@ -1,6 +1,7 @@
 import React, { FC, useCallback, useState } from 'react';
 import cn from 'classnames';
 import Typography from '@mui/material/Typography';
+import { Alert } from '@mui/lab';
 import styles from './Image.module.scss';
 import { ImagePreview } from './ImagePreview/ImagePreview';
 import { ImageSearch } from '../../ImageSearch/ImageSearch';
@@ -11,7 +12,7 @@ import {
 export const LoadEventLogo: FC = React.memo(() => {
   const {
     setLogo,
-    isLogoError, setIsLogoError,
+    logoError, setLogoError,
     setFile,
   } = useCreateEventContext();
   const [preview, setPreview] = useState<null | string>(null);
@@ -35,10 +36,10 @@ export const LoadEventLogo: FC = React.memo(() => {
       const previewImg = URL.createObjectURL(uploadedFile);
 
       setPreview(previewImg);
-      setIsLogoError(false);
+      setLogoError(null);
       setFile(uploadedFile);
     } else {
-      setIsLogoError(true);
+      setLogoError('Supported by .jpg, .jpeg, .png, .x-png; Maximum 5mb');
     }
   };
 
@@ -46,7 +47,8 @@ export const LoadEventLogo: FC = React.memo(() => {
     setFile(null);
     setLogo(url);
     setPreview(url);
-  }, [setFile, setLogo]);
+    setLogoError(null);
+  }, [setFile, setLogo, setLogoError]);
 
   return (
     <>
@@ -63,19 +65,18 @@ export const LoadEventLogo: FC = React.memo(() => {
       >
         <ImagePreview url={preview} />
       </label>
-      <Typography
-        variant="caption"
-        component='p'
-        color='#ff7961'
-        className={cn(
-          styles.errorMessage,
-          { [styles.errorMessageVisible]: isLogoError },
-        )}
-      >
-        Supported by .jpg, .jpeg, .png, .x-png; Maximum 5mb
-      </Typography>
+      {logoError && (
+        <div
+          className={styles.container}
+          style={{ marginTop: '12px' }}
+        >
+          <Alert severity="error">
+            {logoError}
+          </Alert>
+        </div>
+      )}
 
-      <div className={styles.container}>
+      <div className={styles.container} style={{ marginTop: '12px' }}>
         <ImageSearch onPickImage={onPickImage} />
       </div>
     </>
