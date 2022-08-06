@@ -43,6 +43,7 @@ interface Props {
   label: string;
   placeholder: string;
   required?: boolean;
+  placePrefix?: string;
 }
 
 export const GoogleSelect: FC<Props> = memo((props) => {
@@ -54,6 +55,7 @@ export const GoogleSelect: FC<Props> = memo((props) => {
     required = false,
     label,
     placeholder,
+    placePrefix = '',
   } = props;
 
   const [inputValue, setInputValue] = React.useState('');
@@ -166,7 +168,7 @@ export const GoogleSelect: FC<Props> = memo((props) => {
       ) => option.description === newValue.description}
       onChange={handleChange}
       onInputChange={(event, newInputValue) => {
-        setInputValue(newInputValue);
+        setInputValue(`${placePrefix ? `${placePrefix} ` : ''}${newInputValue}`);
       }}
       renderInput={(params) => (
         <TextField

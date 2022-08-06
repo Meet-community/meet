@@ -75,7 +75,9 @@ export const LoadEventLogo: FC = React.memo(() => {
         Supported by .jpg, .jpeg, .png, .x-png; Maximum 5mb
       </Typography>
 
-      <ImageSearch onPickImage={onPickImage} />
+      <div className={styles.container}>
+        <ImageSearch onPickImage={onPickImage} />
+      </div>
     </>
   );
 });

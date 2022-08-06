@@ -21,7 +21,7 @@ export const Profile: FC = React.memo(() => {
   }
 
   return (
-    <PageContainer pageTitle="Profile">
+    <PageContainer>
       <div>
 
         <Paper

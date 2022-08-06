@@ -1,6 +1,5 @@
 import React, { FC } from 'react';
 import { Paper } from '@mui/material';
-import { LoadingButton } from '@mui/lab';
 import { EventFormValues } from './eventForm.typedfs';
 import styles from './EventForm.module.scss';
 import { LoadEventLogo } from './Image/LoadEventLogo';
@@ -23,39 +22,24 @@ export const EventForm: FC<Props> = React.memo(() => {
       >
 
         <Paper
-          className={styles.content}
+          className={styles.box}
           elevation={10}
-          sx={{ borderRadius: { xs: '0', md: '16px' }, overflow: 'hidden' }}
         >
           <LoadEventLogo />
         </Paper>
 
         <Paper
-          className={styles.content}
+          className={styles.box}
           elevation={10}
-          sx={{ borderRadius: { xs: '0', md: '16px' }, overflow: 'hidden' }}
-          style={{ paddingBottom: 0 }}
         >
           <EventLocation />
         </Paper>
 
         <Paper
-          className={styles.content}
+          className={styles.box}
           elevation={10}
-          sx={{ borderRadius: { xs: '0', md: '16px' }, overflow: 'hidden' }}
         >
           <EventInformation />
-          <LoadingButton
-            type="submit"
-            color='success'
-            fullWidth
-            variant='contained'
-            sx={{
-              marginTop: { xs: '32px', md: '64px' },
-            }}
-          >
-            Save
-          </LoadingButton>
         </Paper>
       </form>
     </div>

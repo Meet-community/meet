@@ -1,3 +1,4 @@
+@import "src/styles/utils";
 .grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(300px, 345px));
@@ -6,5 +7,11 @@
 
   max-width: 1115px;
   margin: 0 auto;
-  padding-bottom: 40px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+
+  @include breakpoint-tablet {
+    padding-top: 24px;
+    padding-bottom: 24px;
+  }
 }

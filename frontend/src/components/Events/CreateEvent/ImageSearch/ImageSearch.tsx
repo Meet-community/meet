@@ -74,7 +74,9 @@ export const ImageSearch: FC<Props> = React.memo((props) => {
 
   return (
     <div>
-      <SearchImageInput onSearch={setSearchQuery} />
+      <div style={{ marginBottom: '16px' }}>
+        <SearchImageInput onSearch={setSearchQuery} />
+      </div>
       <InfiniteScroll
         dataLength={images.length}
         next={fetchMore}
@@ -88,6 +90,7 @@ export const ImageSearch: FC<Props> = React.memo((props) => {
           sx={{
             width: '100%',
             height: galleryHeight,
+            margin: 0,
           }}
           cols={matches ? 3 : 2}
           rowHeight={matches ? config.height.pc : config.height.m}
