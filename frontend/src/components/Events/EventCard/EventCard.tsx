@@ -107,7 +107,7 @@ export const EventCard: FC<Props> = memo((props) => {
                 sx={{ flexGrow: 1 }}
                 color='info'
                 variant="outlined"
-                onClick={() => router.push(`${ROUTES.events}/${event.id}`)}
+                onClick={() => router.push(`${ROUTES.events.index}/${event.id}`)}
                 endIcon={<ReadMoreIcon />}
               >
                 Show more
