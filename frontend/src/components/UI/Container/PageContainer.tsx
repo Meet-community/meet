@@ -1,23 +1,20 @@
 import React, { FC } from 'react';
 import { CircularProgress, Paper } from '@mui/material';
-import styles from './Container.module.scss';
+import styles from './PageContainer.module.scss';
 
 interface Props {
-  pageTitle?: string;
   isLoading?: boolean;
   children: JSX.Element;
+  style?: React.CSSProperties;
 }
 
 export const PageContainer: FC<Props> = React.memo((props) => {
   const {
-    pageTitle, isLoading = false, children,
+    isLoading = false, children, style = {},
   } = props;
 
   return (
-    <Paper elevation={6} className={styles.container}>
-      {pageTitle && (
-      <h1 className={styles.title}>{pageTitle}</h1>
-      )}
+    <Paper elevation={6} className={styles.container} style={style}>
       {children}
 
       {isLoading && (

@@ -1,9 +1,23 @@
+@import "src/styles/utils";
+
 .container {
   height: 100%;
   min-height: 100vh;
-  padding-bottom: 40px;
-
   border-radius: 0 !important;
+
+  @include breakpoint-tablet-large {
+    padding-top: 16px;
+  }
+
+  @include breakpoint-desktop {
+    padding-bottom: 32px;
+    padding-top: 32px;
+  }
+
+  @include breakpoint-desktop-large {
+    padding-bottom: 40px;
+    padding-top: 40px;
+  }
 }
 
 .title {

@@ -4,6 +4,7 @@ import { ThemeProvider, createTheme } from '@mui/material/styles';
 import getConfig from 'next/config';
 import { initApollo } from '../src/controllers/apollo/getApolloClient';
 import './_app.css';
+import '../src/styles/_utils.scss';
 import { useStageGuards } from '../src/hooks/useStageGuards';
 
 export default function MyApp({ Component, pageProps, apiUrl }: any) {

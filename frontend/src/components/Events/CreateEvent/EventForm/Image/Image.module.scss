@@ -1,3 +1,5 @@
+@import "src/styles/utils";
+
 .inputHidden {
   position: absolute;
   height: 0;
@@ -15,7 +17,7 @@
   opacity: 0;
   transition: opacity 0.5s;
 
-  @media (min-width: 500px) {
+  @include breakpoint-tablet {
     width: max-content;
   }
 }
@@ -26,19 +28,19 @@
 
 .imageWrapper {
   display: block;
-  margin: -20px -10px 0 -10px;
 
   cursor: pointer;
-
-  @media (min-width: 500px) {
-    margin: -40px -40px 0 -40px;
-  }
 }
 
 .imageSize {
   height: 180px;
 
-  @media (min-width: 500px) {
+  @include breakpoint-tablet{
     height: 300px;
   }
+}
+
+.container {
+  @include container;
+  padding-top: 0 !important;
 }

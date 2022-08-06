@@ -1,0 +1,36 @@
+$m-xs: 0;
+$m-s: 350px;
+$m-sm: 600px;
+$m-md: 900px;
+$m-lg: 1200px;
+$m-xl: 1536px;
+
+@mixin breakpoint-phone {
+  @media (min-width: $m-s) {
+    @content
+  }
+}
+
+@mixin breakpoint-tablet {
+  @media (min-width: $m-sm) {
+    @content
+  }
+}
+
+@mixin breakpoint-tablet-large {
+  @media (min-width: $m-md) {
+    @content
+  }
+}
+
+@mixin breakpoint-desktop {
+  @media (min-width: $m-lg) {
+    @content
+  }
+}
+
+@mixin breakpoint-desktop-large {
+  @media (min-width: $m-xl) {
+    @content
+  }
+}

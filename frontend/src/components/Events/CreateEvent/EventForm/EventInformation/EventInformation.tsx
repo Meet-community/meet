@@ -1,6 +1,7 @@
 import React, { FC, useEffect, useMemo } from 'react';
 import { Grid, Typography } from '@mui/material';
 import TextField from '@mui/material/TextField';
+import { LoadingButton } from '@mui/lab';
 import {
   useCreateEventContext,
 } from '../../CreateEventContext/useCreateEventContext';
@@ -11,6 +12,7 @@ import { HOUR } from '../../../../../helpers/date';
 import { TimeInput } from '../../../../UI/Inputs/TimeInput/TimeInput';
 import { NumberInput } from '../../../../UI/Inputs/NumberInput/NumberInput';
 import { TextFieldVariant } from '../../../../UI/Inputs/input.typdefs';
+import styles from './EventInformation.module.scss';
 
 const variant: TextFieldVariant = TextFieldVariant.Standard;
 
@@ -33,15 +35,14 @@ export const EventInformation: FC = React.memo(() => {
   }, [startAt, setEndAt]);
 
   return (
-    <div>
+    <div className={styles.container}>
       <Typography
         variant='h5'
-        sx={{ marginBottom: 3 }}
       >
         Event information
       </Typography>
 
-      <Grid container spacing={3}>
+      <Grid container spacing={{ xs: 1, md: 2, lg: 3 }}>
 
         <Grid item xs={12} md={6}>
           <TextField
@@ -117,6 +118,18 @@ export const EventInformation: FC = React.memo(() => {
         </Grid>
 
       </Grid>
+
+      <LoadingButton
+        type="submit"
+        color='success'
+        fullWidth
+        variant='contained'
+        sx={{
+          marginTop: { xs: '24px', md: '36px', lg: '40px' },
+        }}
+      >
+        Save
+      </LoadingButton>
 
     </div>
   );

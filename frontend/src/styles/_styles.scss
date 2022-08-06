@@ -1,0 +1,34 @@
+@mixin paper-box {
+  max-width: 1000px;
+  margin: 0 auto 24px;
+
+  overflow: hidden;
+
+  @include breakpoint-tablet-large {
+    border-radius: 16px;
+  }
+
+  &:last-child {
+    margin: 0 auto;
+  }
+}
+
+@mixin container {
+  padding: 16px 12px;
+
+  @include breakpoint-tablet {
+    padding: 20px;
+  }
+
+  @include breakpoint-tablet-large {
+    padding: 24px;
+  }
+
+  @include breakpoint-desktop {
+    padding: 32px;
+  }
+
+  @include breakpoint-desktop-large {
+    padding: 40px;
+  }
+}

@@ -16,7 +16,7 @@ export const Events: FC = memo(() => {
   ), [eventsData]);
 
   return (
-    <PageContainer pageTitle="Events" isLoading={eventsLoading}>
+    <PageContainer isLoading={eventsLoading}>
       <EventsList events={events} user={authUser} />
     </PageContainer>
   );

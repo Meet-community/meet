@@ -24,37 +24,40 @@ export const EventLocation: FC = React.memo(() => {
 
   return (
     <div>
-      <Typography
-        variant='h5'
-        sx={{ marginBottom: 3 }}
-      >
-        Event location
-      </Typography>
 
-      <Grid container spacing={3}>
+      <div className={styles.container}>
+        <Typography
+          variant='h5'
+        >
+          Event location
+        </Typography>
 
-        <Grid item xs={12} md={6}>
-          <GoogleSelect
-            type={[GoogleSelectTypes.Cities]}
-            onChange={setGoogleCity}
-            value={googleCity}
-            required
-            label="City"
-            placeholder="Kyiv"
-          />
+        <Grid container spacing={{ xs: 1, md: 2, lg: 3 }}>
+
+          <Grid item xs={12} md={6}>
+            <GoogleSelect
+              type={[GoogleSelectTypes.Cities]}
+              onChange={setGoogleCity}
+              value={googleCity}
+              required
+              label="City"
+              placeholder="Kyiv"
+            />
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <GoogleSelect
+              type={[GoogleSelectTypes.Establishment]}
+              onChange={setGooglePlace}
+              value={googlePlace}
+              label="Location"
+              placeholder="Independence Square"
+              placePrefix={googleCity ? googleCity.name : ''}
+            />
+          </Grid>
+
         </Grid>
-
-        <Grid item xs={12} md={6}>
-          <GoogleSelect
-            type={[GoogleSelectTypes.Establishment]}
-            onChange={setGooglePlace}
-            value={googlePlace}
-            label="Location"
-            placeholder="Kyiv Independence Square"
-          />
-        </Grid>
-
-      </Grid>
+      </div>
 
       <div className={styles.mapsWrapper}>
         <GoogleMaps placeId={placeId} />

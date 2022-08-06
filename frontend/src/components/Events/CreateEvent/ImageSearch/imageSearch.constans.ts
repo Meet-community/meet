@@ -16,12 +16,12 @@ export const imageSearchConfig = {
   get galleryHeightPc() {
     return (this.gap.pc * this.rowCount.pc + 1)
       + (this.rowCount.pc * this.height.pc)
-      + (this.height.pc / 3);
+      + 20;
   },
 
   get galleryHeightM() {
     return (this.gap.m * this.rowCount.m + 1)
       + (this.rowCount.m * this.height.m)
-      + (this.height.m / 2);
+      + 10;
   },
 };
