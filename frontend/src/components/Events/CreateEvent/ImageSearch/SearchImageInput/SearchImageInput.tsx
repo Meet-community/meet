@@ -24,8 +24,14 @@ export const SearchImageInput: FC<Props> = React.memo((props) => {
       placeholder='Search pictures (english)'
       variant="standard"
       fullWidth
+      autoComplete="off"
       value={searchQuery}
       onChange={(e) => setSearchQuery(e.target.value)}
+      onKeyDown={(e) => {
+        if (e.code === 'Enter') {
+          e.preventDefault();
+        }
+      }}
       InputProps={{
         startAdornment: (
           <InputAdornment position="start">
