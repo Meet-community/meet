@@ -1,6 +1,4 @@
 import React, { FC, useCallback, useState } from 'react';
-import cn from 'classnames';
-import Typography from '@mui/material/Typography';
 import { Alert } from '@mui/lab';
 import styles from './Image.module.scss';
 import { ImagePreview } from './ImagePreview/ImagePreview';
