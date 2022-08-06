@@ -1,0 +1,8 @@
+.mapsWrapper {
+  margin: 32px -10px 0;
+  height: 350px;
+
+  @media (min-width: 500px) {
+    margin: 32px -40px 0;
+  }
+}

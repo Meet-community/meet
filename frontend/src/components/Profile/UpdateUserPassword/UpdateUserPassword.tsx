@@ -138,7 +138,7 @@ export const UpdateUserPassword = memo(() => {
           />
         </div>
 
-        <Tooltip title="ctr / cmd + s">
+        <Tooltip title="ctrl / cmd + s">
           <LoadingButton
             sx={{
               width: { xs: '100%', sm: 240 },
