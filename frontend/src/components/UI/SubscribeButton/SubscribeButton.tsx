@@ -1,4 +1,4 @@
-import { FC, memo } from 'react';
+import React, { FC, memo, useCallback } from 'react';
 import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { LoadingButton } from '@mui/lab';
@@ -20,14 +20,20 @@ export const SubscribeButton: FC<Props> = memo((props) => {
     unsubscribeLoading,
   } = useEventSubscribe();
 
+  const onSubscribe = useCallback((event: React.MouseEvent<HTMLElement>) => {
+    event.stopPropagation();
+    if (isSubscribed) {
+      unSubscribeHandler(eventId);
+    } else {
+      subscribeHandler(eventId);
+    }
+  }, [eventId, isSubscribed, subscribeHandler, unSubscribeHandler]);
+
   return (
     <LoadingButton
       variant={isSubscribed ? 'outlined' : 'contained'}
       color={isSubscribed ? 'warning' : 'success'}
-      onClick={() => (isSubscribed
-        ? unSubscribeHandler(eventId)
-        : subscribeHandler(eventId)
-      )}
+      onClick={onSubscribe}
       loading={unsubscribeLoading || subscribeLoading}
       disabled={disabled}
       endIcon={isSubscribed ? <GroupRemoveIcon /> : <GroupAddIcon />}
