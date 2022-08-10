@@ -57,7 +57,7 @@ export const UpdateAvatar: FC = React.memo(() => {
         onChange={changeFileHandler}
         disabled={loading}
       />
-      <div style={{ overflow: 'hidden' }} className={styles.container}>
+      <div className={styles.container}>
         <span
           className={cn(
             styles.avatarWrapper,

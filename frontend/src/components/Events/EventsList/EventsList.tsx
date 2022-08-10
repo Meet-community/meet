@@ -21,11 +21,16 @@ export const EventsList: FC<Props> = memo((props) => {
           ? event.participants.some((el) => el.id === user.id)
           : false;
 
+        const isCreator = user
+          ? event.creator.id === user.id
+          : false;
+
         return (
           <EventCard
             key={event.id}
             event={event}
             isParticipant={isParticipant}
+            isCreator={isCreator}
           />
         );
       })}

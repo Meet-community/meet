@@ -2,7 +2,7 @@ import { FC, memo } from 'react';
 import {
   Avatar,
   AvatarGroup,
-  Card,
+  Card, CardActionArea,
   CardContent,
   CardMedia,
   ImageListItem,
@@ -24,13 +24,15 @@ import { SubscribeButton } from '../../UI/SubscribeButton/SubscribeButton';
 interface Props {
   event: EventFullFragment;
   isParticipant: boolean;
+  isCreator: boolean;
 }
 
 export const EventCard: FC<Props> = memo((props) => {
-  const { event, isParticipant } = props;
+  const { event, isParticipant, isCreator } = props;
 
-  const disableSubscribe = !isParticipant
-    && event.participants.length >= event.capacity;
+  const disableSubscribe = (
+    !isParticipant && event.participants.length >= event.capacity
+  ) || isCreator;
 
   const router = useRouter();
 
@@ -39,45 +41,48 @@ export const EventCard: FC<Props> = memo((props) => {
       elevation={10}
       sx={{ borderRadius: { xs: '0', md: '16px' } }}
     >
-      <Card>
-        <Box>
-          <ImageListItem sx={{ width: '100%' }}>
-            <CardMedia
-              component="img"
-              height="180"
-              image={event.logo ? event.logo : '/static/images/cards/contemplative-reptile.jpg'}
-              alt="Event Logo"
-            />
+      <CardActionArea>
+        <Card
+          onClick={() => router.push(`${ROUTES.events.index}/${event.id}`)}
+        >
+          <Box>
+            <ImageListItem sx={{ width: '100%' }}>
+              <CardMedia
+                component="img"
+                height="180"
+                image={event.logo ? event.logo : '/static/images/cards/contemplative-reptile.jpg'}
+                alt="Event Logo"
+              />
 
-            <ImageListItemBar
-              title={event.title}
-              subtitle={`@${event.creator.firstName} ${event.creator.lastName}`}
-              actionIcon={(
-                <IconButton
-                  sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                  aria-label={`info about ${23}`}
-                />
+              <ImageListItemBar
+                title={event.title}
+                subtitle={`@${event.creator.firstName} ${event.creator.lastName}`}
+                actionIcon={(
+                  <IconButton
+                    sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
+                    aria-label={`info about ${23}`}
+                  />
               )}
-            />
-          </ImageListItem>
+              />
+            </ImageListItem>
 
-          <CardContent>
-            <div className={styles.creator}>
-              <Typography gutterBottom variant="h5" component="div">
-                {formatDate(event.startAt.valueOf())}
+            <CardContent>
+              <div className={styles.creator}>
+                <Typography gutterBottom variant="h5" component="div">
+                  {formatDate(event.startAt.valueOf())}
+                </Typography>
+              </div>
+
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                className={styles.description}
+              >
+                {event.description}
               </Typography>
-            </div>
 
-            <Typography
-              variant="body2"
-              color="text.secondary"
-              className={styles.description}
-            >
-              {event.description}
-            </Typography>
-
-            <div className={styles.participants}>
-              {event.participants.length > 0 && (
+              <div className={styles.participants}>
+                {event.participants.length > 0 && (
                 <AvatarGroup max={4}>
                   {event.participants.map((person) => (
                     <Avatar
@@ -87,41 +92,42 @@ export const EventCard: FC<Props> = memo((props) => {
                     />
                   ))}
                 </AvatarGroup>
-              )}
+                )}
 
-              {event.participants.length === 0 && (
+                {event.participants.length === 0 && (
                 <Typography className={styles.subtitle}>
                   <Group />
 
                   Participants
                 </Typography>
-              )}
+                )}
 
-              <Typography className={styles.subtitle}>
-                {`${event.participants.length} out of ${event.capacity}`}
-              </Typography>
-            </div>
+                <Typography className={styles.subtitle}>
+                  {`${event.participants.length} out of ${event.capacity}`}
+                </Typography>
+              </div>
 
-            <div className={styles.groupButton}>
-              <Button
-                sx={{ flexGrow: 1 }}
-                color='info'
-                variant="outlined"
-                onClick={() => router.push(`${ROUTES.events.index}/${event.id}`)}
-                endIcon={<ReadMoreIcon />}
-              >
-                Show more
-              </Button>
+              <div className={styles.groupButton}>
+                <Button
+                  sx={{ flexGrow: 1 }}
+                  color='info'
+                  variant="outlined"
+                  onClick={() => router.push(`${ROUTES.events.index}/${event.id}`)}
+                  endIcon={<ReadMoreIcon />}
+                >
+                  Show more
+                </Button>
 
-              <SubscribeButton
-                isSubscribed={isParticipant}
-                disabled={disableSubscribe}
-                eventId={event.id}
-              />
-            </div>
-          </CardContent>
-        </Box>
-      </Card>
+                <SubscribeButton
+                  isSubscribed={isParticipant}
+                  disabled={disableSubscribe}
+                  eventId={event.id}
+                />
+              </div>
+            </CardContent>
+          </Box>
+        </Card>
+      </CardActionArea>
     </Paper>
   );
 });
