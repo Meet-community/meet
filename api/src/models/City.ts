@@ -1,7 +1,7 @@
 import {
   AllowNull, AutoIncrement,
   Column,
-  DataType,
+  DataType, Index,
   Model, PrimaryKey,
   Table,
 } from 'sequelize-typescript';
@@ -19,6 +19,7 @@ export class City extends Model {
   id: number;
 
   @AllowNull(false)
+  @Index('cities_google_id')
   @Column({
     type: DataType.STRING,
     field: 'google_id',

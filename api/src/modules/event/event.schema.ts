@@ -4,7 +4,7 @@ import gql from 'graphql-tag';
 
 export const EventSchema = gql`
   type Query {
-    events: [Event!]!
+    events(filters: EventsFilters): [Event!]!
     event(id: Int!): Event!
   }
   
@@ -48,6 +48,10 @@ export const EventSchema = gql`
     googlePlaceId: String
     logo: String
     eventLink: String
+  }
+  
+  input EventsFilters {
+    googleCityIds: [String!]
   }
   
   scalar Date
