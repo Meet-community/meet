@@ -69,8 +69,20 @@ export const CreateEvent: FC = React.memo(() => {
         },
       },
     });
-    // eslint-disable-next-line max-len
-  }, [capacity, checkFields, create, description, endAt, eventLink, file, googleCity, googlePlace?.placeId, logo, startAt, title]);
+  }, [
+    capacity,
+    checkFields,
+    create,
+    description,
+    endAt,
+    eventLink,
+    file,
+    googleCity,
+    googlePlace?.placeId,
+    logo,
+    startAt,
+    title,
+  ]);
 
   return (
     <EventForm

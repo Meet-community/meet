@@ -17,7 +17,7 @@ export const EventForm: FC<Props> = React.memo((props) => {
 
   return (
     <div>
-      <form onSubmit={onSubmit}>
+      <form onSubmit={onSubmit} className={styles.container}>
 
         <Paper
           className={styles.box}
