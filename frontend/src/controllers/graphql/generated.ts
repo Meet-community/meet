@@ -63,6 +63,10 @@ export enum EventStatus {
   Pending = 'PENDING'
 }
 
+export type EventsFilters = {
+  googleCityIds?: InputMaybe<Array<Scalars['String']>>;
+};
+
 export type ForgotUserPasswordArgs = {
   email: Scalars['String'];
   temporaryPassword: Scalars['String'];
@@ -152,6 +156,11 @@ export type QueryEventArgs = {
   id: Scalars['Int'];
 };
 
+
+export type QueryEventsArgs = {
+  filters?: InputMaybe<EventsFilters>;
+};
+
 export type SignInArgs = {
   email: Scalars['String'];
   password: Scalars['String'];
@@ -235,7 +244,9 @@ export type EventQueryVariables = Exact<{
 
 export type EventQuery = { __typename?: 'Query', event: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
-export type EventsQueryVariables = Exact<{ [key: string]: never; }>;
+export type EventsQueryVariables = Exact<{
+  filters?: InputMaybe<EventsFilters>;
+}>;
 
 
 export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
@@ -444,8 +455,8 @@ export type EventQueryHookResult = ReturnType<typeof useEventQuery>;
 export type EventLazyQueryHookResult = ReturnType<typeof useEventLazyQuery>;
 export type EventQueryResult = Apollo.QueryResult<EventQuery, EventQueryVariables>;
 export const EventsDocument = /*#__PURE__*/ gql`
-    query events {
-  events {
+    query events($filters: EventsFilters) {
+  events(filters: $filters) {
     ...EventFull
   }
 }
@@ -463,6 +474,7 @@ export const EventsDocument = /*#__PURE__*/ gql`
  * @example
  * const { data, loading, error } = useEventsQuery({
  *   variables: {
+ *      filters: // value for 'filters'
  *   },
  * });
  */
