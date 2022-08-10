@@ -1,18 +1,18 @@
 import { Ctx } from '../../../server/typedefs';
 import { EventModel } from '../../../models/EventModel';
 import { Resolver } from '../../../core/resolvers/makeResolver';
-import  { Op } from 'sequelize';
+import { EventRepository } from '../event.repository';
 
-export const eventsResolver: Resolver<
-  Promise<EventModel[]>
-> = async (_, __, ctx: Ctx ) => {
-  const today = new Date();
+interface EventsFilters {
+  filters: {
+    googleCityIds?: number[];
+  };
+}
 
-  return ctx.models.EventModel.findAll({
-    where: {
-      startAt: { [Op.gt]: today }
-    },
-    order: [['startAt', 'ASC']],
-    raw: true,
-  });
+export const eventsResolver: Resolver<Promise<EventModel[]>,
+  EventsFilters> = async (_, { filters }, ctx: Ctx) => {
+  const eventRepository = new EventRepository(ctx);
+
+  return eventRepository.getByFilters(filters);
 };
+
