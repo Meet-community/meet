@@ -9,11 +9,14 @@ interface Props {
 // eslint-disable-next-line react/function-component-definition
 export const AppContextProvider: FC<Props> = ({ children, appStage }) => {
   const [stage, setStage] = useState(appStage);
+  const [amplitudeApiKey, setAmplitudeApiKey] = useState(appStage);
 
   const value = useMemo(() => ({
     stage,
     setStage,
-  }), [stage]);
+    amplitudeApiKey,
+    setAmplitudeApiKey,
+  }), [amplitudeApiKey, stage]);
 
   return (
     <AppContext.Provider value={value}>
