@@ -31,10 +31,10 @@
     "heroku-remote-add-production": "heroku git:remote -a meet-up-to-easy-backend --remote heroku-backend && heroku git:remote -a meet-up-to-easy --remote heroku-frontend",
     "heroku-remote-add-dev": "heroku git:remote -a dev-meet-up-to-easy-backend --remote heroku-backend-dev && heroku git:remote -a dev-meet-up-to-easy --remote heroku-frontend-dev",
     "heroku-remote-add": "npm run heroku-remote-add-dev && heroku-remote-add-production",
-    "cli-front-dev": "heroku logs --tail --remote heroku-frontend-dev",
-    "cli-api-dev": "heroku logs --tail --remote heroku-backend-dev",
-    "cli-front-prod": "heroku logs --tail --remote heroku-frontend",
-    "cli-api-prod": "heroku logs --tail --remote heroku-backend"
+    "cli-front-development": "heroku logs --tail --remote heroku-frontend-dev",
+    "cli-api-development": "heroku logs --tail --remote heroku-backend-dev",
+    "cli-front-production": "heroku logs --tail --remote heroku-frontend",
+    "cli-api-production": "heroku logs --tail --remote heroku-backend"
   },
   "repository": {
     "type": "git",
