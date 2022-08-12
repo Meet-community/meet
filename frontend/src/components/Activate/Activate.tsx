@@ -14,12 +14,16 @@ import styles from './Activate.module.scss';
 import { useActivateUserMutation } from '../../controllers/graphql/generated';
 import { ROUTES } from '../../../routes/routes';
 import { useSecondsTimer } from '../../hooks/useSecondsTimer';
+import {
+  useAmplitudeAnalytics,
+} from '../../services/AmplitudeAnalystics/useAmplitudeAnalytics';
 
 export const Activate: FC = React.memo(() => {
   const router = useRouter();
   const { token } = router.query;
   const [isOk, setIsOk] = useState(false);
 
+  const { setUserId: setAmplitudeUserId } = useAmplitudeAnalytics();
   const apollo = useApolloClient();
   const [runTimer, leftSeconds] = useSecondsTimer(
     8,
@@ -28,7 +32,8 @@ export const Activate: FC = React.memo(() => {
 
   const [activate, { loading, error }] = useActivateUserMutation({
     onError: () => { /* empty */ },
-    onCompleted: async () => {
+    onCompleted: async (data) => {
+      setAmplitudeUserId(data.activateUser);
       await apollo.clearStore();
       setIsOk(true);
       runTimer();

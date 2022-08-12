@@ -1,10 +1,6 @@
-import getConfig from 'next/config';
 import { useLocalStorage } from './useLocaleStorage';
 
-export const useStageGuards = () => {
-  const { publicRuntimeConfig } = getConfig();
-  const stage = publicRuntimeConfig.STAGE;
-
+export const useStageGuards = (stage: string) => {
   const [
     loginDedDate, setLoginDedDate,
   ] = useLocalStorage<number>('devLoginDedDate', Date.now());
