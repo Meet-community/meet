@@ -21,10 +21,10 @@ import {
 } from '../src/services/AmplitudeAnalystics/useAmplitudeAnalytics';
 
 export default function MyApp({
-  Component, pageProps, apiUrl, stage,
+  Component, pageProps, apiUrl, stage, amplitudeApiKey,
 }: any) {
   useStageGuards(stage);
-  const { logEvent, setUserId: setAmplitudeUserId } = useAmplitudeAnalytics(stage);
+  const { logEvent, setUserId: setAmplitudeUserId } = useAmplitudeAnalytics(stage, amplitudeApiKey);
   const client = initApollo(apiUrl);
   const router = useRouter();
   const { source } = router.query;
@@ -68,6 +68,13 @@ export default function MyApp({
 MyApp.getInitialProps = async () => {
   const apiUrl = getEnvVariable(ENV.ApiUrl);
   const stage = getEnvVariable(ENV.Stage);
+  let amplitudeApiKey = '';
 
-  return { apiUrl, stage };
+  try {
+    amplitudeApiKey = getEnvVariable(ENV.AmplitudeApiKey);
+  } catch {
+    // Do something
+  }
+
+  return { apiUrl, stage, amplitudeApiKey };
 };

@@ -11,9 +11,13 @@ interface HookOutput {
   setUserId: (authUser: UserFullFragment | null) => void;
 }
 
-export const useAmplitudeAnalytics = (argStage?: string): HookOutput => {
-  const { stage: appStage } = useAppContext();
+export const useAmplitudeAnalytics = (
+  argStage?: string,
+  argsAmplitudeApiKey?: string,
+): HookOutput => {
+  const { stage: appStage, amplitudeApiKey: appAmplitudeApiKey } = useAppContext();
   const stage = argStage || appStage;
+  const amplitudeApiKey = argsAmplitudeApiKey || appAmplitudeApiKey;
 
   if (stage !== 'production') {
     return {
@@ -26,21 +30,25 @@ export const useAmplitudeAnalytics = (argStage?: string): HookOutput => {
     event: UseAmplitudeAnalytics,
     eventProperties?: any,
   ) => (
-    logAmplitudeEvent(stage, event, eventProperties)
+    logAmplitudeEvent({
+      eventName: event,
+      eventProperties,
+      amplitudeApiKey,
+    })
   );
 
   const setUserId = (
     authUser: UserFullFragment | null,
   ) => (
-    setAmplitudeUserId(
-      stage,
-      authUser?.id || null,
-      {
+    setAmplitudeUserId({
+      amplitudeApiKey,
+      userId: authUser?.id || null,
+      args: {
         email: authUser?.email,
         firstName: authUser?.firstName,
         lastName: authUser?.lastName,
       },
-    )
+    })
   );
 
   return {
