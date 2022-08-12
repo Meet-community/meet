@@ -35,10 +35,11 @@ export default function MyApp({
         query: AuthUserDocument,
       });
       const { authUser } = data;
+      const { route } = router;
 
       setAmplitudeUserId(authUser || null);
 
-      logEvent(UseAmplitudeAnalytics.WebsiteVisit, { source });
+      logEvent(UseAmplitudeAnalytics.WebsiteVisit, { source, route });
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -73,7 +74,9 @@ MyApp.getInitialProps = async () => {
   try {
     amplitudeApiKey = getEnvVariable(ENV.AmplitudeApiKey);
   } catch {
-    // Do something
+    if (stage === 'production') {
+      amplitudeApiKey = getEnvVariable(ENV.AmplitudeApiKey);
+    }
   }
 
   return { apiUrl, stage, amplitudeApiKey };
