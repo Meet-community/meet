@@ -21,6 +21,9 @@ import {
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 import { ROUTES } from '../../../routes/routes';
 import { PasswordInput } from '../UI/Inputs/PasswordInput/PasswordInput';
+import {
+  useAmplitudeAnalytics,
+} from '../../services/AmplitudeAnalystics/useAmplitudeAnalytics';
 
 function Copyright(props: any) {
   return (
@@ -41,6 +44,9 @@ export const SignIn: FC = React.memo(() => {
   const [emailError, setEmailError] = useState<string | null>(null);
 
   const client = useApolloClient();
+  const router = useRouter();
+  const authUser = useAuthUser();
+  const { setUserId: setAmplitudeUserId } = useAmplitudeAnalytics();
 
   const errorHandler = (typeError: string): void => {
     switch (typeError) {
@@ -58,9 +64,6 @@ export const SignIn: FC = React.memo(() => {
     }
   };
 
-  const router = useRouter();
-  const authUser = useAuthUser();
-
   const [signIn, { loading }] = useSignInMutation({
     onCompleted: async (data) => {
       client.writeQuery<AuthUserQuery>({
@@ -69,6 +72,8 @@ export const SignIn: FC = React.memo(() => {
           authUser: data.signIn,
         },
       });
+
+      setAmplitudeUserId(data.signIn);
 
       await router.push(ROUTES.home);
     },

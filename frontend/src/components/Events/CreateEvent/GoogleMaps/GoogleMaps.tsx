@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import getConfig from 'next/config';
+import { ENV, getEnvVariable } from '../../../../helpers/getEnvVariable';
 
 interface Props {
   placeId?: string | null;
@@ -8,8 +8,7 @@ interface Props {
 export const GoogleMaps: FC<Props> = React.memo((props) => {
   const { placeId } = props;
 
-  const { publicRuntimeConfig } = getConfig();
-  const apiKey = publicRuntimeConfig.GOOGLE_PLACE_API_KEY;
+  const apiKey = getEnvVariable(ENV.GooglePlaceApiKey);
 
   return (
     <iframe

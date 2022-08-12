@@ -1,4 +1,7 @@
 import * as React from 'react';
+import {
+  FC, memo, useCallback, useEffect, useMemo,
+} from 'react';
 import Box from '@mui/material/Box';
 import TextField from '@mui/material/TextField';
 import Autocomplete from '@mui/material/Autocomplete';
@@ -7,18 +10,9 @@ import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
 import throttle from 'lodash/throttle';
 import parse from 'autosuggest-highlight/parse';
-import {
-  FC,
-  memo, useCallback,
-  useEffect,
-  useMemo,
-} from 'react';
-import getConfig from 'next/config';
-import {
-  GoogleSelectTypes,
-  PlaceType,
-} from './GoogleSelect.typedefs';
+import { GoogleSelectTypes, PlaceType } from './GoogleSelect.typedefs';
 import { TextFieldVariant } from '../../Inputs/input.typdefs';
+import { ENV, getEnvVariable } from '../../../../helpers/getEnvVariable';
 
 function loadScript(src: string, position: HTMLElement | null, id: string) {
   if (!position) {
@@ -62,9 +56,7 @@ export const GoogleSelect: FC<Props> = memo((props) => {
   const [options, setOptions] = React.useState<readonly PlaceType[]>([]);
   const loaded = React.useRef(false);
 
-  const { publicRuntimeConfig } = getConfig();
-
-  const googlePlaceApiKey = publicRuntimeConfig.GOOGLE_PLACE_API_KEY;
+  const googlePlaceApiKey = getEnvVariable(ENV.GooglePlaceApiKey);
 
   if (typeof window !== 'undefined' && !loaded.current) {
     if (!document.querySelector('#google-maps')) {

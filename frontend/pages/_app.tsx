@@ -1,41 +1,73 @@
 import { ApolloProvider } from '@apollo/client';
 import Head from 'next/head';
-import { ThemeProvider, createTheme } from '@mui/material/styles';
-import getConfig from 'next/config';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+import { useEffect } from 'react';
+import { useRouter } from 'next/router';
 import { initApollo } from '../src/controllers/apollo/getApolloClient';
 import './_app.css';
 import '../src/styles/_utils.scss';
 import { useStageGuards } from '../src/hooks/useStageGuards';
+import { ENV, getEnvVariable } from '../src/helpers/getEnvVariable';
+import {
+  AppContextProvider,
+} from '../src/controllers/AppContext/AppContextProvide';
+import {
+  AuthUserDocument,
+  AuthUserQuery,
+} from '../src/controllers/graphql/generated';
+import {
+  UseAmplitudeAnalytics,
+  useAmplitudeAnalytics,
+} from '../src/services/AmplitudeAnalystics/useAmplitudeAnalytics';
 
-export default function MyApp({ Component, pageProps, apiUrl }: any) {
-  useStageGuards();
+export default function MyApp({
+  Component, pageProps, apiUrl, stage,
+}: any) {
+  useStageGuards(stage);
+  const { logEvent, setUserId: setAmplitudeUserId } = useAmplitudeAnalytics(stage);
   const client = initApollo(apiUrl);
+  const router = useRouter();
+  const { source } = router.query;
 
-  const darkTheme = createTheme({
-    palette: {
-      mode: 'dark',
-    },
-  });
+  useEffect(() => {
+    (async () => {
+      const { data } = await client.query<AuthUserQuery>({
+        query: AuthUserDocument,
+      });
+      const { authUser } = data;
+
+      setAmplitudeUserId(authUser || null);
+
+      logEvent(UseAmplitudeAnalytics.WebsiteVisit, { source });
+    })();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   return (
     <ApolloProvider client={client}>
-      <Head>
-        <title>Meet up to easy</title>
+      <AppContextProvider appStage={stage}>
+        <Head>
+          <title>Meet up to easy</title>
 
-        <meta name="viewport" content="initial-scale=1, width=device-width" />
-      </Head>
+          <meta name="viewport" content="initial-scale=1, width=device-width" />
+        </Head>
 
-      <ThemeProvider theme={darkTheme}>
-        <Component {...pageProps} />
-      </ThemeProvider>
+        <ThemeProvider theme={createTheme({
+          palette: {
+            mode: 'dark',
+          },
+        })}
+        >
+          <Component {...pageProps} />
+        </ThemeProvider>
+      </AppContextProvider>
     </ApolloProvider>
   );
 }
 
 MyApp.getInitialProps = async () => {
-  const { publicRuntimeConfig } = getConfig();
+  const apiUrl = getEnvVariable(ENV.ApiUrl);
+  const stage = getEnvVariable(ENV.Stage);
 
-  const apiUrl = publicRuntimeConfig.API_URL;
-
-  return { apiUrl };
+  return { apiUrl, stage };
 };

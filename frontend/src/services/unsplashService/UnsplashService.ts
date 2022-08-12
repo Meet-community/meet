@@ -1,7 +1,7 @@
 import { createApi } from 'unsplash-js';
-import getConfig from 'next/config';
 // eslint-disable-next-line import/no-unresolved
 import { Basic } from 'unsplash-js/dist/methods/photos/types';
+import { ENV, getEnvVariable } from '../../helpers/getEnvVariable';
 
 interface FindResult {
   hasMore: boolean;
@@ -18,8 +18,7 @@ export class UnsplashService {
   private query = '';
 
   constructor() {
-    const { publicRuntimeConfig } = getConfig();
-    const accessKey = publicRuntimeConfig.UNSPLASH_ACCESS_KEY;
+    const accessKey = getEnvVariable(ENV.UnsplashAccessKey);
 
     this.server = createApi({ accessKey });
   }
