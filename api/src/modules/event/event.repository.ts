@@ -4,6 +4,9 @@ import { EventModel } from '../../models/EventModel';
 import { EventStatus } from './event.typedefs';
 import { Op } from 'sequelize';
 import { City } from '../../models/City';
+import { UserEvent } from '../../models/UserEvent';
+import { UserEventStatus } from '../userEvent/userEvent.typedefs';
+import { getDate } from '../../helpers/date/getDate';
 
 interface CreateOptions {
   title: string;
@@ -21,6 +24,7 @@ interface CreateOptions {
 
 interface EventsFilters {
   googleCityIds?: number[];
+  creatorId?: number;
 }
 
 export class EventRepository extends Repository {
@@ -39,7 +43,10 @@ export class EventRepository extends Repository {
   }
 
   async getByFilters(filters: EventsFilters): Promise<EventModel[]> {
-    const { googleCityIds } = filters;
+    const { googleCityIds, creatorId } = filters;
+    const creatorFilter = creatorId
+      ? { creatorId }
+      : {};
 
     const citiesFilter = googleCityIds
       ?  [{
@@ -58,7 +65,8 @@ export class EventRepository extends Repository {
 
     return this.models.EventModel.findAll({
       where: {
-        startAt: { [Op.gt]: today }
+        startAt: { [Op.gt]: today },
+        ...creatorFilter,
       },
       include: [
         ...citiesFilter,
@@ -82,5 +90,52 @@ export class EventRepository extends Repository {
     );
 
     return res[0];
+  }
+
+  async getArchiveEvents(filters: { creatorId: number }): Promise<EventModel[]> {
+    const { creatorId } = filters;
+
+    const today = new Date();
+    const twoWeeksAgo = getDate(-14);
+
+    return this.models.EventModel.findAll({
+      where: {
+        [Op.and]: [
+          { endAt: { [Op.lt]: today } },
+          { endAt: { [Op.gt]: twoWeeksAgo } },
+        ],
+        creatorId,
+      },
+      order: [['endAt', 'DESC']],
+      raw: true,
+    });
+  }
+
+  async getVisitedEvents(filters: { userId: number }): Promise<EventModel[]> {
+    const { userId } = filters;
+
+    const today = new Date();
+    const twoWeeksAgo = getDate(-14);
+
+    return this.models.EventModel.findAll({
+      where: {
+        [Op.and]: [
+          { endAt: { [Op.lt]: today } },
+          { endAt: { [Op.gt]: twoWeeksAgo } },
+        ],
+        creatorId: { [Op.not]: userId },
+      },
+      include: [{
+        model: UserEvent,
+        where: {
+          status: { [Op.not]: UserEventStatus.Canceled },
+          userId: userId,
+        },
+        required: true,
+        attributes: [],
+      }],
+      order: [['endAt', 'DESC']],
+      raw: true,
+    });
   }
 }

@@ -4,7 +4,7 @@ import {
   Column,
   CreatedAt,
   DataType,
-  ForeignKey,
+  ForeignKey, HasMany,
   Index,
   Model, PrimaryKey,
   Table,
@@ -13,6 +13,7 @@ import {
 import { User } from './User';
 import { EventStatus } from '../modules/event/event.typedefs';
 import { City } from './City';
+import { UserEvent } from './UserEvent';
 
 
 @Table({
@@ -24,6 +25,9 @@ export class EventModel extends Model {
   @AllowNull(false)
   @Column
   id: number;
+
+  @HasMany(() => UserEvent)
+  userEvents: UserEvent[] | null;
 
   @BelongsTo(() => User)
   creator: User | null;
