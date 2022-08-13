@@ -18,7 +18,7 @@ import {
 import {
   AmplitudeAnalyticsEvents,
   useAmplitudeAnalytics,
-} from '../src/services/AmplitudeAnalystics/amplitudeAnalyticsEvents';
+} from '../src/services/AmplitudeAnalystics/useAmplitudeAnalyticsEvents';
 
 export default function MyApp({
   Component, pageProps, apiUrl, stage, amplitudeApiKey,

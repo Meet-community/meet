@@ -18,7 +18,7 @@ import { PasswordInput } from '../UI/Inputs/PasswordInput/PasswordInput';
 import {
   AmplitudeAnalyticsEvents,
   useAmplitudeAnalytics,
-} from '../../services/AmplitudeAnalystics/amplitudeAnalyticsEvents';
+} from '../../services/AmplitudeAnalystics/useAmplitudeAnalyticsEvents';
 
 function Copyright(props: any) {
   return (
