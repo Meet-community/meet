@@ -33,7 +33,7 @@ export const Activate: FC = React.memo(() => {
     onError: () => { /* empty */ },
     onCompleted: async (data) => {
       setAmplitudeUserId(data.activateUser);
-      logEvent(AmplitudeAnalyticsEvents.EmailConfirmation);
+      logEvent(AmplitudeAnalyticsEvents.EmailConfirmed);
       await apollo.clearStore();
       setIsOk(true);
       runTimer();
