@@ -5,17 +5,15 @@ import { eventResolver } from './event.resolver';
 import { makeAuthResolver } from '../../../core/resolvers/makeResolver';
 import { createEventResolver } from './createEvent.resolver';
 import { cityResolver } from './city.resolver';
-import { ownEventsResolver } from './ownEvents.resolver';
+import { plannedEventsResolver } from './plannedEvents.resolver';
 import { archivedEventsResolver } from './archivedEventsResolver';
-import { visitedEventsResolver } from './visitedEvents.resolver';
 
 export const EventResolvers = {
   Query: {
     events: eventsResolver,
     event: eventResolver,
-    ownEvents: makeAuthResolver(ownEventsResolver),
     archivedEvents: makeAuthResolver(archivedEventsResolver),
-    visitedEvents: makeAuthResolver(visitedEventsResolver),
+    plannedEvents: makeAuthResolver(plannedEventsResolver),
   },
 
   Mutation: {

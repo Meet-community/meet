@@ -6,7 +6,7 @@ export const archivedEventsResolver: AuthResolver<
   Promise<EventModel[]>
 > = (_, __, ctx) => {
   const eventRepository = new EventRepository(ctx);
-  const creatorId = ctx.authUser.id;
+  const userId = ctx.authUser.id;
 
-  return eventRepository.getArchiveEvents({ creatorId });
+  return eventRepository.getArchiveEvents({ userId });
 };

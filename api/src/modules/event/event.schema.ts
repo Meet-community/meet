@@ -6,9 +6,8 @@ export const EventSchema = gql`
   type Query {
     events(filters: EventsFilters): [Event!]!
     event(id: Int!): Event!
-    ownEvents: [Event!]!
+    plannedEvents: [Event!]!
     archivedEvents: [Event!]!
-    visitedEvents: [Event!]!
   }
   
   type Mutation {

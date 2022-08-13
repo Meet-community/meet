@@ -8,6 +8,9 @@ export const ROUTES = {
   events: {
     index: 'events',
     create: 'create',
+    all: 'all',
+    planned: 'planned',
+    archived: 'archived',
   },
   profile: 'profile',
   forgotPassword: {

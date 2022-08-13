@@ -21,6 +21,8 @@ import { EventFullFragment } from '../../../controllers/graphql/generated';
 import { ROUTES } from '../../../../routes/routes';
 import { SubscribeButton } from '../../UI/SubscribeButton/SubscribeButton';
 
+const getEventByIdUrl = (id: number) => `/${ROUTES.events.index}/${id}`;
+
 interface Props {
   event: EventFullFragment;
   isParticipant: boolean;
@@ -43,7 +45,7 @@ export const EventCard: FC<Props> = memo((props) => {
     >
       <CardActionArea>
         <Card
-          onClick={() => router.push(`${ROUTES.events.index}/${event.id}`)}
+          onClick={() => router.push(getEventByIdUrl(event.id))}
         >
           <Box>
             <ImageListItem sx={{ width: '100%' }}>
@@ -112,7 +114,7 @@ export const EventCard: FC<Props> = memo((props) => {
                   sx={{ flexGrow: 1 }}
                   color='info'
                   variant="outlined"
-                  onClick={() => router.push(`${ROUTES.events.index}/${event.id}`)}
+                  onClick={() => router.push(getEventByIdUrl(event.id))}
                   endIcon={<ReadMoreIcon />}
                 >
                   Show more

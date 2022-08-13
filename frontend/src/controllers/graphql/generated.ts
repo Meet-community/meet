@@ -149,9 +149,8 @@ export type Query = {
   authUser?: Maybe<User>;
   event: Event;
   events: Array<Event>;
-  ownEvents: Array<Event>;
+  plannedEvents: Array<Event>;
   userEvents: Array<UserEvent>;
-  visitedEvents: Array<Event>;
 };
 
 
@@ -259,15 +258,10 @@ export type EventsQueryVariables = Exact<{
 
 export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
 
-export type OwnEventsQueryVariables = Exact<{ [key: string]: never; }>;
+export type PlannedEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type OwnEventsQuery = { __typename?: 'Query', ownEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
-
-export type VisitedEventsQueryVariables = Exact<{ [key: string]: never; }>;
-
-
-export type VisitedEventsQuery = { __typename?: 'Query', visitedEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
+export type PlannedEventsQuery = { __typename?: 'Query', plannedEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
 
 export type UserFullFragment = { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null };
 
@@ -541,74 +535,40 @@ export function useEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<Eve
 export type EventsQueryHookResult = ReturnType<typeof useEventsQuery>;
 export type EventsLazyQueryHookResult = ReturnType<typeof useEventsLazyQuery>;
 export type EventsQueryResult = Apollo.QueryResult<EventsQuery, EventsQueryVariables>;
-export const OwnEventsDocument = /*#__PURE__*/ gql`
-    query ownEvents {
-  ownEvents {
+export const PlannedEventsDocument = /*#__PURE__*/ gql`
+    query plannedEvents {
+  plannedEvents {
     ...EventFull
   }
 }
     ${EventFullFragmentDoc}`;
 
 /**
- * __useOwnEventsQuery__
+ * __usePlannedEventsQuery__
  *
- * To run a query within a React component, call `useOwnEventsQuery` and pass it any options that fit your needs.
- * When your component renders, `useOwnEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * To run a query within a React component, call `usePlannedEventsQuery` and pass it any options that fit your needs.
+ * When your component renders, `usePlannedEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
  * you can use to render your UI.
  *
  * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
  *
  * @example
- * const { data, loading, error } = useOwnEventsQuery({
+ * const { data, loading, error } = usePlannedEventsQuery({
  *   variables: {
  *   },
  * });
  */
-export function useOwnEventsQuery(baseOptions?: Apollo.QueryHookOptions<OwnEventsQuery, OwnEventsQueryVariables>) {
+export function usePlannedEventsQuery(baseOptions?: Apollo.QueryHookOptions<PlannedEventsQuery, PlannedEventsQueryVariables>) {
         const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<OwnEventsQuery, OwnEventsQueryVariables>(OwnEventsDocument, options);
+        return Apollo.useQuery<PlannedEventsQuery, PlannedEventsQueryVariables>(PlannedEventsDocument, options);
       }
-export function useOwnEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<OwnEventsQuery, OwnEventsQueryVariables>) {
+export function usePlannedEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<PlannedEventsQuery, PlannedEventsQueryVariables>) {
           const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<OwnEventsQuery, OwnEventsQueryVariables>(OwnEventsDocument, options);
+          return Apollo.useLazyQuery<PlannedEventsQuery, PlannedEventsQueryVariables>(PlannedEventsDocument, options);
         }
-export type OwnEventsQueryHookResult = ReturnType<typeof useOwnEventsQuery>;
-export type OwnEventsLazyQueryHookResult = ReturnType<typeof useOwnEventsLazyQuery>;
-export type OwnEventsQueryResult = Apollo.QueryResult<OwnEventsQuery, OwnEventsQueryVariables>;
-export const VisitedEventsDocument = /*#__PURE__*/ gql`
-    query visitedEvents {
-  visitedEvents {
-    ...EventFull
-  }
-}
-    ${EventFullFragmentDoc}`;
-
-/**
- * __useVisitedEventsQuery__
- *
- * To run a query within a React component, call `useVisitedEventsQuery` and pass it any options that fit your needs.
- * When your component renders, `useVisitedEventsQuery` returns an object from Apollo Client that contains loading, error, and data properties
- * you can use to render your UI.
- *
- * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
- *
- * @example
- * const { data, loading, error } = useVisitedEventsQuery({
- *   variables: {
- *   },
- * });
- */
-export function useVisitedEventsQuery(baseOptions?: Apollo.QueryHookOptions<VisitedEventsQuery, VisitedEventsQueryVariables>) {
-        const options = {...defaultOptions, ...baseOptions}
-        return Apollo.useQuery<VisitedEventsQuery, VisitedEventsQueryVariables>(VisitedEventsDocument, options);
-      }
-export function useVisitedEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<VisitedEventsQuery, VisitedEventsQueryVariables>) {
-          const options = {...defaultOptions, ...baseOptions}
-          return Apollo.useLazyQuery<VisitedEventsQuery, VisitedEventsQueryVariables>(VisitedEventsDocument, options);
-        }
-export type VisitedEventsQueryHookResult = ReturnType<typeof useVisitedEventsQuery>;
-export type VisitedEventsLazyQueryHookResult = ReturnType<typeof useVisitedEventsLazyQuery>;
-export type VisitedEventsQueryResult = Apollo.QueryResult<VisitedEventsQuery, VisitedEventsQueryVariables>;
+export type PlannedEventsQueryHookResult = ReturnType<typeof usePlannedEventsQuery>;
+export type PlannedEventsLazyQueryHookResult = ReturnType<typeof usePlannedEventsLazyQuery>;
+export type PlannedEventsQueryResult = Apollo.QueryResult<PlannedEventsQuery, PlannedEventsQueryVariables>;
 export const ActivateTemporaryPasswordDocument = /*#__PURE__*/ gql`
     mutation activateTemporaryPassword($token: String!) {
   activateTemporaryPassword(token: $token)
