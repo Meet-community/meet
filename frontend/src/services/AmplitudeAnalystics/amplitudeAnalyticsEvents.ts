@@ -10,7 +10,7 @@ export enum AmplitudeAnalyticsEvents {
   Logout = 'logout',
   EmailConfirmed = 'email_confirmed',
   ForgotPasswordPageOpened = 'forgot_password_page_opened',
-  ForgotPasswordRequest = 'forgot_password_request',
+  ForgotPasswordRequested = 'forgot_password_requested',
   ForgotPasswordConfirmed = 'forgot_password_confirmed',
 }
 

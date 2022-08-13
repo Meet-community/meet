@@ -61,7 +61,7 @@ export const ForgotPassword: FC = React.memo(() => {
       }
     },
     onCompleted: () => {
-      logEvent(AmplitudeAnalyticsEvents.ForgotPasswordRequest);
+      logEvent(AmplitudeAnalyticsEvents.ForgotPasswordRequested);
       router.push(`${ROUTES.forgotPassword.index}/${ROUTES.forgotPassword.success}`);
     },
   });
