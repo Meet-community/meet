@@ -14,12 +14,14 @@
     "@apollo/client": "^3.6.9",
     "@emotion/react": "^11.9.3",
     "@emotion/styled": "^11.9.3",
+    "@mui/base": "^5.0.0-alpha.92",
     "@mui/icons-material": "^5.8.4",
     "@mui/lab": "^5.0.0-alpha.91",
     "@mui/material": "^5.9.1",
     "@mui/styled-engine-sc": "^5.8.0",
     "@mui/x-date-pickers": "^5.0.0-beta.4",
     "@mui/x-date-pickers-pro": "^5.0.0-beta.4",
+    "@types/amplitude-js": "^8.16.2",
     "@types/apollo-upload-client": "^17.0.1",
     "@types/autosuggest-highlight": "^3.2.0",
     "@types/lodash": "^4.14.182",
@@ -39,8 +41,7 @@
     "react-infinite-scroll-component": "^6.1.0",
     "sass": "^1.54.0",
     "styled-components": "^5.3.5",
-    "unsplash-js": "^7.0.15",
-    "@types/amplitude-js": "^8.16.2"
+    "unsplash-js": "^7.0.15"
   },
   "devDependencies": {
     "@types/node": "^18.0.6",
