@@ -137,7 +137,7 @@ export class EventRepository extends Repository {
         required: true,
         attributes: [],
       }],
-      order: [['endAt', 'DESC']],
+      order: [['endAt', 'ASC']],
       raw: true,
     });
   }
