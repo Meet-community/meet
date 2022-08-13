@@ -1,9 +1,9 @@
 import gql from 'graphql-tag';
 import { EVENT_FULL_FRAGMENT } from '../event.fragments/eventFull.fragment';
 
-export const EVENTS_QUERY = gql`
-  query events($filters: EventsFilters) {
-    events(filters: $filters) {
+export const OWN_EVENTS_QUERY = gql`
+  query ownEvents {
+    ownEvents {
       ...EventFull
     }
   }
