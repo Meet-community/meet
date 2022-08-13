@@ -1,13 +1,21 @@
+import { useCallback, useMemo } from 'react';
 import { useAppContext } from '../../controllers/AppContext/useAppContext';
 import { logAmplitudeEvent, setAmplitudeUserId } from './AmplitudeAnalytics';
 import { UserFullFragment } from '../../controllers/graphql/generated';
 
-export enum UseAmplitudeAnalytics {
+export enum AmplitudeAnalyticsEvents {
   WebsiteVisit = 'website_visit',
+  SignIn = 'sign_in',
+  SignUp = 'sign_up',
+  Logout = 'logout',
+  EmailConfirmation = 'email_confirmation',
+  ForgotPasswordPageOpened = 'forgot_password_page_opened',
+  ForgotPasswordRequest = 'forgot_password_request',
+  ForgotPasswordConfirmed = 'forgot_password_confirmed',
 }
 
 interface HookOutput {
-  logEvent: (event: UseAmplitudeAnalytics, properties?: any) => void;
+  logEvent: (event: AmplitudeAnalyticsEvents, properties?: any) => void;
   setUserId: (authUser: UserFullFragment | null) => void;
 }
 
@@ -16,18 +24,17 @@ export const useAmplitudeAnalytics = (
   argsAmplitudeApiKey?: string,
 ): HookOutput => {
   const { stage: appStage, amplitudeApiKey: appAmplitudeApiKey } = useAppContext();
-  const stage = argStage || appStage;
-  const amplitudeApiKey = argsAmplitudeApiKey || appAmplitudeApiKey;
 
-  if (stage !== 'production') {
-    return {
-      logEvent: () => { /* empty */ },
-      setUserId: () => { /* empty */ },
-    };
-  }
+  const stage = useMemo(() => (
+    argStage || appStage
+  ), [appStage, argStage]);
 
-  const logEvent = (
-    event: UseAmplitudeAnalytics,
+  const amplitudeApiKey = useMemo(() => (
+    argsAmplitudeApiKey || appAmplitudeApiKey
+  ), [appAmplitudeApiKey, argsAmplitudeApiKey]);
+
+  const logEvent = useCallback((
+    event: AmplitudeAnalyticsEvents,
     eventProperties?: any,
   ) => (
     logAmplitudeEvent({
@@ -35,9 +42,9 @@ export const useAmplitudeAnalytics = (
       eventProperties,
       amplitudeApiKey,
     })
-  );
+  ), [amplitudeApiKey]);
 
-  const setUserId = (
+  const setUserId = useCallback((
     authUser: UserFullFragment | null,
   ) => (
     setAmplitudeUserId({
@@ -49,7 +56,14 @@ export const useAmplitudeAnalytics = (
         lastName: authUser?.lastName,
       },
     })
-  );
+  ), [amplitudeApiKey]);
+
+  if (stage !== 'production') {
+    return {
+      logEvent: () => { /* empty */ },
+      setUserId: () => { /* empty */ },
+    };
+  }
 
   return {
     logEvent,

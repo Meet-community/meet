@@ -17,6 +17,10 @@ import { useSignUpMutation } from '../../controllers/graphql/generated';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 import { ROUTES } from '../../../routes/routes';
 import { PasswordInput } from '../UI/Inputs/PasswordInput/PasswordInput';
+import {
+  AmplitudeAnalyticsEvents,
+  useAmplitudeAnalytics,
+} from '../../services/AmplitudeAnalystics/amplitudeAnalyticsEvents';
 
 function Copyright(props: any) {
   return (
@@ -45,6 +49,7 @@ export const SignUp: FC = React.memo(() => {
   const [emailError, setEmailError] = useState<string | null>(null);
 
   const router = useRouter();
+  const { logEvent } = useAmplitudeAnalytics();
 
   const errorHandler = (typeError: string): void => {
     switch (typeError) {
@@ -58,7 +63,11 @@ export const SignUp: FC = React.memo(() => {
 
   const [signUp, { loading }] = useSignUpMutation({
     onError: (res) => errorHandler(res.message),
-    onCompleted: () => router.push(`/${ROUTES.signUp.index}/${ROUTES.signUp.success}`),
+    onCompleted: () => {
+      logEvent(AmplitudeAnalyticsEvents.SignUp);
+
+      router.push(`/${ROUTES.signUp.index}/${ROUTES.signUp.success}`);
+    },
     fetchPolicy: 'network-only',
   });
 

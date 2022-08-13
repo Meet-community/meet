@@ -1,6 +1,4 @@
-import React, {
-  FC, useState,
-} from 'react';
+import React, { FC, useEffect, useState } from 'react';
 import Avatar from '@mui/material/Avatar';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -17,6 +15,10 @@ import {
 } from '../../controllers/graphql/generated';
 import { ROUTES } from '../../../routes/routes';
 import { PasswordInput } from '../UI/Inputs/PasswordInput/PasswordInput';
+import {
+  AmplitudeAnalyticsEvents,
+  useAmplitudeAnalytics,
+} from '../../services/AmplitudeAnalystics/amplitudeAnalyticsEvents';
 
 function Copyright(props: any) {
   return (
@@ -43,6 +45,12 @@ export const ForgotPassword: FC = React.memo(() => {
   const [emailError, setEmailError] = useState<string | null>(null);
 
   const router = useRouter();
+  const { logEvent } = useAmplitudeAnalytics();
+
+  useEffect(() => {
+    logEvent(AmplitudeAnalyticsEvents.ForgotPasswordPageOpened);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const [forgotPassword, { loading }] = useForgotUserPasswordMutation({
     onError: (e) => {
@@ -52,7 +60,10 @@ export const ForgotPassword: FC = React.memo(() => {
         setEmailError('Wrong email');
       }
     },
-    onCompleted: () => router.push(`${ROUTES.forgotPassword.index}/${ROUTES.forgotPassword.success}`),
+    onCompleted: () => {
+      logEvent(AmplitudeAnalyticsEvents.ForgotPasswordRequest);
+      router.push(`${ROUTES.forgotPassword.index}/${ROUTES.forgotPassword.success}`);
+    },
   });
 
   const onSubmit = () => {

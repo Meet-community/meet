@@ -1,8 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import {
-  Button, Paper, Skeleton,
-} from '@mui/material';
+import { Button, Paper, Skeleton } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Typography from '@mui/material/Typography';
 import SentimentVeryDissatisfiedIcon
@@ -15,15 +13,16 @@ import { useActivateUserMutation } from '../../controllers/graphql/generated';
 import { ROUTES } from '../../../routes/routes';
 import { useSecondsTimer } from '../../hooks/useSecondsTimer';
 import {
+  AmplitudeAnalyticsEvents,
   useAmplitudeAnalytics,
-} from '../../services/AmplitudeAnalystics/useAmplitudeAnalytics';
+} from '../../services/AmplitudeAnalystics/amplitudeAnalyticsEvents';
 
 export const Activate: FC = React.memo(() => {
   const router = useRouter();
   const { token } = router.query;
   const [isOk, setIsOk] = useState(false);
 
-  const { setUserId: setAmplitudeUserId } = useAmplitudeAnalytics();
+  const { setUserId: setAmplitudeUserId, logEvent } = useAmplitudeAnalytics();
   const apollo = useApolloClient();
   const [runTimer, leftSeconds] = useSecondsTimer(
     8,
@@ -34,6 +33,7 @@ export const Activate: FC = React.memo(() => {
     onError: () => { /* empty */ },
     onCompleted: async (data) => {
       setAmplitudeUserId(data.activateUser);
+      logEvent(AmplitudeAnalyticsEvents.EmailConfirmation);
       await apollo.clearStore();
       setIsOk(true);
       runTimer();
