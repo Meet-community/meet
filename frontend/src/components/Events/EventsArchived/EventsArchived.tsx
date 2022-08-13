@@ -3,15 +3,23 @@ import {
   useArchivedEventsQuery,
 } from '../../../controllers/graphql/generated';
 import { EventsList } from '../EventsList/EventsList';
+import {
+  useWithAuthPage,
+} from '../../../controllers/entities/user/useWithAuthPage';
 
 interface Props {
   setIsLoading: (v: boolean) => void;
 }
 
 export const EventsArchived: FC<Props> = React.memo((props) => {
+  useWithAuthPage();
+
   const { setIsLoading } = props;
 
-  const { data: eventsData, loading } = useArchivedEventsQuery();
+  const { data: eventsData, loading } = useArchivedEventsQuery({
+    onError: () => { /* empty */ },
+    fetchPolicy: 'cache-and-network',
+  });
 
   const events = useMemo(() => (eventsData?.archivedEvents
     ? eventsData.archivedEvents
@@ -19,8 +27,8 @@ export const EventsArchived: FC<Props> = React.memo((props) => {
   ), [eventsData]);
 
   useEffect(() => {
-    setIsLoading(loading);
-  }, [loading, setIsLoading]);
+    setIsLoading(!events.length && loading);
+  }, [loading, setIsLoading, events.length]);
 
   return (
     <EventsList events={events} />
