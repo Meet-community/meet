@@ -1,8 +1,6 @@
 import React, { FC, useEffect, useState } from 'react';
 import { useRouter } from 'next/router';
-import {
-  Button, Paper, Skeleton,
-} from '@mui/material';
+import { Button, Paper, Skeleton } from '@mui/material';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import Typography from '@mui/material/Typography';
 import SentimentVeryDissatisfiedIcon
@@ -15,6 +13,10 @@ import {
 } from '../../../controllers/graphql/generated';
 import { ROUTES } from '../../../../routes/routes';
 import { useSecondsTimer } from '../../../hooks/useSecondsTimer';
+import {
+  AmplitudeAnalyticsEvents,
+  useAmplitudeAnalytics,
+} from '../../../services/AmplitudeAnalystics/amplitudeAnalyticsEvents';
 
 export const PasswordActivate: FC = React.memo(() => {
   const router = useRouter();
@@ -25,10 +27,12 @@ export const PasswordActivate: FC = React.memo(() => {
     8,
     () => router.push(`/${ROUTES.signIn}`),
   );
+  const { logEvent } = useAmplitudeAnalytics();
 
   const [activate, { loading, error }] = useActivateTemporaryPasswordMutation({
     onError: () => { /* empty */ },
     onCompleted: () => {
+      logEvent(AmplitudeAnalyticsEvents.ForgotPasswordConfirmed);
       setIsOk(true);
       runTimer();
     },

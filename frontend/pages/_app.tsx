@@ -16,9 +16,9 @@ import {
   AuthUserQuery,
 } from '../src/controllers/graphql/generated';
 import {
-  UseAmplitudeAnalytics,
+  AmplitudeAnalyticsEvents,
   useAmplitudeAnalytics,
-} from '../src/services/AmplitudeAnalystics/useAmplitudeAnalytics';
+} from '../src/services/AmplitudeAnalystics/amplitudeAnalyticsEvents';
 
 export default function MyApp({
   Component, pageProps, apiUrl, stage, amplitudeApiKey,
@@ -39,7 +39,7 @@ export default function MyApp({
 
       setAmplitudeUserId(authUser || null);
 
-      logEvent(UseAmplitudeAnalytics.WebsiteVisit, { source, route });
+      logEvent(AmplitudeAnalyticsEvents.WebsiteVisit, { source, route });
     })();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

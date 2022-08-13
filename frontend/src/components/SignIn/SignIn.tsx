@@ -15,15 +15,17 @@ import { useApolloClient } from '@apollo/client';
 import { LoadingButton } from '@mui/lab';
 import Link from 'next/link';
 import {
-  AuthUserDocument, AuthUserQuery,
+  AuthUserDocument,
+  AuthUserQuery,
   useSignInMutation,
 } from '../../controllers/graphql/generated';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 import { ROUTES } from '../../../routes/routes';
 import { PasswordInput } from '../UI/Inputs/PasswordInput/PasswordInput';
 import {
+  AmplitudeAnalyticsEvents,
   useAmplitudeAnalytics,
-} from '../../services/AmplitudeAnalystics/useAmplitudeAnalytics';
+} from '../../services/AmplitudeAnalystics/amplitudeAnalyticsEvents';
 
 function Copyright(props: any) {
   return (
@@ -46,7 +48,7 @@ export const SignIn: FC = React.memo(() => {
   const client = useApolloClient();
   const router = useRouter();
   const authUser = useAuthUser();
-  const { setUserId: setAmplitudeUserId } = useAmplitudeAnalytics();
+  const { setUserId: setAmplitudeUserId, logEvent } = useAmplitudeAnalytics();
 
   const errorHandler = (typeError: string): void => {
     switch (typeError) {
@@ -74,6 +76,8 @@ export const SignIn: FC = React.memo(() => {
       });
 
       setAmplitudeUserId(data.signIn);
+
+      logEvent(AmplitudeAnalyticsEvents.SignIn);
 
       await router.push(ROUTES.home);
     },

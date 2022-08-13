@@ -6,13 +6,14 @@ import {
 } from '../controllers/graphql/generated';
 import { ROUTES } from '../../routes/routes';
 import {
+  AmplitudeAnalyticsEvents,
   useAmplitudeAnalytics,
-} from '../services/AmplitudeAnalystics/useAmplitudeAnalytics';
+} from '../services/AmplitudeAnalystics/amplitudeAnalyticsEvents';
 
 export const useLogOut = () => {
   const client = useApolloClient();
   const router = useRouter();
-  const { setUserId } = useAmplitudeAnalytics();
+  const { setUserId, logEvent } = useAmplitudeAnalytics();
 
   const [logOut] = useLogOutMutation({
     refetchQueries: [
@@ -22,6 +23,7 @@ export const useLogOut = () => {
     onCompleted: async () => {
       await client.clearStore();
       setUserId(null);
+      logEvent(AmplitudeAnalyticsEvents.Logout);
       await router.push(`/${ROUTES.signIn}`);
     },
   });
