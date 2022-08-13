@@ -16,7 +16,7 @@ import { useSecondsTimer } from '../../../hooks/useSecondsTimer';
 import {
   AmplitudeAnalyticsEvents,
   useAmplitudeAnalytics,
-} from '../../../services/AmplitudeAnalystics/amplitudeAnalyticsEvents';
+} from '../../../services/AmplitudeAnalystics/useAmplitudeAnalyticsEvents';
 
 export const PasswordActivate: FC = React.memo(() => {
   const router = useRouter();

@@ -8,7 +8,7 @@ import { ROUTES } from '../../routes/routes';
 import {
   AmplitudeAnalyticsEvents,
   useAmplitudeAnalytics,
-} from '../services/AmplitudeAnalystics/amplitudeAnalyticsEvents';
+} from '../services/AmplitudeAnalystics/useAmplitudeAnalyticsEvents';
 
 export const useLogOut = () => {
   const client = useApolloClient();
