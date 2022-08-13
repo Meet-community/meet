@@ -1,7 +1,9 @@
 import {
   FC, memo, useCallback, useMemo, useState,
 } from 'react';
-import { Box, Tab, useMediaQuery } from '@mui/material';
+import {
+  Box, Tab, useMediaQuery,
+} from '@mui/material';
 import { TabContext, TabList } from '@mui/lab';
 import { useRouter } from 'next/router';
 import { PageContainer } from '../UI/Container/PageContainer';
@@ -20,7 +22,7 @@ export const Events: FC<Props> = memo((props) => {
   const { activeTab: defaultTab = EventsTabs.All } = props;
 
   const [activeTab, setActiveTab] = useState(defaultTab);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const matches = useMediaQuery('(min-width:900px)');
   const router = useRouter();
@@ -51,6 +53,7 @@ export const Events: FC<Props> = memo((props) => {
 
                     return (
                       <Tab
+                        key={value}
                         value={value}
                         label={label}
                         icon={<Icon />}
