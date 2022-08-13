@@ -92,26 +92,7 @@ export class EventRepository extends Repository {
     return res[0];
   }
 
-  async getArchiveEvents(filters: { creatorId: number }): Promise<EventModel[]> {
-    const { creatorId } = filters;
-
-    const today = new Date();
-    const twoWeeksAgo = getDate(-14);
-
-    return this.models.EventModel.findAll({
-      where: {
-        [Op.and]: [
-          { endAt: { [Op.lt]: today } },
-          { endAt: { [Op.gt]: twoWeeksAgo } },
-        ],
-        creatorId,
-      },
-      order: [['endAt', 'DESC']],
-      raw: true,
-    });
-  }
-
-  async getVisitedEvents(filters: { userId: number }): Promise<EventModel[]> {
+  async getArchiveEvents(filters: { userId: number }): Promise<EventModel[]> {
     const { userId } = filters;
 
     const today = new Date();
@@ -123,7 +104,29 @@ export class EventRepository extends Repository {
           { endAt: { [Op.lt]: today } },
           { endAt: { [Op.gt]: twoWeeksAgo } },
         ],
-        creatorId: { [Op.not]: userId },
+      },
+      include: [{
+        model: UserEvent,
+        where: {
+          status: { [Op.not]: UserEventStatus.Canceled },
+          userId: userId,
+        },
+        required: true,
+        attributes: [],
+      }],
+      order: [['endAt', 'DESC']],
+      raw: true,
+    });
+  }
+
+  async getPlannedEvents(filters: { userId: number }): Promise<EventModel[]> {
+    const { userId } = filters;
+
+    const today = new Date();
+
+    return this.models.EventModel.findAll({
+      where: {
+        endAt: { [Op.gt]: today },
       },
       include: [{
         model: UserEvent,
