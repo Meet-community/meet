@@ -31,16 +31,17 @@ const autocompleteService = { current: null };
 
 interface Props {
   type: GoogleSelectTypes[];
-  onChange: (value: PlaceType | null) => void;
-  value: PlaceType | null;
+  onChange: (value: PlaceType[]) => void;
+  value: PlaceType[];
   variant?: TextFieldVariant;
   label: string;
   placeholder: string;
   required?: boolean;
   placePrefix?: string;
+  maxTags?: number;
 }
 
-export const GoogleSelect: FC<Props> = memo((props) => {
+export const GoogleSelectMulti: FC<Props> = memo((props) => {
   const {
     type,
     onChange,
@@ -50,6 +51,7 @@ export const GoogleSelect: FC<Props> = memo((props) => {
     label,
     placeholder,
     placePrefix = '',
+    maxTags,
   } = props;
 
   const [inputValue, setInputValue] = React.useState('');
@@ -100,21 +102,25 @@ export const GoogleSelect: FC<Props> = memo((props) => {
     }
 
     if (inputValue === '') {
-      setOptions(value ? [value] : []);
+      setOptions([]);
 
       return undefined;
     }
 
-    fetch({ input: inputValue, types: type }, (results?: readonly PlaceType[]) => {
+    fetch({ input: inputValue, types: type }, (results?: any) => {
       if (active) {
         let newOptions: readonly PlaceType[] = [];
 
-        if (value) {
-          newOptions = [value];
-        }
-
         if (results) {
-          newOptions = [...newOptions, ...results];
+          newOptions = results.map((v: any) => ({
+            description: v.description,
+            types: v.types,
+            name: v?.structured_formatting?.main_text,
+            placeId: v.place_id,
+            mainTextMatched: v.structured_formatting.main_text_matched_substrings,
+            mainText: v.structured_formatting.main_text,
+            secondaryText: v.structured_formatting.secondary_text,
+          }));
         }
 
         setOptions(newOptions);
@@ -126,22 +132,9 @@ export const GoogleSelect: FC<Props> = memo((props) => {
     };
   }, [value, inputValue, fetch, type]);
 
-  const handleChange = useCallback((event: any, newValue: any) => {
-    if (!newValue) {
-      onChange(null);
-      setOptions([]);
-
-      return;
-    }
-
-    setOptions(newValue ? [newValue, ...options] : options);
-    onChange({
-      description: newValue.description,
-      types: newValue.types,
-      name: newValue.structured_formatting.main_text,
-      placeId: newValue.place_id,
-    });
-  }, [onChange, options]);
+  const handleChange = useCallback((_: any, newValues: any) => {
+    onChange(newValues);
+  }, [onChange]);
 
   return (
     <Autocomplete
@@ -150,7 +143,6 @@ export const GoogleSelect: FC<Props> = memo((props) => {
       filterOptions={(x) => x}
       options={options}
       autoComplete
-      freeSolo
       includeInputInList
       filterSelectedOptions
       fullWidth
@@ -163,6 +155,9 @@ export const GoogleSelect: FC<Props> = memo((props) => {
       onInputChange={(event, newInputValue) => {
         setInputValue(`${placePrefix ? `${placePrefix} ` : ''}${newInputValue}`);
       }}
+      multiple
+      limitTags={maxTags}
+      freeSolo
       renderInput={(params) => (
         <TextField
           {...params}
@@ -173,10 +168,10 @@ export const GoogleSelect: FC<Props> = memo((props) => {
           required={required}
         />
       )}
-      renderOption={(prop, option: any) => {
-        const matches = option.structured_formatting.main_text_matched_substrings;
+      renderOption={(prop, option: PlaceType) => {
+        const matches = option.mainTextMatched || [];
         const parts = parse(
-          option.structured_formatting.main_text,
+          option.mainText || '',
           matches.map((match: any) => [match.offset, match.offset + match.length]),
         );
 
@@ -203,7 +198,7 @@ export const GoogleSelect: FC<Props> = memo((props) => {
                 ))}
 
                 <Typography variant="body2" color="text.secondary">
-                  {option.structured_formatting.secondary_text}
+                  {option.secondaryText}
                 </Typography>
               </Grid>
             </Grid>

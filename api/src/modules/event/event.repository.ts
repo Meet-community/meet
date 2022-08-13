@@ -48,7 +48,7 @@ export class EventRepository extends Repository {
       ? { creatorId }
       : {};
 
-    const citiesFilter = googleCityIds
+    const citiesFilter = googleCityIds?.length
       ?  [{
           model: City,
           required: true,

@@ -3,7 +3,7 @@ export enum GoogleSelectTypes {
   Address = 'address',
   Establishment = 'establishment',
   Regions = '(regions)',
-  Cities = '(cities)',
+  Cities = 'locality',
 }
 
 export interface StructuredFormatting {
@@ -23,4 +23,7 @@ export interface PlaceType {
   name: string;
   placeId: string;
   types: string[];
+  mainTextMatched?: any[];
+  mainText?: string;
+  secondaryText?: string;
 }
