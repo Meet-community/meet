@@ -4,23 +4,20 @@ import React, {
 import GroupRemoveIcon from '@mui/icons-material/GroupRemove';
 import GroupAddIcon from '@mui/icons-material/GroupAdd';
 import { LoadingButton } from '@mui/lab';
-import { useEventSubscribe } from '../../../hooks/useEventSubscribe';
-import { EventFullFragment } from '../../../controllers/graphql/generated';
+import { useEventSubscribe } from '../../../../hooks/useEventSubscribe';
+import { EventFullFragment } from '../../../../controllers/graphql/generated';
 import {
   useAuthUser,
-} from '../../../controllers/entities/user/useAuthUserHook';
+} from '../../../../controllers/entities/user/useAuthUserHook';
 
 interface Props {
   event: EventFullFragment;
+  disabled?: boolean;
 }
 
 export const SubscribeButton: FC<Props> = memo((props) => {
-  const { event } = props;
+  const { event, disabled = false } = props;
   const authUser = useAuthUser();
-
-  const isCreator = useMemo(() => (
-    event.creatorId === authUser?.id
-  ), [authUser?.id, event.creatorId]);
 
   const isParticipant = useMemo(() => (
     event.participants.some((p) => p.id === authUser?.id)
@@ -49,7 +46,7 @@ export const SubscribeButton: FC<Props> = memo((props) => {
         color="warning"
         onClick={onSubscribe}
         loading={isLoading}
-        disabled={isCreator}
+        disabled={disabled}
         endIcon={<GroupRemoveIcon />}
       >
         Unsubscribe
@@ -64,6 +61,7 @@ export const SubscribeButton: FC<Props> = memo((props) => {
       onClick={onSubscribe}
       loading={isLoading}
       endIcon={<GroupAddIcon />}
+      disabled={disabled}
     >
       Subscribe
     </LoadingButton>

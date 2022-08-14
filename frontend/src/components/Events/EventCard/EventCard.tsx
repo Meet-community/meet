@@ -19,7 +19,7 @@ import styles from './EventCard.module.scss';
 import { formatDate } from '../../helpers/date/formateDate';
 import { EventFullFragment } from '../../../controllers/graphql/generated';
 import { ROUTES } from '../../../../routes/routes';
-import { SubscribeButton } from '../SubscribeButton/SubscribeButton';
+import { EventActionButton } from '../EventActionButton/EventActionButton';
 
 const getEventByIdUrl = (id: number) => `/${ROUTES.events.index}/${id}`;
 
@@ -116,7 +116,7 @@ export const EventCard: FC<Props> = memo((props) => {
                   Show more
                 </Button>
 
-                <SubscribeButton event={event} />
+                <EventActionButton event={event} />
               </div>
             </CardContent>
           </Box>
