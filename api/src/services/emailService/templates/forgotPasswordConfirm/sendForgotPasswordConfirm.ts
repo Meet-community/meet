@@ -2,6 +2,7 @@ import { sendEmail } from '../../emailService';
 import {
   gerForgotPasswordConfirmEmailTemplate,
 } from './forgotPasswordConfirm';
+import { ENV, getEnvVariable } from '../../../../helpers/getEnvVariable';
 
 interface Options {
   token: string;
@@ -9,7 +10,8 @@ interface Options {
 }
 
 export const sendForgotPasswordConfirm = ({ token, email }: Options) => {
-  const confirmLink = `${process.env.CLIENT_URL}/forgotPassword/activate/${token}`;
+  const clientUrl = getEnvVariable(ENV.ClientUrl);
+  const confirmLink = `${clientUrl}/forgotPassword/activate/${token}`;
 
   return sendEmail({
     email,

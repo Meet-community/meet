@@ -17,7 +17,8 @@ export const CreateEvent: FC = React.memo(() => {
   useWithAuthPage();
   const router = useRouter();
   const [create, { loading }] = useCreateEventMutation({
-    onError: () => { /* empty */ },
+    // eslint-disable-next-line no-console
+    onError: (e) => console.error(e),
     onCompleted: () => router.push(ROUTES.home),
     refetchQueries: [
       { query: EventsDocument },

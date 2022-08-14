@@ -1,12 +1,13 @@
 import { Sequelize } from 'sequelize-typescript';
 import { models } from '../../models';
+import { ENV, getEnvVariable } from '../../helpers/getEnvVariable';
 
 export const dbInit = async () => {
-  const dbName = process.env.DB_NAME as string;
-  const userName = process.env.DB_USERNAME as string;
-  const host = process.env.DB_HOST;
-  const port = Number(process.env.DB_PORT);
-  const password = process.env.DB_PASSWORD as string;
+  const dbName = getEnvVariable(ENV.DBName);
+  const userName = getEnvVariable(ENV.DBUserName);
+  const host = getEnvVariable(ENV.DBHost);
+  const port = Number(getEnvVariable(ENV.DBPort));
+  const password = getEnvVariable(ENV.DBPassword);
 
   const sequelize = new Sequelize(
     dbName,

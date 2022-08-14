@@ -5,16 +5,17 @@ import {
   ClientErrorTypes
 } from '../../core/ClientError/ClientError';
 import { IMAGE_ERROR } from '../../core/ClientError/clientError.constans';
+import { ENV, getEnvVariable } from '../../helpers/getEnvVariable';
 
 export class CloudinaryService {
   private cloudinary;
-  private stage: string = process.env.NODE_ENV || '';
+  private stage: string = getEnvVariable(ENV.NodeEnv);
 
   constructor() {
     cloudinaryBase.config({
-      cloud_name: process.env.CLOUDINARY_CLOUD_NAME,
-      api_key: process.env.CLOUDINARY_API_KEY,
-      api_secret: process.env.CLOUDINARY_API_SECRET,
+      cloud_name: getEnvVariable(ENV.CloudinaryCloudName),
+      api_key: getEnvVariable(ENV.CloudinaryApiKey),
+      api_secret: getEnvVariable(ENV.CloudinaryApiSecret),
     });
 
     this.cloudinary = cloudinaryBase;
