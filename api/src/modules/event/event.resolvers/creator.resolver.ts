@@ -1,6 +1,7 @@
 import { User } from '../../../models/User';
 import { EventModel } from '../../../models/EventModel';
 import { Resolver } from '../../../core/resolvers/makeResolver';
+import { UserRepository } from '../../user/user.repository';
 
 export const creatorResolver: Resolver<
   Promise<User>,
@@ -9,11 +10,7 @@ export const creatorResolver: Resolver<
 > = async (
   event, _, ctx
 ) => {
-  const user = await ctx.models.User.findByPk(event.creatorId);
+  const userRepository = new UserRepository(ctx);
 
-  if (!user) {
-    throw Error('user_not_found');
-  }
-
-  return user;
+  return userRepository.getById(event.creatorId);
 };

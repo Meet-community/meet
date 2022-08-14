@@ -1,6 +1,10 @@
 import { Repository } from '../../core/Repository/Repository';
 import { User } from '../../models/User';
 import { USER_ERROR } from './user.constans';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../core/ClientError/ClientError';
 
 export class UserRepository extends Repository {
   findById(id: number): Promise<User | null> {
@@ -11,7 +15,11 @@ export class UserRepository extends Repository {
     const user = await this.findById(id);
 
     if (!user) {
-      throw Error(USER_ERROR.NotFound);
+      throw new ClientError({
+        type: ClientErrorTypes.NotFound,
+        message: USER_ERROR.NotFound,
+        fields: { userId: id },
+      });
     }
 
     return user;
@@ -33,7 +41,11 @@ export class UserRepository extends Repository {
     });
 
     if (!user) {
-      throw Error(USER_ERROR.NotFound);
+      throw new ClientError({
+        type: ClientErrorTypes.NotFound,
+        message: USER_ERROR.NotFound,
+        fields: { email },
+      });
     }
 
     return user;

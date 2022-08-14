@@ -1,8 +1,12 @@
 import { AuthResolver } from '../../../core/resolvers/makeResolver';
 import { User } from '../../../models/User';
 import { hashService } from '../../../services/hashService/hashService';
-import { USER_ERROR } from '../user.constans';
 import { UserRepository } from '../user.repository';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../../core/ClientError/ClientError';
+import { USER_ERROR } from '../user.constans';
 
 interface Options {
   args: {
@@ -25,7 +29,10 @@ export const updateUserPasswordResolver: AuthResolver<
   );
 
   if (!comparePassword) {
-    throw Error(USER_ERROR.InvalidPassword);
+    throw new ClientError({
+      type: ClientErrorTypes.BadRequest,
+      message: USER_ERROR.InvalidPassword,
+    });
   }
 
   const password = await hashService.hashPassword(newPassword);

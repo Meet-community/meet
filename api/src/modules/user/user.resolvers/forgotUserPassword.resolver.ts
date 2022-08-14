@@ -4,6 +4,10 @@ import { v4 as uuidV4 } from 'uuid';
 import { emailService } from '../../../services/emailService/emailService';
 import { hashService } from '../../../services/hashService/hashService';
 import { UserStatus } from '../user.typedefs';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../../core/ClientError/ClientError';
 import { USER_ERROR } from '../user.constans';
 
 interface Options {
@@ -23,7 +27,11 @@ export const forgotUserPasswordResolver: Resolver<
   const user = await userRepository.getByEmail(email);
 
   if (user.status !== UserStatus.Confirmed) {
-    throw Error(USER_ERROR.EmailNotConfirmed);
+    throw new ClientError({
+      type: ClientErrorTypes.BadRequest,
+      message: USER_ERROR.EmailNotConfirmed,
+      fields: { email: user.email },
+    });
   }
 
   const token = uuidV4();

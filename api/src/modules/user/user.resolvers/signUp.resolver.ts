@@ -1,10 +1,14 @@
 import { v4 as uuidV4 } from 'uuid';
 import { emailService } from '../../../services/emailService/emailService';
 import { UserStatus } from '../user.typedefs';
-import { USER_ERROR } from '../user.constans';
 import { User } from '../../../models/User';
 import { Resolver } from '../../../core/resolvers/makeResolver';
 import { hashService } from '../../../services/hashService/hashService';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../../core/ClientError/ClientError';
+import { USER_ERROR } from '../user.constans';
 
 interface Args {
   email: string;
@@ -29,7 +33,11 @@ export const signUpResolver: Resolver<
   });
 
   if (isEmailAlreadyTaken) {
-    throw Error(USER_ERROR.EmailAlreadyExist);
+    throw new ClientError({
+      type: ClientErrorTypes.BadRequest,
+      message: USER_ERROR.EmailAlreadyExist,
+      fields: { email },
+    });
   }
 
   const isEmailAlreadyExist = await models.User.findOne({

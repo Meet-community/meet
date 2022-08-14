@@ -1,5 +1,4 @@
 import { Repository } from '../../core/Repository/Repository';
-import { EVENT_ERROR } from './event.constans';
 import { EventModel } from '../../models/EventModel';
 import { EventStatus } from './event.typedefs';
 import { Op } from 'sequelize';
@@ -7,6 +6,10 @@ import { City } from '../../models/City';
 import { UserEvent } from '../../models/UserEvent';
 import { UserEventStatus } from '../userEvent/userEvent.typedefs';
 import { getDate } from '../../helpers/date/getDate';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../core/ClientError/ClientError';
 
 interface CreateOptions {
   title: string;
@@ -36,7 +39,10 @@ export class EventRepository extends Repository {
     const event = await this.findById(id);
 
     if (!event) {
-      throw Error(EVENT_ERROR.NotFound);
+      throw new ClientError({
+        type: ClientErrorTypes.NotFound,
+        fields: { eventId: id }
+      });
     }
 
     return event;
