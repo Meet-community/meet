@@ -1,6 +1,6 @@
 import { GraphQLResolveInfo } from 'graphql';
 import { AuthCtx, Ctx } from '../../server/typedefs';
-import { USER_ERROR } from '../../modules/user/user.constans';
+import { ClientError, ClientErrorTypes } from '../ClientError/ClientError';
 
 export type Resolver<Result, Options = undefined, Parent = undefined> = (
   parent: Parent,
@@ -21,7 +21,9 @@ export const makeAuthResolver = (
 ): AuthResolver<any, any> => {
   return (parent, args,ctx, info) => {
     if (!ctx.authUser) {
-      throw Error(USER_ERROR.NotAuthorized);
+      throw new ClientError({
+        type: ClientErrorTypes.Unauthorized
+      });
     }
 
     return resolver(parent, args, ctx, info);

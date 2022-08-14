@@ -3,6 +3,11 @@ import {
   Client,
   Language,
 } from '@googlemaps/google-maps-services-js';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../core/ClientError/ClientError';
+import { GOOGLE_ERROR } from './googleService.constans';
 
 export class GooglePlaceService {
   private readonly client = new Client({});
@@ -14,33 +19,36 @@ export class GooglePlaceService {
   async getCityByGoogleId(
     google_id: string
   ): Promise<{ name: string; place_id: string; types: string[] }> {
-    try {
-      const response = await this.client.placeDetails({
-        params: {
-          ...this.requestConfig,
-          place_id: google_id,
-          language: Language.en,
-          fields: ['types', 'place_id', 'name']
-        }
+    const response = await this.client.placeDetails({
+      params: {
+        ...this.requestConfig,
+        place_id: google_id,
+        language: Language.en,
+        fields: ['types', 'place_id', 'name']
+      }
+    });
+
+    const { name, types, place_id } = response.data.result;
+
+    if (!name || !types || !place_id) {
+      throw new ClientError({
+        type: ClientErrorTypes.NotFound,
+        message: GOOGLE_ERROR.NotFound,
+        fields: { googleId: google_id }
       });
-
-      const { name, types, place_id } = response.data.result;
-
-      if (!name || !types || !place_id) {
-        throw Error(`Can not get city for googleId: ${google_id}`);
-      }
-
-      if (
-        !types.includes(AddressType.locality)
-        || !types.includes(AddressType.political)
-      ) {
-        throw Error(`GoogleId: ${google_id} it's not a city. Name: ${name}, types: ${types}`);
-      }
-
-      return { name, place_id, types };
-
-    } catch (e) {
-      throw Error(e);
     }
+
+    if (
+      !types.includes(AddressType.locality)
+      || !types.includes(AddressType.political)
+    ) {
+      throw new ClientError({
+        type: ClientErrorTypes.BadRequest,
+        message: GOOGLE_ERROR.NotCity,
+        fields: { googleId: google_id, name, types: types.join(', ') },
+      });
+    }
+
+    return { name, place_id, types };
   }
 }

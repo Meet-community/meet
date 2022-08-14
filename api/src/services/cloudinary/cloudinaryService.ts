@@ -1,5 +1,10 @@
 import { UploadApiResponse, v2 as cloudinaryBase } from 'cloudinary';
 import { FileUpload } from 'graphql-upload';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../core/ClientError/ClientError';
+import { IMAGE_ERROR } from '../../core/ClientError/clientError.constans';
 
 export class CloudinaryService {
   private cloudinary;
@@ -19,7 +24,11 @@ export class CloudinaryService {
     const { createReadStream, mimetype } = await options.file;
 
     if (!['image/x-png', 'image/png', 'image/jpeg', 'image/jpg'].includes(mimetype)) {
-      throw Error('BAD_REQUEST');
+      throw new ClientError({
+        type: ClientErrorTypes.BadRequest,
+        message: IMAGE_ERROR.BadType,
+        fields: { type: mimetype },
+      });
     }
 
     return new Promise((resolve, reject) => {
