@@ -17,6 +17,7 @@ import { User } from '../models/User';
 import { UserStatus } from '../modules/user/user.typedefs';
 import { Ctx } from './typedefs';
 import { graphqlUploadExpress } from 'graphql-upload';
+import { ENV, getEnvVariable } from '../helpers/getEnvVariable';
 
 async function initApolloServer(typeDefs: any, resolvers: any) {
   const app = express();
@@ -60,8 +61,9 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
 
   await server.start();
 
-  const clientUrl = process.env.CLIENT_URL as string;
-  const graphqlSendBoxUrl = process.env.NODE_ENV === 'development'
+  const clientUrl = getEnvVariable(ENV.ClientUrl);
+  const nodeEnv = getEnvVariable(ENV.NodeEnv);
+  const graphqlSendBoxUrl = nodeEnv === 'development'
     ? ['https://studio.apollographql.com']
     : [];
 
@@ -74,7 +76,7 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
     path: '/api',
   });
 
-  const port = Number(process.env.PORT) || 4000;
+  const port = Number(getEnvVariable(ENV.Port)) || 4000;
 
   await new Promise<void>(
     (resolve) => httpServer.listen({ port }, resolve)

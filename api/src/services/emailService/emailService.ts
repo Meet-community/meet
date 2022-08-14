@@ -4,13 +4,14 @@ import { sendEmailConfirm } from './templates/emailConfirm/sendEmailConfirm';
 import {
   sendForgotPasswordConfirm
 } from './templates/forgotPasswordConfirm/sendForgotPasswordConfirm';
+import { ENV, getEnvVariable } from '../../helpers/getEnvVariable';
 
 dotenv.config({ path: '.env' });
 
-const host = process.env.SMPT_HOST as string;
-const port = Number(process.env.SMPT_PORT);
-const user = process.env.SMPT_USER as string;
-const pass = process.env.SMPT_PASSWORD as string;
+const host = getEnvVariable(ENV.SMPTHost);
+const port = Number(getEnvVariable(ENV.Port));
+const user = getEnvVariable(ENV.SMPTUser);
+const pass = getEnvVariable(ENV.SMPTPassword);
 
 const transporter = nodemailer.createTransport({
   host,

@@ -1,5 +1,6 @@
 import { sendEmail } from '../../emailService';
 import { getEmailConfirmTemplate } from './emailConfirm';
+import { ENV, getEnvVariable } from '../../../../helpers/getEnvVariable';
 
 interface Options {
   token: string;
@@ -7,7 +8,8 @@ interface Options {
 }
 
 export const sendEmailConfirm = ({ token, email }: Options) => {
-  const confirmLink = `${process.env.CLIENT_URL}/activate/${token}`;
+  const clientURL = getEnvVariable(ENV.ClientUrl);
+  const confirmLink = `${clientURL}/activate/${token}`;
 
   return sendEmail({
     email,

@@ -8,10 +8,11 @@ import {
   ClientErrorTypes
 } from '../../core/ClientError/ClientError';
 import { GOOGLE_ERROR } from './googleService.constans';
+import { ENV, getEnvVariable } from '../../helpers/getEnvVariable';
 
 export class GooglePlaceService {
   private readonly client = new Client({});
-  private readonly key = process.env.GOOGLE_PLACE_API_KEY as string;
+  private readonly key = getEnvVariable(ENV.GooglePlaceApiKey);
   private readonly requestConfig = {
     key: this.key,
   };
