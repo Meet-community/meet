@@ -1,8 +1,12 @@
 import { UserStatus } from '../user.typedefs';
-import { USER_ERROR } from '../user.constans';
 import { User } from '../../../models/User';
 import { Resolver } from '../../../core/resolvers/makeResolver';
 import { jwtService } from '../../../services/jwtService/jwtService';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../../core/ClientError/ClientError';
+import { USER_ERROR } from '../user.constans';
 
 interface Options {
   token: string;
@@ -17,7 +21,11 @@ export const activateUserResolver: Resolver<
   );
 
   if (!user) {
-    throw Error(USER_ERROR.InvalidToken);
+    throw new ClientError({
+      type: ClientErrorTypes.BadRequest,
+      message: USER_ERROR.InvalidToken,
+      fields: { token }
+    });
   }
 
   [,[user]] = await ctx.models.User.update(

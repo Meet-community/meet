@@ -2,6 +2,11 @@ import { Repository } from '../../core/Repository/Repository';
 import { UserEvent } from '../../models/UserEvent';
 import { UserEventStatus } from './userEvent.typedefs';
 import { User } from '../../models/User';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../core/ClientError/ClientError';
+import { USER_EVENT_ERROR } from './userEvent.constans';
 
 interface FindByUserIdAndEventIdOptions {
   userId: number;
@@ -34,7 +39,11 @@ export class UserEventRepository extends Repository {
     );
 
     if (!userEvent) {
-      throw Error('User event not found');
+      throw new ClientError({
+        type: ClientErrorTypes.NotFound,
+        message: USER_EVENT_ERROR.NotFound,
+        fields: { userId, eventId }
+      });
     }
 
     return  userEvent;

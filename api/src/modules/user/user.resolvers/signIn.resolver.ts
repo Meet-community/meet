@@ -4,6 +4,10 @@ import { User } from '../../../models/User';
 import { jwtService } from '../../../services/jwtService/jwtService';
 import { Resolver } from '../../../core/resolvers/makeResolver';
 import { hashService } from '../../../services/hashService/hashService';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../../core/ClientError/ClientError';
 
 interface Args {
   email: string;
@@ -28,11 +32,19 @@ export const signInResolver: Resolver<
   });
 
   if (!user) {
-    throw Error(USER_ERROR.InvalidEmail);
+    throw new ClientError({
+      type: ClientErrorTypes.BadRequest,
+      message: USER_ERROR.InvalidEmail,
+      fields: { email },
+    });
   }
 
   if (user.status !== UserStatus.Confirmed) {
-    throw Error(USER_ERROR.EmailNotConfirmed);
+    throw new ClientError({
+      type: ClientErrorTypes.BadRequest,
+      message: USER_ERROR.EmailNotConfirmed,
+      fields: { email },
+    });
   }
 
   const isPasswordValid = await hashService.comparePassword(
@@ -40,7 +52,11 @@ export const signInResolver: Resolver<
   );
 
   if (!isPasswordValid) {
-    throw Error(USER_ERROR.InvalidPassword);
+    throw new ClientError({
+      type: ClientErrorTypes.BadRequest,
+      message: USER_ERROR.InvalidPassword,
+      fields: { userId: user.id },
+    });
   }
 
   const jwt = jwtService.generateAccessToken(user);

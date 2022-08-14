@@ -3,6 +3,11 @@ import { EventModel } from '../../../models/EventModel';
 import { EventStatus } from '../event.typedefs';
 import { EventRepository } from '../event.repository';
 import { removeUndefinedFields } from '../../../helpers/removeUndefinedFields';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../../core/ClientError/ClientError';
+import { EVENT_ERROR } from '../event.constans';
 
 interface UpdateArgs {
   status?: EventStatus;
@@ -23,7 +28,11 @@ export const updateEventResolver: AuthResolver<
   const event = await eventRepository.getById(eventId);
 
   if (event.creatorId !== authUser.id) {
-    throw Error('Forbidden');
+    throw new ClientError({
+      type: ClientErrorTypes.Forbidden,
+      message: EVENT_ERROR.UpdateForbidden,
+      fields: { eventId, userId: authUser.id },
+    });
   }
 
   const preparedArgs = removeUndefinedFields<EventModel>(args);

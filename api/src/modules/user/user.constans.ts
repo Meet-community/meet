@@ -6,4 +6,5 @@ export enum USER_ERROR {
   InvalidPassword = 'invalid_password',
   NotAuthorized = 'login_not_authorized',
   NotFound = 'user_not_found',
+  TemporaryPasswordNotFound = 'temporary_password_not_found',
 }

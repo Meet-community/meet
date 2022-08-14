@@ -1,5 +1,9 @@
 import { Repository } from '../../core/Repository/Repository';
 import { City } from '../../models/City';
+import {
+  ClientError,
+  ClientErrorTypes
+} from '../../core/ClientError/ClientError';
 
 interface CreateOptions {
   name: string;
@@ -29,7 +33,10 @@ export class CityRepository extends Repository {
     const city = await this.findById(id);
 
     if (!city) {
-      throw Error('city_not_found');
+      throw new ClientError({
+        type: ClientErrorTypes.NotFound,
+        fields: { cityId: id },
+      });
     }
 
     return city;
