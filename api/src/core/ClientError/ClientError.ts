@@ -28,7 +28,7 @@ const DEFAULT_MESSAGES_BY_TYPE: Record<ClientErrorTypes, string> = {
 
 const DEFAULT_CONSTRUCTOR_OPTIONS = {
   type: ClientErrorTypes.BadRequest,
-  level: ClientErrorLevels.Warning,
+  level: ClientErrorLevels.Error,
 };
 
 export class ClientError extends Error {
