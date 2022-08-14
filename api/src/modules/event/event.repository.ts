@@ -55,7 +55,7 @@ export class EventRepository extends Repository {
           where: {
             googleId: {
               [Op.in]: googleCityIds,
-            }
+            },
           },
           attributes: []
         }]
@@ -66,6 +66,7 @@ export class EventRepository extends Repository {
     return this.models.EventModel.findAll({
       where: {
         startAt: { [Op.gt]: today },
+        status: { [Op.not]: EventStatus.Canceled },
         ...creatorFilter,
       },
       include: [
