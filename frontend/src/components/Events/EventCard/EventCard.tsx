@@ -19,7 +19,7 @@ import styles from './EventCard.module.scss';
 import { formatDate } from '../../helpers/date/formateDate';
 import { EventFullFragment } from '../../../controllers/graphql/generated';
 import { ROUTES } from '../../../../routes/routes';
-import { SubscribeButton } from '../../UI/SubscribeButton/SubscribeButton';
+import { SubscribeButton } from '../SubscribeButton/SubscribeButton';
 
 const getEventByIdUrl = (id: number) => `/${ROUTES.events.index}/${id}`;
 
@@ -30,11 +30,7 @@ interface Props {
 }
 
 export const EventCard: FC<Props> = memo((props) => {
-  const { event, isParticipant, isCreator } = props;
-
-  const disableSubscribe = (
-    !isParticipant && event.participants.length >= event.capacity
-  ) || isCreator;
+  const { event } = props;
 
   const router = useRouter();
 
@@ -120,11 +116,7 @@ export const EventCard: FC<Props> = memo((props) => {
                   Show more
                 </Button>
 
-                <SubscribeButton
-                  isSubscribed={isParticipant}
-                  disabled={disableSubscribe}
-                  eventId={event.id}
-                />
+                <SubscribeButton event={event} />
               </div>
             </CardContent>
           </Box>
