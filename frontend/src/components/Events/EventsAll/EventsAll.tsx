@@ -43,7 +43,8 @@ export const EventsAll: FC<Props> = React.memo((props) => {
         },
       });
     }
-  }, [loading, citiesFilter, refetch]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [citiesFilter, refetch]);
 
   useEffect(() => {
     setIsLoading(loading);

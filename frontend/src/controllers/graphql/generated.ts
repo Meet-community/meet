@@ -83,6 +83,7 @@ export type Mutation = {
   signUp: User;
   subscribeToEvent: Event;
   unsubscribeToEvent: Event;
+  updateEvent: Event;
   updateUser: User;
   updateUserAvatar: User;
   updateUserPassword: User;
@@ -125,6 +126,12 @@ export type MutationSubscribeToEventArgs = {
 
 
 export type MutationUnsubscribeToEventArgs = {
+  eventId: Scalars['Int'];
+};
+
+
+export type MutationUpdateEventArgs = {
+  args: UpdateEventArgs;
   eventId: Scalars['Int'];
 };
 
@@ -173,6 +180,10 @@ export type SignUpArgs = {
   firstName: Scalars['String'];
   lastName: Scalars['String'];
   password: Scalars['String'];
+};
+
+export type UpdateEventArgs = {
+  status?: InputMaybe<EventStatus>;
 };
 
 export type UpdateUserArgs = {
@@ -262,6 +273,14 @@ export type PlannedEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type PlannedEventsQuery = { __typename?: 'Query', plannedEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
+
+export type UpdateEventMutationVariables = Exact<{
+  eventId: Scalars['Int'];
+  args: UpdateEventArgs;
+}>;
+
+
+export type UpdateEventMutation = { __typename?: 'Mutation', updateEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
 export type UserFullFragment = { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null };
 
@@ -569,6 +588,40 @@ export function usePlannedEventsLazyQuery(baseOptions?: Apollo.LazyQueryHookOpti
 export type PlannedEventsQueryHookResult = ReturnType<typeof usePlannedEventsQuery>;
 export type PlannedEventsLazyQueryHookResult = ReturnType<typeof usePlannedEventsLazyQuery>;
 export type PlannedEventsQueryResult = Apollo.QueryResult<PlannedEventsQuery, PlannedEventsQueryVariables>;
+export const UpdateEventDocument = /*#__PURE__*/ gql`
+    mutation updateEvent($eventId: Int!, $args: UpdateEventArgs!) {
+  updateEvent(eventId: $eventId, args: $args) {
+    ...EventFull
+  }
+}
+    ${EventFullFragmentDoc}`;
+export type UpdateEventMutationFn = Apollo.MutationFunction<UpdateEventMutation, UpdateEventMutationVariables>;
+
+/**
+ * __useUpdateEventMutation__
+ *
+ * To run a mutation, you first call `useUpdateEventMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useUpdateEventMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [updateEventMutation, { data, loading, error }] = useUpdateEventMutation({
+ *   variables: {
+ *      eventId: // value for 'eventId'
+ *      args: // value for 'args'
+ *   },
+ * });
+ */
+export function useUpdateEventMutation(baseOptions?: Apollo.MutationHookOptions<UpdateEventMutation, UpdateEventMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<UpdateEventMutation, UpdateEventMutationVariables>(UpdateEventDocument, options);
+      }
+export type UpdateEventMutationHookResult = ReturnType<typeof useUpdateEventMutation>;
+export type UpdateEventMutationResult = Apollo.MutationResult<UpdateEventMutation>;
+export type UpdateEventMutationOptions = Apollo.BaseMutationOptions<UpdateEventMutation, UpdateEventMutationVariables>;
 export const ActivateTemporaryPasswordDocument = /*#__PURE__*/ gql`
     mutation activateTemporaryPassword($token: String!) {
   activateTemporaryPassword(token: $token)
