@@ -12,6 +12,7 @@ export const EventSchema = gql`
   
   type Mutation {
     createEvent(args: CreateEventArgs!): Event!
+    updateEvent(eventId: Int!, args: UpdateEventArgs!): Event!
   }
   
   type Event {
@@ -54,6 +55,10 @@ export const EventSchema = gql`
   
   input EventsFilters {
     googleCityIds: [String!]
+  }
+  
+  input UpdateEventArgs {
+    status: EventStatus
   }
   
   scalar Date

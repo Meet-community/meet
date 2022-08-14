@@ -7,6 +7,7 @@ import { createEventResolver } from './createEvent.resolver';
 import { cityResolver } from './city.resolver';
 import { plannedEventsResolver } from './plannedEvents.resolver';
 import { archivedEventsResolver } from './archivedEventsResolver';
+import { updateEventResolver } from './updateEventResolver';
 
 export const EventResolvers = {
   Query: {
@@ -18,6 +19,7 @@ export const EventResolvers = {
 
   Mutation: {
     createEvent: makeAuthResolver(createEventResolver),
+    updateEvent: makeAuthResolver(updateEventResolver),
   },
 
   Event: {
