@@ -93,11 +93,11 @@ export const EventCard: FC<Props> = memo((props) => {
                 )}
 
                 {event.participants.length === 0 && (
-                <Typography className={styles.subtitle}>
-                  <Group />
+                  <Typography className={styles.subtitle}>
+                    <Group />
 
-                  Participants
-                </Typography>
+                    Participants
+                  </Typography>
                 )}
 
                 <Typography className={styles.subtitle}>
