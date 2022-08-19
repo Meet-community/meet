@@ -1,112 +1,63 @@
-import { FC, memo } from 'react';
-import {
-  ListItem,
-  ListItemAvatar,
-  ListItemText,
-} from '@mui/material';
-import InstagramIcon from '@mui/icons-material/Instagram';
-import FacebookIcon from '@mui/icons-material/Facebook';
-import TelegramIcon from '@mui/icons-material/Telegram';
-import ListItemButton from '@mui/material/ListItemButton';
-import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDissatisfied';
-import Avatar from '@mui/material/Avatar';
-import IconButton from '@mui/material/IconButton';
-import List from '@mui/material/List';
+import React, { FC, memo, useMemo } from 'react';
+import Grid from '@mui/material/Grid';
 import Typography from '@mui/material/Typography';
+import { Group } from '@mui/icons-material';
+import { LoadingButton } from '@mui/lab';
+import AddReactionIcon from '@mui/icons-material/AddReaction';
 import styles from './Event.module.scss';
-
-interface Participant {
-  id: number,
-  firstName: string,
-  lastName: string,
-  avatar?: string | null,
-  email: string,
-  telegram?: string | null,
-  facebook?: string | null,
-  instagram?: string | null
-}
+import { EventCreator } from './EventCreator';
+import { EventFullFragment } from '../../controllers/graphql/generated';
+import { EventSubscribers } from './EventSubscribers';
+import { useEventSubscribe } from '../../hooks/useEventSubscribe';
 
 interface Props {
-  participants: Participant[];
+  event: EventFullFragment | null;
 }
 
 export const EventParticipants: FC<Props> = memo((props) => {
-  const { participants } = props;
+  const { event } = props;
+
+  const { subscribeHandler, isLoading } = useEventSubscribe();
+
+  const participants = useMemo(() => {
+    return event?.participants.filter((person) => person.id !== event?.creator.id);
+  }, [event?.creator, event?.participants]);
 
   return (
-    <List
-      dense
-      sx={{
-        width: '100%',
-        overflow: 'auto',
-        maxHeight: 300,
-      }}
-    >
-      {participants.map((person) => {
-        const labelId = `checkbox-list-secondary-label-${person}`;
+    <Grid container spacing={2}>
+      <Grid item xs={12} md={4} order={{ md: 1 }}>
+        <Typography mb='32px'>
+          {event?.creator && <EventCreator creator={event.creator} />}
+        </Typography>
+      </Grid>
 
-        return (
-          <ListItem
-            key={person.id}
-            sx={{ paddingRight: '0px' }}
-            className={styles.item}
-            secondaryAction={(
-              <>
-                {person.instagram && (
-                  <IconButton
-                    href={`${person.instagram}`}
-                    target='_blank'
-                    aria-label="comment"
-                  >
-                    <InstagramIcon />
-                  </IconButton>
-                )}
+      <Grid item xs={12} md={8} order={{ md: 0 }}>
+        <Typography variant='h5' mb='12px' sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
+          Participants
 
-                {person.telegram && (
-                  <IconButton
-                    href={`${person.telegram}`}
-                    target='_blank'
-                    aria-label="comment"
-                  >
-                    <TelegramIcon />
-                  </IconButton>
-                )}
+          <Group fontSize="medium" />
+        </Typography>
 
-                {person.facebook && (
-                  <IconButton
-                    href={`${person.facebook}`}
-                    target='_blank'
-                    aria-label="comment"
-                  >
-                    <FacebookIcon />
-                  </IconButton>
-                )}
+        {participants && participants.length > 0
+          ? <EventSubscribers participants={participants} />
+          : (
+            <Typography sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              There are no participants yet and you can be the first
 
-                {!person.instagram && !person.telegram && !person.facebook && (
-                  <Typography
-                    color="success"
-                    sx={{ display: 'flex', alignItem: 'center', gap: '8px' }}
-                  >
-                    The user has no linked social accounts
-
-                    <SentimentVeryDissatisfiedIcon />
-                  </Typography>
-                )}
-              </>
-            )}
-          >
-            <ListItemButton>
-              <ListItemAvatar>
-                <Avatar
-                  alt={person.firstName}
-                  src={person.avatar || '/static/images/avatar/1.jpg'}
-                />
-              </ListItemAvatar>
-              <ListItemText id={labelId} primary={`${person.firstName} ${person.lastName}`} />
-            </ListItemButton>
-          </ListItem>
-        );
-      })}
-    </List>
+              <LoadingButton
+                className={styles.button}
+                loading={isLoading}
+                onClick={() => {
+                  if (event?.id) {
+                    subscribeHandler(event.id);
+                  }
+                }}
+              >
+                <AddReactionIcon />
+              </LoadingButton>
+            </Typography>
+          )}
+      </Grid>
+    </Grid>
   );
 });

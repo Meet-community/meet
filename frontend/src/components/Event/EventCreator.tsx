@@ -33,7 +33,6 @@ export const EventCreator: FC<Props> = memo((props) => {
       <Grid
         item
         xs={12}
-        md={6}
         sx={{ marginBottom: '12px' }}
       >
         <Avatar
@@ -54,7 +53,6 @@ export const EventCreator: FC<Props> = memo((props) => {
       <Grid
         item
         xs={12}
-        md={6}
       >
         <Typography
           variant='h6'
@@ -71,11 +69,12 @@ export const EventCreator: FC<Props> = memo((props) => {
           alignItems: 'center',
           gap: '20px',
           justifyContent: 'center',
+          flexWrap: 'wrap',
         }}
         >
           {creator.instagram && (
             <Typography
-              sx={{ textAlign: { xs: 'center', md: 'initial' } }}
+              sx={{ textAlign: { xs: 'center' } }}
               variant='body2'
             >
               <Link
@@ -91,7 +90,7 @@ export const EventCreator: FC<Props> = memo((props) => {
           )}
 
           {creator.telegram && (
-            <Typography sx={{ textAlign: { xs: 'center', md: 'initial' } }}>
+            <Typography sx={{ textAlign: { xs: 'center' } }}>
               <Link
                 href={`${creator.telegram}`}
                 target="_blank"
@@ -105,7 +104,7 @@ export const EventCreator: FC<Props> = memo((props) => {
           )}
 
           {creator.facebook && (
-            <Typography sx={{ textAlign: { xs: 'center', md: 'initial' } }}>
+            <Typography sx={{ textAlign: { xs: 'center' } }}>
               <Link
                 href={`${creator.facebook}`}
                 target="_blank"
