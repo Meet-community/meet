@@ -27,7 +27,7 @@ export const EventInfo: FC<Props> = memo((props) => {
         rowGap='8px'
         sx={{ marginBottom: { xs: '16px', md: '20px' }, alignItems: 'center' }}
       >
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={6}>
           <Typography component="p" variant="body1" color='text.secondary'>
             {loading ? (
               <Skeleton
@@ -42,7 +42,7 @@ export const EventInfo: FC<Props> = memo((props) => {
           </Typography>
         </Grid>
 
-        <Grid item xs={12} md={4}>
+        <Grid item xs={12} md={6}>
           {event?.eventLink && (
             <Typography
               component="a"

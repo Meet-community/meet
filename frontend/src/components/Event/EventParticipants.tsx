@@ -9,6 +9,7 @@ import { EventCreator } from './EventCreator';
 import { EventFullFragment } from '../../controllers/graphql/generated';
 import { EventSubscribers } from './EventSubscribers';
 import { useEventSubscribe } from '../../hooks/useEventSubscribe';
+import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
 
 interface Props {
   event: EventFullFragment | null;
@@ -16,6 +17,7 @@ interface Props {
 
 export const EventParticipants: FC<Props> = memo((props) => {
   const { event } = props;
+  const user = useAuthUser();
 
   const { subscribeHandler, isLoading } = useEventSubscribe();
 
@@ -47,6 +49,7 @@ export const EventParticipants: FC<Props> = memo((props) => {
               <LoadingButton
                 className={styles.button}
                 loading={isLoading}
+                disabled={user?.id === event?.creator.id}
                 onClick={() => {
                   if (event?.id) {
                     subscribeHandler(event.id);
