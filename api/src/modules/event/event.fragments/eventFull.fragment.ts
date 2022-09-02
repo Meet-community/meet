@@ -16,6 +16,7 @@ export const EVENT_FULL_FRAGMENT = gql`
     capacity
     minCapacity
     status
+    eventLink
     creator {
       ...UserFull
     }

@@ -241,7 +241,7 @@ export enum UserStatus {
 
 export type CityFragment = { __typename?: 'City', id: number, googleId: string, name: string };
 
-export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } };
+export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } };
 
 export type ArchivedEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -253,21 +253,21 @@ export type CreateEventMutationVariables = Exact<{
 }>;
 
 
-export type CreateEventMutation = { __typename?: 'Mutation', createEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
+export type CreateEventMutation = { __typename?: 'Mutation', createEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
 export type EventQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
 
 
-export type EventQuery = { __typename?: 'Query', event: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
+export type EventQuery = { __typename?: 'Query', event: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
 export type EventsQueryVariables = Exact<{
   filters?: InputMaybe<EventsFilters>;
 }>;
 
 
-export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
+export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
 
 export type PlannedEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
@@ -355,14 +355,14 @@ export type SubscribeToEventMutationVariables = Exact<{
 }>;
 
 
-export type SubscribeToEventMutation = { __typename?: 'Mutation', subscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
+export type SubscribeToEventMutation = { __typename?: 'Mutation', subscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
 export type UnsubscribeToEventMutationVariables = Exact<{
   eventId: Scalars['Int'];
 }>;
 
 
-export type UnsubscribeToEventMutation = { __typename?: 'Mutation', unsubscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
+export type UnsubscribeToEventMutation = { __typename?: 'Mutation', unsubscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
 export type UserEventFragment = { __typename?: 'UserEvent', id: number, userId: number, eventId: number, status: UserEventStatus };
 
@@ -397,6 +397,7 @@ export const EventFullFragmentDoc = /*#__PURE__*/ gql`
   capacity
   minCapacity
   status
+  eventLink
   creator {
     ...UserFull
   }

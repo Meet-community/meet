@@ -13,13 +13,14 @@ import { useRouter } from 'next/router';
 import Button from '@mui/material/Button';
 import Box from '@mui/material/Box';
 import { Group } from '@mui/icons-material';
-import IconButton from '@mui/material/IconButton';
 import ReadMoreIcon from '@mui/icons-material/ReadMore';
-import styles from './EventCard.module.scss';
+import LocationOnIcon from '@mui/icons-material/LocationOn';
+import StarBorderIcon from '@mui/icons-material/StarBorder';
 import { formatDate } from '../../helpers/date/formateDate';
 import { EventFullFragment } from '../../../controllers/graphql/generated';
 import { ROUTES } from '../../../../routes/routes';
 import { EventActionButton } from '../EventActionButton/EventActionButton';
+import styles from './EventCard.module.scss';
 
 const getEventByIdUrl = (id: number) => `/${ROUTES.events.index}/${id}`;
 
@@ -30,7 +31,7 @@ interface Props {
 }
 
 export const EventCard: FC<Props> = memo((props) => {
-  const { event } = props;
+  const { event, isCreator } = props;
 
   const router = useRouter();
 
@@ -44,7 +45,13 @@ export const EventCard: FC<Props> = memo((props) => {
           onClick={() => router.push(getEventByIdUrl(event.id))}
         >
           <Box>
-            <ImageListItem sx={{ width: '100%' }}>
+            <ImageListItem sx={{
+              width: '100%',
+              '.MuiImageListItemBar-positionTop': {
+                paddingBottom: '20px',
+              },
+            }}
+            >
               <CardMedia
                 component="img"
                 height="180"
@@ -56,12 +63,49 @@ export const EventCard: FC<Props> = memo((props) => {
                 title={event.title}
                 subtitle={`@${event.creator.firstName} ${event.creator.lastName}`}
                 actionIcon={(
-                  <IconButton
-                    sx={{ color: 'rgba(255, 255, 255, 0.54)' }}
-                    aria-label={`info about ${23}`}
-                  />
-              )}
+                  <Typography
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      padding: '12px 16px',
+                      gap: '4px',
+                    }}
+                  >
+                    <LocationOnIcon />
+
+                    {event.city.name}
+                  </Typography>
+                )}
               />
+
+              {isCreator && (
+                <ImageListItemBar
+                  sx={{
+                    color: '#ffa726',
+                    background:
+                      'linear-gradient(to bottom, rgba(0,0,0,0.7) 0%, '
+                      + 'rgba(0,0,0,0.3) 70%, rgba(0,0,0,0) 100%)',
+                    '.MuiImageListItemBar-title': {
+                      color: '#ffa726',
+                    },
+                  }}
+                  title="Creator"
+                  position="top"
+                  actionIcon={(
+                    <Typography
+                      sx={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        padding: '8px',
+                      }}
+                    >
+                      <StarBorderIcon />
+                    </Typography>
+                  )}
+                  actionPosition="left"
+                />
+              )}
             </ImageListItem>
 
             <CardContent>
@@ -93,11 +137,11 @@ export const EventCard: FC<Props> = memo((props) => {
                 )}
 
                 {event.participants.length === 0 && (
-                <Typography className={styles.subtitle}>
-                  <Group />
+                  <Typography className={styles.subtitle}>
+                    <Group />
 
-                  Participants
-                </Typography>
+                    Participants
+                  </Typography>
                 )}
 
                 <Typography className={styles.subtitle}>

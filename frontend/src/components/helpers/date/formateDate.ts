@@ -13,8 +13,17 @@ export function add0(num: number) {
 
 export const formatDate = (
   value: string | number,
+  formatType?: string,
 ) => {
   const date = new Date(value);
+
+  if (formatType === 'hours') {
+    return `${
+      add0(date.getHours())
+    }:${
+      add0(date.getMinutes())
+    }`;
+  }
 
   return `${
     add0(date.getDate())

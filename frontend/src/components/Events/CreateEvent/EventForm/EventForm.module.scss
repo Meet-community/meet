@@ -9,3 +9,9 @@
 .box {
   @include paper-box;
 }
+
+.smallBox  {
+  @include paper-box;
+
+  padding: 20px;
+}
