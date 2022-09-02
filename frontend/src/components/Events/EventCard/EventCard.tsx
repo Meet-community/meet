@@ -68,7 +68,7 @@ export const EventCard: FC<Props> = memo((props) => {
                       display: 'flex',
                       alignItems: 'center',
                       justifyContent: 'center',
-                      padding: '8px',
+                      padding: '12px 16px',
                       gap: '4px',
                     }}
                   >

@@ -16,7 +16,18 @@ export const EventInfo: FC<Props> = memo((props) => {
 
   return (
     <>
-      <Typography mb='20px' variant='h4' sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+      <Typography
+        mb='20px'
+        variant="h4"
+        sx={{
+          display: 'flex',
+          flexDirection: { xs: 'column', md: 'row' },
+          justifyContent: 'space-between',
+          alignItems: { md: 'center', xs: 'start' },
+          gap: { xs: '12px' },
+          fontSize: { xs: '24px', md: '34px' },
+        }}
+      >
         Detail info about event
 
         {event && <EventActionButton event={event} />}
