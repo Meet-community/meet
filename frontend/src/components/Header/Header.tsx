@@ -99,7 +99,7 @@ export function Header() {
                 </Typography>
 
                 <Box sx={{ flexGrow: 0 }}>
-                  <Tooltip title="Open settings">
+                  <Tooltip title="Кабінет">
                     <IconButton onClick={() => setShowMenu(true)} sx={{ p: 0 }}>
                       <Avatar
                         src={authUser?.avatar || '/static/images/avatar/1.jpg'}
@@ -119,7 +119,7 @@ export function Header() {
               >
                 <IconButton
                   size="large"
-                  aria-label="account of current user"
+                  aria-label="Кабінет"
                   aria-controls="menu-appbar"
                   aria-haspopup="true"
                   onClick={() => setShowMenu(true)}
@@ -139,7 +139,7 @@ export function Header() {
                   style={{ marginRight: 12 }}
                   size={matches900 ? 'small' : 'large'}
                 >
-                  <Typography textAlign="center">Sign up</Typography>
+                  <Typography textAlign="center">Зареєструватися</Typography>
                 </Button>
 
                 <Button
@@ -149,7 +149,7 @@ export function Header() {
                   size={matches900 ? 'small' : 'large'}
                   style={{ marginRight: 8 }}
                 >
-                  <Typography textAlign="center" mr={1}>Sign in</Typography>
+                  <Typography textAlign="center" mr={1}>Увійти</Typography>
                   <LoginIcon />
                 </Button>
               </div>
@@ -172,7 +172,7 @@ export function Header() {
                   <ListItemIcon>
                     <HomeRounded />
                   </ListItemIcon>
-                  <ListItemText primary="Home" />
+                  <ListItemText primary="Події" />
                 </ListItemButton>
               </ListItem>
 
@@ -186,7 +186,7 @@ export function Header() {
                         <ListItemIcon>
                           <PersonIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Profile" />
+                        <ListItemText primary="Персональні дані" />
                       </ListItemButton>
                     </ListItem>
                   </Link>
@@ -197,7 +197,7 @@ export function Header() {
                         <ListItemIcon>
                           <FiberNewIcon />
                         </ListItemIcon>
-                        <ListItemText primary="Create event" />
+                        <ListItemText primary="Створити подію" />
                       </ListItemButton>
                     </ListItem>
                   </Link>
@@ -207,7 +207,7 @@ export function Header() {
                       <ListItemIcon>
                         <LoginIcon />
                       </ListItemIcon>
-                      <ListItemText primary="Logout" />
+                      <ListItemText primary="Вийти" />
                     </ListItemButton>
                   </ListItem>
                 </>
@@ -220,7 +220,7 @@ export function Header() {
                       <ListItemIcon>
                         <LoginIcon />
                       </ListItemIcon>
-                      <ListItemText primary="Sign in" />
+                      <ListItemText primary="Увійти" />
                     </ListItemButton>
                   </ListItem>
 
@@ -229,7 +229,7 @@ export function Header() {
                       <ListItemIcon>
                         <LogoutIcon />
                       </ListItemIcon>
-                      <ListItemText primary="Sign up" />
+                      <ListItemText primary="Зареєструватися" />
                     </ListItemButton>
                   </ListItem>
                 </>

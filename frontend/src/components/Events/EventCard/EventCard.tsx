@@ -90,7 +90,7 @@ export const EventCard: FC<Props> = memo((props) => {
                       color: '#ffa726',
                     },
                   }}
-                  title="Creator"
+                  title="Творець"
                   position="top"
                   actionIcon={(
                     <Typography
@@ -140,12 +140,12 @@ export const EventCard: FC<Props> = memo((props) => {
                   <Typography className={styles.subtitle}>
                     <Group />
 
-                    Participants
+                    Учасники
                   </Typography>
                 )}
 
                 <Typography className={styles.subtitle}>
-                  {`${event.participants.length} out of ${event.capacity}`}
+                  {`${event.participants.length} з ${event.capacity}`}
                 </Typography>
               </div>
 
@@ -157,7 +157,7 @@ export const EventCard: FC<Props> = memo((props) => {
                   onClick={() => router.push(getEventByIdUrl(event.id))}
                   endIcon={<ReadMoreIcon />}
                 >
-                  Show more
+                  Детальніше
                 </Button>
 
                 <EventActionButton event={event} />

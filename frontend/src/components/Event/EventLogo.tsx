@@ -101,7 +101,7 @@ export const EventLogo: FC<Props> = memo((props) => {
                 <Typography sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <Group aria-label="city" />
 
-                  {`${event?.participants.length} out of ${event?.capacity}`}
+                  {`${event?.participants.length} з ${event?.capacity}`}
                 </Typography>
               </>
             )}

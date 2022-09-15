@@ -46,7 +46,7 @@ export const EventCreator: FC<Props> = memo((props) => {
         />
 
         <Typography sx={{ textAlign: 'center' }}>
-          {`${creator.firstName} ${creator.lastName} - Event Creator`}
+          {`${creator.firstName} ${creator.lastName} - Творець події`}
         </Typography>
       </Grid>
 

@@ -49,7 +49,7 @@ export const SubscribeButton: FC<Props> = memo((props) => {
         disabled={disabled}
         endIcon={<GroupRemoveIcon />}
       >
-        Unsubscribe
+        Відписатись
       </LoadingButton>
     );
   }
@@ -63,7 +63,7 @@ export const SubscribeButton: FC<Props> = memo((props) => {
       endIcon={<GroupAddIcon />}
       disabled={disabled}
     >
-      Subscribe
+      Підписатись
     </LoadingButton>
   );
 });

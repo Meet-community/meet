@@ -35,7 +35,7 @@ export const EventLocation: FC = React.memo(() => {
         <Typography
           variant='h5'
         >
-          Event location
+          Місце події
         </Typography>
 
         <Grid container spacing={{ xs: 1, md: 2, lg: 3 }}>
@@ -46,7 +46,7 @@ export const EventLocation: FC = React.memo(() => {
               onChange={changeCityHandler}
               value={googleCity}
               required
-              label="City"
+              label="Місто"
               placeholder="Kyiv"
             />
           </Grid>
@@ -56,8 +56,8 @@ export const EventLocation: FC = React.memo(() => {
               type={[GoogleSelectTypes.Establishment]}
               onChange={setGooglePlace}
               value={googlePlace}
-              label="Location"
-              placeholder="Independence Square"
+              label="Місцеположення"
+              placeholder="Майдан незалежності"
               placePrefix={googleCity ? googleCity.name : ''}
             />
           </Grid>

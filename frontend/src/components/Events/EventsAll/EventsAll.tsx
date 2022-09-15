@@ -58,8 +58,8 @@ export const EventsAll: FC<Props> = React.memo((props) => {
             type={[GoogleSelectTypes.Cities]}
             onChange={onChangeCitiesFilter}
             value={citiesFilter}
-            label="Cities filter"
-            placeholder={citiesFilter.length ? '' : 'Select cities to filter events'}
+            label="Фільтр міст"
+            placeholder={citiesFilter.length ? '' : 'Виберіть міста для фільтрації подій'}
             maxTags={matches ? 8 : 2}
           />
         </NoSsr>

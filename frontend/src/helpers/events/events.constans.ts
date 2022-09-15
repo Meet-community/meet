@@ -10,17 +10,17 @@ export const tabsConfig: {
   Icon: FC<any>
 }[] = [
   {
-    label: 'All',
+    label: 'Всі',
     value: EventsTabs.All,
     Icon: FiberNewIcon,
   },
   {
-    label: 'Planned',
+    label: 'Заплановані',
     value: EventsTabs.Planned,
     Icon: TodayIcon,
   },
   {
-    label: 'Archived',
+    label: 'Архівовані',
     value: EventsTabs.Archived,
     Icon: ArchiveIcon,
   },

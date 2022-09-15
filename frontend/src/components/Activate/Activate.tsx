@@ -58,12 +58,12 @@ export const Activate: FC = React.memo(() => {
               className={styles.title}
             >
               {loading && (
-                'Email confirmation'
+                'Підтвердження на електроній пошті'
               )}
               {isOk && (
-                'Congrats!'
+                'Вітаємо!'
               )}
-              {error && ('Oops...')}
+              {error && ('Оой...')}
             </Typography>
             <Typography
               component='p'
@@ -72,13 +72,13 @@ export const Activate: FC = React.memo(() => {
               mb={7}
             >
               {loading && (
-                'We are already checking your email...'
+                'Ми вже перевіряємо вашу електронну пошту...'
               )}
               {isOk && (
-                `Your email has already been confirmed. You can now login to the application.\n Auto redirect after ${leftSeconds} seconds.`
+                `Ваша електронна адреса успішно підтверджена. Ви уже можете увійти у свій профіль.\n Автоматичне перенаправлення через ${leftSeconds} секунд.`
               )}
               {error && (
-                'Something went wrong. The link is invalid or out of date. Try to signUp again.'
+                'Щось пішло не так. Посилання недійсне або застаріле. Спробуйте зареєструватися ще раз.'
               )}
 
             </Typography>
@@ -100,7 +100,7 @@ export const Activate: FC = React.memo(() => {
                       color='inherit'
                       endIcon={<PersonIcon />}
                     >
-                      {`Profile ${leftSeconds}`}
+                      {`Персональні дані ${leftSeconds}`}
                     </Button>
                   </Link>
                 </div>
@@ -122,7 +122,7 @@ export const Activate: FC = React.memo(() => {
                       variant='outlined'
                       color='inherit'
                     >
-                      Sign up
+                      Зареєструватися
                     </Button>
                   </Link>
                 </div>

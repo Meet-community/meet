@@ -40,7 +40,7 @@ export const CancelEventButton: FC<Props> = memo((props) => {
         endIcon={<EventBusyIcon />}
         disabled={disabled}
       >
-        Cancel
+        Відмінити
       </LoadingButton>
     );
   }
@@ -54,7 +54,7 @@ export const CancelEventButton: FC<Props> = memo((props) => {
       endIcon={<EventRepeatIcon />}
       disabled={disabled}
     >
-      Activate
+      Активувати
     </LoadingButton>
   );
 });
