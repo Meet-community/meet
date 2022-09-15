@@ -37,7 +37,7 @@ export const LoadEventLogo: FC = React.memo(() => {
       setLogoError(null);
       setFile(uploadedFile);
     } else {
-      setLogoError('Supported by .jpg, .jpeg, .png, .x-png; Maximum 5mb');
+      setLogoError('Підтримуються формати .jpg, .jpeg, .png, .x-png; Максимум 5mb');
     }
   };
 

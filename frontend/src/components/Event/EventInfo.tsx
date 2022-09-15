@@ -28,7 +28,7 @@ export const EventInfo: FC<Props> = memo((props) => {
           fontSize: { xs: '24px', md: '34px' },
         }}
       >
-        Detail info about event
+        Датальна інформація про подію
 
         {event && <EventActionButton event={event} />}
       </Typography>
@@ -47,7 +47,7 @@ export const EventInfo: FC<Props> = memo((props) => {
                 sx={{ width: 305, height: 24 }}
               />
             )
-              : `Event starts at: ${formatDate(event?.startAt.valueOf())} -
+              : `Початок події: ${formatDate(event?.startAt.valueOf())} -
                  ${formatDate(event?.endAt.valueOf(), 'hours')
             }`}
           </Typography>
@@ -61,7 +61,7 @@ export const EventInfo: FC<Props> = memo((props) => {
               href={event.eventLink}
               variant="body2"
             >
-              Event Link
+              Посилання на подію
             </Typography>
           )}
         </Grid>

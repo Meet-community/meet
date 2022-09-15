@@ -40,7 +40,7 @@ export const Profile: FC = React.memo(() => {
             variant="h6"
             component="p"
           >
-            Personal data
+            Персональні дані
           </Typography>
 
           <UpdateUserNames />

@@ -84,7 +84,7 @@ export const UpdateAvatar: FC = React.memo(() => {
                 noWrap
                 component="div"
               >
-                edit avatar
+                змінити
               </Typography>
             </div>
           </label>
@@ -104,7 +104,7 @@ export const UpdateAvatar: FC = React.memo(() => {
             { [styles.errorMessageVisible]: isError },
           )}
         >
-          Supported by .jpg, .jpeg, .png, .x-png; Maximum 2mb
+          Підтримуються формати .jpg, .jpeg, .png, .x-png; Максимум 2mb
         </Typography>
       </div>
     </form>

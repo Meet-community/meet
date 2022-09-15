@@ -28,15 +28,15 @@ export const UpdateUserPassword = memo(() => {
     }
 
     if (!currentPassword || !newPasswordError || !repeatNewPassword) {
-      setCurrentPasswordError(currentPassword ? null : 'Enter password');
-      setNewPasswordError(newPassword ? null : 'Enter password');
-      setRepeatPasswordError(repeatNewPassword ? null : 'Enter password');
+      setCurrentPasswordError(currentPassword ? null : 'Введіть пароль');
+      setNewPasswordError(newPassword ? null : 'Введіть пароль');
+      setRepeatPasswordError(repeatNewPassword ? null : 'Введіть пароль');
 
       return;
     }
 
     if (newPassword !== repeatNewPassword) {
-      setRepeatPasswordError('Password mismatch');
+      setRepeatPasswordError('Пароль не співпадає');
 
       return;
     }
@@ -76,7 +76,7 @@ export const UpdateUserPassword = memo(() => {
         variant="h6"
         component="p"
       >
-        Password
+        Пароль
       </Typography>
       <form onSubmit={(e) => {
         e.preventDefault();
@@ -95,7 +95,7 @@ export const UpdateUserPassword = memo(() => {
             setCurrentPassword(e.target.value);
             setCurrentPasswordError(null);
           },
-          label: 'Current password',
+          label: 'Поточний пароль',
           name: 'oldPassword',
         }}
         />
@@ -112,7 +112,7 @@ export const UpdateUserPassword = memo(() => {
               setRepeatPasswordError(null);
               setNewPasswordError(null);
             },
-            label: 'New Password',
+            label: 'Новий пароль',
             name: 'newPassword',
             error: !!newPasswordError,
             helperText: newPasswordError,
@@ -132,7 +132,7 @@ export const UpdateUserPassword = memo(() => {
               setRepeatPasswordError(null);
               setNewPasswordError(null);
             },
-            label: 'Repeat new password',
+            label: 'Повторити новий пароль',
             name: 'repeatNewPassword',
           }}
           />
@@ -150,7 +150,7 @@ export const UpdateUserPassword = memo(() => {
             variant="contained"
             color="success"
           >
-            Save
+            Зберегти
           </LoadingButton>
         </Tooltip>
       </form>

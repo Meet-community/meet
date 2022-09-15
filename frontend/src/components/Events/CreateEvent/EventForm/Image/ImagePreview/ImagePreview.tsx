@@ -21,8 +21,8 @@ export const ImagePreview: FC<Props> = React.memo((props) => {
         />
 
         <ImageListItemBar
-          title='Event preview'
-          subtitle="Load a picture or choose some picture from the search"
+          title='Preview події'
+          subtitle="Завантажте свою картинку або виберіть з пошуку"
         />
       </ImageListItem>
     </div>

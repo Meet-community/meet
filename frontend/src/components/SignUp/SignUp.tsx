@@ -54,7 +54,7 @@ export const SignUp: FC = React.memo(() => {
   const errorHandler = (typeError: string): void => {
     switch (typeError) {
       case 'email_already_exist':
-        setEmailError('Email already exist');
+        setEmailError('E-mail уже існує');
         break;
       default:
         break;
@@ -91,13 +91,13 @@ export const SignUp: FC = React.memo(() => {
     }
 
     if (!password) {
-      setPasswordError('Enter password');
+      setPasswordError('Введіть пароль');
 
       return;
     }
 
     if (password.length < 4) {
-      setPasswordError('Minimum password length is 4');
+      setPasswordError('Мінімальна довжина паролю - 4 символи');
 
       return;
     }
@@ -170,7 +170,7 @@ export const SignUp: FC = React.memo(() => {
               <LockOutlinedIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Sign up
+              Реєстрація
             </Typography>
             <Box component="form" noValidate onSubmit={onSubmit} sx={{ mt: 1 }}>
               <Grid container spacing={2}>
@@ -183,7 +183,7 @@ export const SignUp: FC = React.memo(() => {
                     required
                     fullWidth
                     id="firstName"
-                    label="First Name"
+                    label="Ім'я"
                     autoFocus
                   />
                 </Grid>
@@ -195,7 +195,7 @@ export const SignUp: FC = React.memo(() => {
                     value={lastName}
                     onChange={onLastName}
                     id="lastName"
-                    label="Last Name"
+                    label="Прізвище"
                     name="lastName"
                     autoComplete="family-name"
                   />
@@ -212,7 +212,7 @@ export const SignUp: FC = React.memo(() => {
                 error={!!emailError}
                 helperText={emailError}
                 onChange={onChangeEmail}
-                label="Email Address"
+                label="E-mail"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -223,7 +223,7 @@ export const SignUp: FC = React.memo(() => {
                 required: true,
                 fullWidth: true,
                 name: 'password',
-                label: 'Password',
+                label: 'Пароль',
                 id: 'password',
                 helperText: passwordError,
                 error: !!passwordError,
@@ -241,14 +241,14 @@ export const SignUp: FC = React.memo(() => {
                 disabled={!password || !email || !firstName || !lastName}
                 sx={{ mt: 3, mb: 2 }}
               >
-                Sign up
+                Реєстрація
               </LoadingButton>
 
               <Grid container justifyContent="flex-end">
                 <Grid item>
                   <Typography variant="body2">
                     <Link href="/signIn">
-                      Already have an account? Sign in
+                      Вже є акаунт? Увійти
                     </Link>
                   </Typography>
                 </Grid>

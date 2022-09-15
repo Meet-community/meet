@@ -47,7 +47,7 @@ export const ConnectToSocial = memo(() => {
         variant="h6"
         component="p"
       >
-        Social networks
+        Соціальні мережі
       </Typography>
 
       <div style={{ marginBottom: '16px' }}>

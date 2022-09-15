@@ -21,7 +21,7 @@ export const SearchImageInput: FC<Props> = React.memo((props) => {
   return (
     <TextField
       id="standard-basic"
-      placeholder='Search pictures (english)'
+      placeholder='Пошук картинки (англійською)'
       variant="standard"
       fullWidth
       autoComplete="off"

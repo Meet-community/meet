@@ -6,8 +6,8 @@ import { ROUTES } from '../../../routes/routes';
 import { EventParticipants } from './EventParticipants';
 import { GoogleMaps } from '../Events/CreateEvent/GoogleMaps/GoogleMaps';
 import { EventLogo } from './EventLogo';
-import styles from './Event.module.scss';
 import { EventInfo } from './EventInfo';
+import styles from './Event.module.scss';
 
 export const Event = memo(() => {
   const router = useRouter();

@@ -59,9 +59,9 @@ export const UpdateUserNames = memo(() => {
           id="firstName"
           value={firstName}
           onChange={(e) => setFirstName(e.target.value)}
-          label="First name"
+          label="Ім'я"
           name="firstName"
-          helperText={isFirstNameError && 'Required field'}
+          helperText={isFirstNameError && 'Обов\'язкове поле'}
           error={isFirstNameError}
         />
 
@@ -72,9 +72,9 @@ export const UpdateUserNames = memo(() => {
           id="lastName"
           value={lastName}
           onChange={(e) => setLastName(e.target.value)}
-          label="Last name"
+          label="Прізвище"
           name="lastName"
-          helperText={isLastNameError && 'Required field'}
+          helperText={isLastNameError && 'Обов\'язкове поле'}
           error={isLastNameError}
         />
       </div>
@@ -91,7 +91,7 @@ export const UpdateUserNames = memo(() => {
           variant="contained"
           color="success"
         >
-          Save
+          Зберегти
         </LoadingButton>
       </Tooltip>
     </form>

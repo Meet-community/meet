@@ -35,7 +35,7 @@ export const EventParticipants: FC<Props> = memo((props) => {
 
       <Grid item xs={12} md={8} order={{ md: 0 }}>
         <Typography variant='h5' mb='12px' sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
-          Participants
+          Учасники
 
           <Group fontSize="medium" />
         </Typography>
@@ -44,7 +44,7 @@ export const EventParticipants: FC<Props> = memo((props) => {
           ? <EventSubscribers participants={participants} />
           : (
             <Typography sx={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-              There are no participants yet and you can be the first
+              Учасників ще немає, але ти можеш бути першим
 
               <LoadingButton
                 className={styles.button}

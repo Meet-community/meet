@@ -45,7 +45,7 @@ export const EventInformation: FC<Props> = React.memo(({ loading }) => {
       <Typography
         variant='h5'
       >
-        Event information
+        Детальна інформація про подію
       </Typography>
 
       <Grid container spacing={{ xs: 1, md: 2, lg: 3 }}>
@@ -56,8 +56,8 @@ export const EventInformation: FC<Props> = React.memo(({ loading }) => {
             id="title"
             value={title}
             onChange={(e) => setTitle(e.target.value)}
-            label="Title"
-            placeholder='Coffee break'
+            label="Заголовок"
+            placeholder='Перерва на каву'
             required
             fullWidth
             variant={variant}
@@ -72,8 +72,8 @@ export const EventInformation: FC<Props> = React.memo(({ loading }) => {
               setEventLinkError(null);
               setEventLink(e.target.value);
             }}
-            label="Event link"
-            placeholder='If event have website add link here'
+            label="Посилання на подію"
+            placeholder='Якщо подія має сайт - додайте її сюди'
             fullWidth
             variant={variant}
             helperText={eventLinkError}
@@ -87,8 +87,8 @@ export const EventInformation: FC<Props> = React.memo(({ loading }) => {
             id="eventDescription"
             value={description}
             onChange={(e) => setDescription(e.target.value)}
-            label="Description"
-            placeholder='Some extra information'
+            label="Опис події"
+            placeholder='Якась додаткова інформація'
             fullWidth
             variant={variant}
             multiline
@@ -101,7 +101,7 @@ export const EventInformation: FC<Props> = React.memo(({ loading }) => {
           <DateTimeInput
             value={startAt}
             setValue={setStartAt}
-            label="Start at"
+            label="Ропочинається"
             required
             variant={variant}
           />
@@ -111,7 +111,7 @@ export const EventInformation: FC<Props> = React.memo(({ loading }) => {
           <TimeInput
             value={endAt}
             setValue={setEndAt}
-            label="End at"
+            label="Завершується"
             minValue={minTime}
             required
             variant={variant}
@@ -120,7 +120,7 @@ export const EventInformation: FC<Props> = React.memo(({ loading }) => {
 
         <Grid item xs={12} md={4}>
           <NumberInput
-            label="Capacity"
+            label="Кількість учасників"
             value={capacity}
             setValue={(v) => {
               setCapacity(v);

@@ -1,8 +1,6 @@
 import React, { FC, useMemo } from 'react';
 import { EventFullFragment } from '../../../controllers/graphql/generated';
-import {
-  useAuthUser,
-} from '../../../controllers/entities/user/useAuthUserHook';
+import { useAuthUser } from '../../../controllers/entities/user/useAuthUserHook';
 import { CancelEventButton } from './CancelEventButton/CancelEventButton';
 import { SubscribeButton } from './SubscribeButton/SubscribeButton';
 

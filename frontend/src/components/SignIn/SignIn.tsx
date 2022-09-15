@@ -53,13 +53,13 @@ export const SignIn: FC = React.memo(() => {
   const errorHandler = (typeError: string): void => {
     switch (typeError) {
       case 'invalid_email':
-        setEmailError('Invalid Email');
+        setEmailError('Недійсний E-mail');
         break;
       case 'email_not_confirmed':
-        setEmailError('Email not confirmed');
+        setEmailError('E-mail не підтверджено');
         break;
       case 'invalid_password':
-        setPasswordError('Invalid password');
+        setPasswordError('Недійсний пароль');
         break;
       default:
         break;
@@ -149,7 +149,7 @@ export const SignIn: FC = React.memo(() => {
             </Avatar>
 
             <Typography component="h1" variant="h5">
-              Sign in
+              Вхід
             </Typography>
 
             <Box component="form" noValidate onSubmit={signInHandler} sx={{ mt: 1 }}>
@@ -162,7 +162,7 @@ export const SignIn: FC = React.memo(() => {
                 error={!!emailError}
                 helperText={emailError}
                 onChange={onChangeEmail}
-                label="Email Address"
+                label="E-mail"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -173,7 +173,7 @@ export const SignIn: FC = React.memo(() => {
                 required: true,
                 fullWidth: true,
                 name: 'password',
-                label: 'Password',
+                label: 'Пароль',
                 id: 'password',
                 helperText: passwordError,
                 error: !!passwordError,
@@ -191,14 +191,14 @@ export const SignIn: FC = React.memo(() => {
                 sx={{ mt: 3, mb: 2 }}
                 disabled={!password || !email}
               >
-                Sign In
+                Увійти
               </LoadingButton>
 
               <Grid container>
                 <Grid item xs>
                   <Typography variant="body2">
                     <Link href={ROUTES.forgotPassword.index}>
-                      Forgot password?
+                      Не пам&apos;ятаю пароль
                     </Link>
                   </Typography>
                 </Grid>
@@ -206,7 +206,7 @@ export const SignIn: FC = React.memo(() => {
                 <Grid item>
                   <Typography variant="body2">
                     <Link href="/signUp">
-                      {'Don\'t have an account? Sign Up'}
+                      Ще немає акаунту? Зареєструйся
                     </Link>
                   </Typography>
                 </Grid>
