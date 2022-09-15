@@ -34,7 +34,8 @@
     "cli-front-development": "heroku logs --tail --remote heroku-frontend-dev",
     "cli-api-development": "heroku logs --tail --remote heroku-backend-dev",
     "cli-front-production": "heroku logs --tail --remote heroku-frontend",
-    "cli-api-production": "heroku logs --tail --remote heroku-backend"
+    "cli-api-production": "heroku logs --tail --remote heroku-backend",
+    "info": "node npmInfo.js"
   },
   "repository": {
     "type": "git",
