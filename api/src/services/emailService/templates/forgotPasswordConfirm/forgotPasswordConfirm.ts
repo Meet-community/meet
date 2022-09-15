@@ -82,7 +82,7 @@ export const gerForgotPasswordConfirmEmailTemplate = (
         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
-              <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px;">Скидання пароля</h1>
+              <h1 style="margin: 0; font-size: 32px; font-weight: 700; letter-spacing: -1px; line-height: 48px; text-align: center">Скидання пароля</h1>
             </td>
           </tr>
         </table>
@@ -93,7 +93,7 @@ export const gerForgotPasswordConfirmEmailTemplate = (
         <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">Натисніть кнопку нижче, щоб скинути пароль. Якщо ви не хочете скинути пароль, можете безпечно видалити цей електронний лист.</p>
+              <p style="margin: 0; text-align: center">Натисніть кнопку нижче, щоб скинути пароль. Якщо ви не хочете скинути пароль, можете безпечно видалити цей електронний лист.</p>
             </td>
           </tr>
           <tr>
@@ -104,7 +104,7 @@ export const gerForgotPasswordConfirmEmailTemplate = (
                     <table border="0" cellpadding="0" cellspacing="0">
                       <tr>
                         <td align="center" bgcolor="#1a82e2" style="border-radius: 6px;">
-                          <a href="${confirmLink}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px;">Скинути пароль</a>
+                          <a href="${confirmLink}" target="_blank" style="display: inline-block; padding: 16px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; color: #ffffff; text-decoration: none; border-radius: 6px; text-align: center">Скинути пароль</a>
                         </td>
                       </tr>
                     </table>
@@ -116,8 +116,8 @@ export const gerForgotPasswordConfirmEmailTemplate = (
 
           <tr>
             <td align="left" bgcolor="#ffffff" style="padding: 24px 24px 36px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px;">
-              <p style="margin: 0;">Якщо це не працює, скопіюйте та вставте це посилання у свій браузер:</p>
-              <p style="margin: 0;"><a href="${confirmLink}" target="_blank">${confirmLink}</a></p>
+              <p style="margin: 0; text-align: center">Якщо це не працює, скопіюйте та вставте це посилання у свій браузер:</p>
+              <p style="margin: 0; text-align: center"><a href="${confirmLink}" target="_blank">${confirmLink}</a></p>
             </td>
           </tr>
 

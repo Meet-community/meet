@@ -55,9 +55,9 @@ export const ForgotPassword: FC = React.memo(() => {
   const [forgotPassword, { loading }] = useForgotUserPasswordMutation({
     onError: (e) => {
       if (e.message === 'email_not_confirmed') {
-        setEmailError('Email not confirmed');
+        setEmailError('E-mail не підтверджено');
       } else {
-        setEmailError('Wrong email');
+        setEmailError('Невірний E-mail');
       }
     },
     onCompleted: () => {
@@ -72,7 +72,7 @@ export const ForgotPassword: FC = React.memo(() => {
     }
 
     if (password !== repeatPassword) {
-      setPasswordError('Password mismatch');
+      setPasswordError('Паролі не співпадають');
 
       return;
     }
@@ -117,7 +117,7 @@ export const ForgotPassword: FC = React.memo(() => {
               <LockResetIcon />
             </Avatar>
             <Typography component="h1" variant="h5">
-              Restore password
+              Скидання паролю
             </Typography>
             <Box
               component="form"
@@ -141,7 +141,7 @@ export const ForgotPassword: FC = React.memo(() => {
                   setEmailError(null);
                   setEmail(e.target.value);
                 }}
-                label="Email Address"
+                label="E-mail"
                 name="email"
                 autoComplete="email"
                 autoFocus
@@ -152,7 +152,7 @@ export const ForgotPassword: FC = React.memo(() => {
                 required: true,
                 fullWidth: true,
                 name: 'password',
-                label: 'Password',
+                label: 'Новий пароль',
                 id: 'password',
                 value: password,
                 onChange: (e) => {
@@ -168,7 +168,7 @@ export const ForgotPassword: FC = React.memo(() => {
                 required: true,
                 fullWidth: true,
                 name: 'repeatPassword',
-                label: 'Repeat password',
+                label: 'Повторіть пароль',
                 id: 'repeatPassword',
                 helperText: passwordError,
                 error: !!passwordError,
@@ -189,7 +189,7 @@ export const ForgotPassword: FC = React.memo(() => {
                 disabled={!password || !email || !repeatPassword}
                 sx={{ mt: 3, mb: 2 }}
               >
-                Send confirm email
+                Надіслати
               </LoadingButton>
 
               <Copyright sx={{ mt: 5 }} />
