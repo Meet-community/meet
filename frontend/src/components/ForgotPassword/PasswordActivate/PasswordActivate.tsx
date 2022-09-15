@@ -56,12 +56,12 @@ export const PasswordActivate: FC = React.memo(() => {
               className={styles.title}
             >
               {loading && (
-                'Password confirmation'
+                'Підтвердження паролю'
               )}
               {isOk && (
-                'Congrats!'
+                'Вітаємо!'
               )}
-              {error && ('Oops...')}
+              {error && ('Оой...')}
             </Typography>
             <Typography
               component='p'
@@ -70,13 +70,13 @@ export const PasswordActivate: FC = React.memo(() => {
               mb={7}
             >
               {loading && (
-                'We are already checking your password...'
+                'Ми відправили лист на вашу електронну адресу...'
               )}
               {isOk && (
-                `Your password has already been restored. You can now login to the application.\n Auto redirect after ${leftSeconds} seconds.`
+                `Ваш пароль уже відновлено. Ви уже можете увійти у свій акаунт.\n Автоматичне перенаправлення після ${leftSeconds} секунд.`
               )}
               {error && (
-                'Something went wrong. The link is invalid or out of date. Try to restore again.'
+                'Щось пішло не так. Посилання недійсне або застаріле. Спробуйте зареєструватися ще раз.'
               )}
 
             </Typography>
@@ -98,7 +98,7 @@ export const PasswordActivate: FC = React.memo(() => {
                       color='inherit'
                       endIcon={<PersonIcon />}
                     >
-                      {`SignIn ${leftSeconds}`}
+                      {`Увійти ${leftSeconds}`}
                     </Button>
                   </Link>
                 </div>
@@ -120,7 +120,7 @@ export const PasswordActivate: FC = React.memo(() => {
                       variant='outlined'
                       color='inherit'
                     >
-                      Forgot password
+                      Забув пароль
                     </Button>
                   </Link>
                 </div>

@@ -19,7 +19,7 @@ export const SignUpSuccess: FC = React.memo(() => {
               mb={2}
               className={styles.title}
             >
-              Successfully signUp
+              Успішна реєстрація
             </Typography>
             <Typography
               component='p'
@@ -27,7 +27,8 @@ export const SignUpSuccess: FC = React.memo(() => {
               textAlign='center'
               mb={7}
             >
-              {`We sent an email with a confirmation link to your email. Let's confirm it to finish registration.`}
+              МИ НАДІСЛАЛИ НА ВАШУ ЕЛЕКТРОННУ ПОШТУ ПОСИЛАННЯ ДЛЯ ПІДТВЕРДЖЕННЯ.
+              ПІДТВЕРДІТЬ, ЩОБ ЗАВЕРШИТИ РЕЄСТРАЦІЮ.
             </Typography>
             <div style={{ marginBottom: '60px' }} className={styles.center}>
               <ForwardToInboxIcon
@@ -43,7 +44,7 @@ export const SignUpSuccess: FC = React.memo(() => {
                   variant='outlined'
                   color='inherit'
                 >
-                  Go home
+                  Головна сторінка
                 </Button>
               </Link>
             </div>

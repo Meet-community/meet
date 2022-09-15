@@ -1,6 +1,9 @@
+@import "src/styles/utils";
+
 .wrapper {
   height: 100vh;
   position: relative;
+
   background-color: rgb(231, 235, 240);
 }
 
@@ -11,7 +14,11 @@
   transform: translate(-50%, -50%);
 
   max-width: 600px;
-  width: 75%;
+  width: 90%;
+
+  @include breakpoint-tablet {
+    width: 75%;
+  }
 }
 
 .title {

@@ -20,7 +20,7 @@ export const ForgotPasswordSuccess: FC = React.memo(() => {
               mb={2}
               className={styles.title}
             >
-              Confirm restore
+              Підтвердити відновлення
             </Typography>
             <Typography
               component='p'
@@ -28,7 +28,8 @@ export const ForgotPasswordSuccess: FC = React.memo(() => {
               textAlign='center'
               mb={7}
             >
-              {`We sent an email with a confirmation link to your email. Let's confirm it to finish restore password.`}
+              МИ НАДІСЛАЛИ НА ВАШУ ЕЛЕКТРОННУ ПОШТУ ПОСИЛАННЯ ДЛЯ ВІДНОВЛЕННЯ ПАРОЛЮ.
+              ПІДТВЕРДІТЬ, ЩОБ ВІДНОВИТИ ПАРОЛЬ.
             </Typography>
             <div style={{ marginBottom: '60px' }} className={styles.center}>
               <ForwardToInboxIcon
@@ -44,7 +45,7 @@ export const ForgotPasswordSuccess: FC = React.memo(() => {
                   variant='outlined'
                   color='inherit'
                 >
-                  SIGN IN
+                  Увійти
                 </Button>
               </Link>
             </div>
