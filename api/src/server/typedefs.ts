@@ -6,6 +6,7 @@ export interface Ctx {
   models: Models;
   authUser: User | null;
   res:  express.Response<any, Record<string, any>>;
+  req:  express.Request;
 }
 
 export interface AuthCtx extends Ctx {

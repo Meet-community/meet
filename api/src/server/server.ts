@@ -55,6 +55,7 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
         models,
         authUser: user,
         res,
+        req,
       };
     },
   });
