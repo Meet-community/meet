@@ -11,6 +11,7 @@ import { forgotUserPasswordResolver } from './forgotUserPassword.resolver';
 import {
   activateTemporaryPasswordResolver
 } from './activateTemporaryPassword.resolver';
+import { createFeedbackResolver } from './createFeedback.resolver';
 
 export const UserResolvers = {
   Query: {
@@ -26,5 +27,6 @@ export const UserResolvers = {
     updateUserPassword: makeAuthResolver(updateUserPasswordResolver),
     forgotUserPassword: forgotUserPasswordResolver,
     activateTemporaryPassword: activateTemporaryPasswordResolver,
+    createFeedback: createFeedbackResolver,
   }
 };

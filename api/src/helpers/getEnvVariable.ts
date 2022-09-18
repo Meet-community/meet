@@ -16,6 +16,9 @@ export enum ENV {
   CloudinaryApiKey = 'CLOUDINARY_API_KEY',
   CloudinaryApiSecret = 'CLOUDINARY_API_SECRET',
   GooglePlaceApiKey = 'GOOGLE_PLACE_API_KEY',
+  TrelloApiKey = 'TRELLO_API_KEY',
+  TrelloOAuth = 'TRELLO_O_AUTH',
+  TrelloFeedbackListId = 'TRELLO_FEEDBACK_LIST_ID',
 }
 
 export const getEnvVariable = (key: ENV): string => {
