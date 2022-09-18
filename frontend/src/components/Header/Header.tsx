@@ -28,6 +28,7 @@ import FiberNewIcon from '@mui/icons-material/FiberNew';
 import { ROUTES } from '../../../routes/routes';
 import { useLogOut } from '../../hooks/useLogOut';
 import { useAuthUser } from '../../controllers/entities/user/useAuthUserHook';
+import { ComeBackIcon } from '../UI/icons/ComeBackIcon';
 import styles from './Header.module.scss';
 
 export function Header() {
@@ -131,27 +132,40 @@ export function Header() {
             )}
 
             {!authUser && !matches900 && (
-              <div>
-                <Button
-                  onClick={onSignUp}
-                  color="inherit"
-                  variant="outlined"
-                  style={{ marginRight: 12 }}
-                  size={matches900 ? 'small' : 'large'}
-                >
-                  <Typography textAlign="center">Зареєструватися</Typography>
-                </Button>
+              <div style={{ display: 'flex', alignItems: 'center' }}>
+                <div>
+                  <Button
+                    onClick={onSignUp}
+                    color="inherit"
+                    variant="outlined"
+                    style={{ marginRight: 12 }}
+                    size={matches900 ? 'small' : 'large'}
+                  >
+                    <Typography textAlign="center">Зареєструватися</Typography>
+                  </Button>
 
-                <Button
-                  onClick={onSignIn}
-                  color="inherit"
-                  variant="outlined"
-                  size={matches900 ? 'small' : 'large'}
-                  style={{ marginRight: 8 }}
-                >
-                  <Typography textAlign="center" mr={1}>Увійти</Typography>
-                  <LoginIcon />
-                </Button>
+                  <Button
+                    onClick={onSignIn}
+                    color="inherit"
+                    variant="outlined"
+                    size={matches900 ? 'small' : 'large'}
+                    style={{ marginRight: 8 }}
+                  >
+                    <Typography textAlign="center" mr={1}>Увійти</Typography>
+                    <LoginIcon />
+                  </Button>
+                </div>
+
+                {matches600 && (
+                  <a
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    href="https://savelife.in.ua/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <ComeBackIcon className={styles.comeBackIcon} />
+                  </a>
+                )}
               </div>
             )}
           </Toolbar>
