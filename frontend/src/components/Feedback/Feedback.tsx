@@ -6,28 +6,28 @@ import TextField from '@mui/material/TextField';
 import Box from '@mui/material/Box';
 import { useRouter } from 'next/router';
 import { LoadingButton } from '@mui/lab';
-import { useCreateFeedbackMutation } from '../../controllers/graphql/generated';
 import { FeedbackButton } from '../UI/Buttons/FeedbackButton';
+import { useCreateFeedbackMutation } from '../../controllers/graphql/generated';
 import { TextFieldVariant } from '../UI/Inputs/input.typdefs';
 
 export const Feedback: FC = memo(() => {
   const matches = useMediaQuery('(min-width:800px)');
   const { route } = useRouter();
 
-  const [isShowModal, setIsShowModal] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
   const [feedback, setFeedback] = useState<string>('');
 
   const [create, { loading }] = useCreateFeedbackMutation({
     onCompleted: () => {
-      setIsShowModal(false);
+      setIsModalOpen(false);
       setFeedback('');
     },
     onError: () => { /* empty */ },
   });
 
-  const onClick = useCallback(() => {
-    setIsShowModal(!isShowModal);
-  }, [isShowModal]);
+  const showModalHandler = useCallback(() => {
+    setIsModalOpen((isOpen) => !isOpen);
+  }, []);
 
   const handleSubmit = useCallback(() => {
     create({ variables: { args: { feedback, route } } });
@@ -35,11 +35,11 @@ export const Feedback: FC = memo(() => {
 
   return (
     <>
-      <FeedbackButton onClick={onClick} />
+      <FeedbackButton onClick={showModalHandler} />
 
       <Modal
-        open={isShowModal}
-        onClose={onClick}
+        open={isModalOpen}
+        onClose={showModalHandler}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
