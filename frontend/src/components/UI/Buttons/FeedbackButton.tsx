@@ -1,7 +1,6 @@
 import { FC, memo } from 'react';
 import AddCommentIcon from '@mui/icons-material/AddComment';
 import IconButton from '@mui/material/IconButton';
-import styles from './FeedbackButton.module.scss';
 
 interface Props {
   onClick: () => void;
@@ -12,7 +11,16 @@ export const FeedbackButton: FC<Props> = memo((props) => {
 
   return (
     <IconButton
-      className={styles.mobile}
+      sx={{
+        position: 'fixed !important',
+        bottom: '24px',
+        right: '24px',
+        padding: '12px',
+        zIndex: '10',
+        color: '#29b6f6',
+        backgroundColor: 'rgba(144, 202, 249, 0.04)',
+        borderRadius: '50%',
+      }}
       color="primary"
       onClick={onClick}
     >
