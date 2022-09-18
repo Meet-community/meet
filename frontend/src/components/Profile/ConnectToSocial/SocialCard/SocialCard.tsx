@@ -104,7 +104,7 @@ export const SocialCard: FC<Props> = React.memo((props) => {
               onClick={() => onUpdate(null)}
               sx={{ width: 100 }}
             >
-              remove
+              видалити
             </LoadingButton>
           )
           : (isEdit
@@ -121,7 +121,7 @@ export const SocialCard: FC<Props> = React.memo((props) => {
                     setLinkToAdd('');
                   }}
                 >
-                  cancel
+                  відмінити
                 </LoadingButton>
                 <Tooltip title="ctrl / cmd + s">
                   <LoadingButton
@@ -131,7 +131,7 @@ export const SocialCard: FC<Props> = React.memo((props) => {
                     color="success"
                     sx={{ width: 100 }}
                   >
-                    save
+                    зберегти
                   </LoadingButton>
                 </Tooltip>
               </div>
@@ -144,7 +144,7 @@ export const SocialCard: FC<Props> = React.memo((props) => {
                 sx={{ width: 100 }}
                 onClick={() => setIsEdit(true)}
               >
-                add
+                додати
               </LoadingButton>
             )
           )}
@@ -160,13 +160,13 @@ export const SocialCard: FC<Props> = React.memo((props) => {
             setIsError(false);
             setLinkToAdd(e.target.value);
           }}
-          label="Link"
+          label="Посилання"
           name="linkToAdd"
           placeholder='https://link/example.com'
           required
           fullWidth
           error={isError}
-          helperText={isError && 'Should be a link'}
+          helperText={isError && 'Тут повинно бути посилання'}
         />
       </div>
     </>

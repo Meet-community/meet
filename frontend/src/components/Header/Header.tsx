@@ -109,6 +109,17 @@ export function Header() {
                     </IconButton>
                   </Tooltip>
                 </Box>
+
+                {matches600 && (
+                  <a
+                    style={{ display: 'flex', alignItems: 'center' }}
+                    href="https://savelife.in.ua/"
+                    target="_blank"
+                    rel="noreferrer"
+                  >
+                    <ComeBackIcon className={styles.comeBackIcon} />
+                  </a>
+                )}
               </div>
             )}
 
