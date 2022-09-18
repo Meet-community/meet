@@ -38,6 +38,11 @@ export type CreateEventArgs = {
   title: Scalars['String'];
 };
 
+export type CreateFeedBackArgs = {
+  feedback: Scalars['String'];
+  route: Scalars['String'];
+};
+
 export type Event = {
   __typename?: 'Event';
   capacity: Scalars['Int'];
@@ -77,6 +82,7 @@ export type Mutation = {
   activateTemporaryPassword: Scalars['Boolean'];
   activateUser: User;
   createEvent: Event;
+  createFeedback: Scalars['Boolean'];
   forgotUserPassword: Scalars['Boolean'];
   logOut: Scalars['Boolean'];
   signIn: User;
@@ -102,6 +108,11 @@ export type MutationActivateUserArgs = {
 
 export type MutationCreateEventArgs = {
   args: CreateEventArgs;
+};
+
+
+export type MutationCreateFeedbackArgs = {
+  args: CreateFeedBackArgs;
 };
 
 
@@ -246,7 +257,7 @@ export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: n
 export type ArchivedEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ArchivedEventsQuery = { __typename?: 'Query', archivedEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
+export type ArchivedEventsQuery = { __typename?: 'Query', archivedEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
 
 export type CreateEventMutationVariables = Exact<{
   args: CreateEventArgs;
@@ -272,7 +283,7 @@ export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: '
 export type PlannedEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlannedEventsQuery = { __typename?: 'Query', plannedEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
+export type PlannedEventsQuery = { __typename?: 'Query', plannedEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
 
 export type UpdateEventMutationVariables = Exact<{
   eventId: Scalars['Int'];
@@ -280,7 +291,7 @@ export type UpdateEventMutationVariables = Exact<{
 }>;
 
 
-export type UpdateEventMutation = { __typename?: 'Mutation', updateEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
+export type UpdateEventMutation = { __typename?: 'Mutation', updateEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
 export type UserFullFragment = { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null };
 
@@ -302,6 +313,13 @@ export type AuthUserQueryVariables = Exact<{ [key: string]: never; }>;
 
 
 export type AuthUserQuery = { __typename?: 'Query', authUser?: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null } | null };
+
+export type CreateFeedbackMutationVariables = Exact<{
+  args: CreateFeedBackArgs;
+}>;
+
+
+export type CreateFeedbackMutation = { __typename?: 'Mutation', createFeedback: boolean };
 
 export type ForgotUserPasswordMutationVariables = Exact<{
   args: ForgotUserPasswordArgs;
@@ -721,6 +739,37 @@ export function useAuthUserLazyQuery(baseOptions?: Apollo.LazyQueryHookOptions<A
 export type AuthUserQueryHookResult = ReturnType<typeof useAuthUserQuery>;
 export type AuthUserLazyQueryHookResult = ReturnType<typeof useAuthUserLazyQuery>;
 export type AuthUserQueryResult = Apollo.QueryResult<AuthUserQuery, AuthUserQueryVariables>;
+export const CreateFeedbackDocument = /*#__PURE__*/ gql`
+    mutation createFeedback($args: CreateFeedBackArgs!) {
+  createFeedback(args: $args)
+}
+    `;
+export type CreateFeedbackMutationFn = Apollo.MutationFunction<CreateFeedbackMutation, CreateFeedbackMutationVariables>;
+
+/**
+ * __useCreateFeedbackMutation__
+ *
+ * To run a mutation, you first call `useCreateFeedbackMutation` within a React component and pass it any options that fit your needs.
+ * When your component renders, `useCreateFeedbackMutation` returns a tuple that includes:
+ * - A mutate function that you can call at any time to execute the mutation
+ * - An object with fields that represent the current status of the mutation's execution
+ *
+ * @param baseOptions options that will be passed into the mutation, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options-2;
+ *
+ * @example
+ * const [createFeedbackMutation, { data, loading, error }] = useCreateFeedbackMutation({
+ *   variables: {
+ *      args: // value for 'args'
+ *   },
+ * });
+ */
+export function useCreateFeedbackMutation(baseOptions?: Apollo.MutationHookOptions<CreateFeedbackMutation, CreateFeedbackMutationVariables>) {
+        const options = {...defaultOptions, ...baseOptions}
+        return Apollo.useMutation<CreateFeedbackMutation, CreateFeedbackMutationVariables>(CreateFeedbackDocument, options);
+      }
+export type CreateFeedbackMutationHookResult = ReturnType<typeof useCreateFeedbackMutation>;
+export type CreateFeedbackMutationResult = Apollo.MutationResult<CreateFeedbackMutation>;
+export type CreateFeedbackMutationOptions = Apollo.BaseMutationOptions<CreateFeedbackMutation, CreateFeedbackMutationVariables>;
 export const ForgotUserPasswordDocument = /*#__PURE__*/ gql`
     mutation forgotUserPassword($args: ForgotUserPasswordArgs!) {
   forgotUserPassword(args: $args)
