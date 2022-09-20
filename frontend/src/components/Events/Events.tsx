@@ -13,6 +13,7 @@ import { tabsConfig } from '../../helpers/events/events.constans';
 import { getUrl } from '../../helpers/getUrl';
 import { ROUTES } from '../../../routes/routes';
 import { getEventsPageByTab } from '../../helpers/events/events.helpers';
+import { useEventsSwiper } from '../../hooks/useEventsSwiper';
 
 interface Props {
   activeTab?: EventsTabs;
@@ -26,6 +27,7 @@ export const Events: FC<Props> = memo((props) => {
 
   const matches = useMediaQuery('(min-width:900px)');
   const router = useRouter();
+  const swipHandler = useEventsSwiper();
 
   const changeTabHandler = useCallback((tab: EventsTabs) => {
     setActiveTab(tab);
@@ -66,7 +68,9 @@ export const Events: FC<Props> = memo((props) => {
             </TabContext>
           </Box>
         </div>
-        <EventsList setIsLoading={setIsLoading} />
+        <div {...swipHandler}>
+          <EventsList setIsLoading={setIsLoading} />
+        </div>
       </>
     </PageContainer>
   );
