@@ -19,6 +19,7 @@ import {
   AmplitudeAnalyticsEvents,
   useAmplitudeAnalytics,
 } from '../src/services/AmplitudeAnalystics/useAmplitudeAnalyticsEvents';
+import { Feedback } from '../src/components/Feedback/Feedback';
 
 export default function MyApp({
   Component, pageProps, apiUrl, stage, amplitudeApiKey,
@@ -59,6 +60,7 @@ export default function MyApp({
           },
         })}
         >
+          <Feedback />
           <Component {...pageProps} />
         </ThemeProvider>
       </AppContextProvider>
