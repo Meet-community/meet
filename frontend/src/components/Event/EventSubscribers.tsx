@@ -91,7 +91,6 @@ export const EventSubscribers: FC<Props> = memo((props) => {
                     color="success"
                     sx={{ display: 'flex', alignItem: 'center', gap: '8px' }}
                   >
-                    Користувач не має пов’язаних соціальних облікових записів
                     <SentimentVeryDissatisfiedIcon />
                   </Typography>
                 )}
