@@ -5,6 +5,7 @@ import TextField from '@mui/material/TextField';
 import { useRouter } from 'next/router';
 import { LoadingButton } from '@mui/lab';
 import Typography from '@mui/material/Typography';
+import { useSnackbar } from 'notistack';
 import { FeedbackButton } from '../UI/Buttons/FeedbackButton';
 import { useCreateFeedbackMutation } from '../../controllers/graphql/generated';
 import { TextFieldVariant } from '../UI/Inputs/input.typdefs';
@@ -12,6 +13,7 @@ import { ModalWindow } from '../UI/Modal/ModalWindow';
 
 export const Feedback: FC = memo(() => {
   const { route } = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [feedback, setFeedback] = useState<string>('');
@@ -20,6 +22,7 @@ export const Feedback: FC = memo(() => {
     onCompleted: () => {
       setIsModalOpen(false);
       setFeedback('');
+      enqueueSnackbar('Ваш відгук відправлено, дякуємо!', { variant: 'success' });
     },
     onError: () => { /* empty */ },
   });
@@ -81,6 +84,7 @@ export const Feedback: FC = memo(() => {
             rows={7}
             required
             disabled={loading}
+            autoFocus
           />
 
           <LoadingButton

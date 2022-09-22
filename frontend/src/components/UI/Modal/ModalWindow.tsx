@@ -37,12 +37,12 @@ export const ModalWindow: FC<Props> = memo((props) => {
       }}
       >
         {isOpen && (
-        <button
-          className={styles.closeButton}
-          onClick={onClose}
-        >
-          <CloseIcon width={16} height={16} />
-        </button>
+          <button
+            className={styles.closeButton}
+            onClick={onClose}
+          >
+            <CloseIcon width={16} height={16} />
+          </button>
         )}
 
         {children}
