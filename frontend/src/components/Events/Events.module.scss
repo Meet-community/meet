@@ -5,18 +5,3 @@
   margin: 0 auto;
   padding: 4px 12px;
 }
-
-.icon {
-  animation-name: a;
-  animation-duration: 10s;
-}
-
-@keyframes a {
-  from {
-    transform: rotate(0);
-  }
-
-  to {
-    transform: rotate(5000deg);
-  }
-}
