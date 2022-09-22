@@ -3,6 +3,7 @@ import Head from 'next/head';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import { useEffect } from 'react';
 import { useRouter } from 'next/router';
+import { SnackbarProvider } from 'notistack';
 import { initApollo } from '../src/controllers/apollo/getApolloClient';
 import './_app.css';
 import '../src/styles/_utils.scss';
@@ -48,21 +49,24 @@ export default function MyApp({
   return (
     <ApolloProvider client={client}>
       <AppContextProvider appStage={stage}>
-        <Head>
-          <title>Meet up to easy</title>
+        <SnackbarProvider maxSnack={3} anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}>
 
-          <meta name="viewport" content="initial-scale=1, width=device-width" />
-        </Head>
+          <Head>
+            <title>Meet up to easy</title>
 
-        <ThemeProvider theme={createTheme({
-          palette: {
-            mode: 'dark',
-          },
-        })}
-        >
-          <Feedback />
-          <Component {...pageProps} />
-        </ThemeProvider>
+            <meta name="viewport" content="initial-scale=1, width=device-width" />
+          </Head>
+
+          <ThemeProvider theme={createTheme({
+            palette: {
+              mode: 'dark',
+            },
+          })}
+          >
+            <Feedback />
+            <Component {...pageProps} />
+          </ThemeProvider>
+        </SnackbarProvider>
       </AppContextProvider>
     </ApolloProvider>
   );
