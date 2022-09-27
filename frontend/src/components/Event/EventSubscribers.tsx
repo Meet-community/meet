@@ -12,7 +12,6 @@ import SentimentVeryDissatisfiedIcon from '@mui/icons-material/SentimentVeryDiss
 import Avatar from '@mui/material/Avatar';
 import IconButton from '@mui/material/IconButton';
 import List from '@mui/material/List';
-import Typography from '@mui/material/Typography';
 import styles from './Event.module.scss';
 
 interface Participant {
@@ -48,7 +47,11 @@ export const EventSubscribers: FC<Props> = memo((props) => {
         return (
           <ListItem
             key={person.id}
-            sx={{ paddingRight: '0px' }}
+            sx={{
+              paddingRight: '0px',
+              '.MuiListItem-button-root': { xs: { paddingLeft: '0' } },
+              '.MuiListItemButton-root': { xs: { paddingLeft: '0' }, md: { paddingLeft: '12px' } },
+            }}
             className={styles.item}
             secondaryAction={(
               <>
@@ -86,14 +89,12 @@ export const EventSubscribers: FC<Props> = memo((props) => {
                 )}
 
                 {!person.instagram && !person.telegram && !person.facebook && (
-                  <Typography
+                  <IconButton
                     className={styles.icon}
-                    color="success"
                     sx={{ display: 'flex', alignItem: 'center', gap: '8px' }}
                   >
-                    Користувач не має пов’язаних соціальних облікових записів
                     <SentimentVeryDissatisfiedIcon />
-                  </Typography>
+                  </IconButton>
                 )}
               </>
             )}

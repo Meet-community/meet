@@ -19,9 +19,11 @@ export type Scalars = {
 
 export type City = {
   __typename?: 'City';
+  createdAt?: Maybe<Scalars['Date']>;
   googleId: Scalars['String'];
   id: Scalars['Int'];
   name: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Date']>;
 };
 
 export type CreateEventArgs = {
@@ -48,6 +50,7 @@ export type Event = {
   capacity: Scalars['Int'];
   city: City;
   cityId: Scalars['Int'];
+  createdAt?: Maybe<Scalars['Date']>;
   creator: User;
   creatorId: Scalars['Int'];
   description: Scalars['String'];
@@ -61,6 +64,7 @@ export type Event = {
   startAt: Scalars['Date'];
   status: EventStatus;
   title: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Date']>;
 };
 
 export enum EventStatus {
@@ -217,6 +221,7 @@ export type UpdateUserPasswordArgs = {
 export type User = {
   __typename?: 'User';
   avatar?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
   email: Scalars['String'];
   facebook?: Maybe<Scalars['String']>;
   firstName: Scalars['String'];
@@ -228,13 +233,16 @@ export type User = {
   telegram?: Maybe<Scalars['String']>;
   temporaryPassword?: Maybe<Scalars['String']>;
   token?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['Date']>;
 };
 
 export type UserEvent = {
   __typename?: 'UserEvent';
+  createdAt?: Maybe<Scalars['Date']>;
   eventId: Scalars['Int'];
   id: Scalars['Int'];
   status: UserEventStatus;
+  updatedAt?: Maybe<Scalars['Date']>;
   user: User;
   userId: Scalars['Int'];
 };
@@ -252,38 +260,38 @@ export enum UserStatus {
 
 export type CityFragment = { __typename?: 'City', id: number, googleId: string, name: string };
 
-export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } };
+export type EventFullFragment = { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, googlePlaceId?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } };
 
 export type ArchivedEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type ArchivedEventsQuery = { __typename?: 'Query', archivedEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
+export type ArchivedEventsQuery = { __typename?: 'Query', archivedEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, googlePlaceId?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
 
 export type CreateEventMutationVariables = Exact<{
   args: CreateEventArgs;
 }>;
 
 
-export type CreateEventMutation = { __typename?: 'Mutation', createEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
+export type CreateEventMutation = { __typename?: 'Mutation', createEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, googlePlaceId?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
 export type EventQueryVariables = Exact<{
   id: Scalars['Int'];
 }>;
 
 
-export type EventQuery = { __typename?: 'Query', event: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
+export type EventQuery = { __typename?: 'Query', event: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, googlePlaceId?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
 export type EventsQueryVariables = Exact<{
   filters?: InputMaybe<EventsFilters>;
 }>;
 
 
-export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
+export type EventsQuery = { __typename?: 'Query', events: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, googlePlaceId?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
 
 export type PlannedEventsQueryVariables = Exact<{ [key: string]: never; }>;
 
 
-export type PlannedEventsQuery = { __typename?: 'Query', plannedEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
+export type PlannedEventsQuery = { __typename?: 'Query', plannedEvents: Array<{ __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, googlePlaceId?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } }> };
 
 export type UpdateEventMutationVariables = Exact<{
   eventId: Scalars['Int'];
@@ -291,7 +299,7 @@ export type UpdateEventMutationVariables = Exact<{
 }>;
 
 
-export type UpdateEventMutation = { __typename?: 'Mutation', updateEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
+export type UpdateEventMutation = { __typename?: 'Mutation', updateEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, googlePlaceId?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
 export type UserFullFragment = { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null };
 
@@ -373,14 +381,14 @@ export type SubscribeToEventMutationVariables = Exact<{
 }>;
 
 
-export type SubscribeToEventMutation = { __typename?: 'Mutation', subscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
+export type SubscribeToEventMutation = { __typename?: 'Mutation', subscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, googlePlaceId?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
 export type UnsubscribeToEventMutationVariables = Exact<{
   eventId: Scalars['Int'];
 }>;
 
 
-export type UnsubscribeToEventMutation = { __typename?: 'Mutation', unsubscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
+export type UnsubscribeToEventMutation = { __typename?: 'Mutation', unsubscribeToEvent: { __typename?: 'Event', id: number, creatorId: number, title: string, description: string, startAt: any, endAt: any, logo?: string | null, capacity: number, minCapacity: number, status: EventStatus, eventLink?: string | null, googlePlaceId?: string | null, creator: { __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }, participants: Array<{ __typename?: 'User', id: number, firstName: string, lastName: string, avatar?: string | null, email: string, telegram?: string | null, facebook?: string | null, instagram?: string | null }>, city: { __typename?: 'City', id: number, googleId: string, name: string } } };
 
 export type UserEventFragment = { __typename?: 'UserEvent', id: number, userId: number, eventId: number, status: UserEventStatus };
 
@@ -416,6 +424,7 @@ export const EventFullFragmentDoc = /*#__PURE__*/ gql`
   minCapacity
   status
   eventLink
+  googlePlaceId
   creator {
     ...UserFull
   }

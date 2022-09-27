@@ -5,23 +5,17 @@ import {
   ForeignKey,
   Index,
   Table,
-  BelongsTo, CreatedAt, UpdatedAt, PrimaryKey, AutoIncrement,
-  Model,
+  BelongsTo
 } from 'sequelize-typescript';
 import { User } from './User';
 import { EventModel } from './EventModel';
 import { UserEventStatus } from '../modules/userEvent/userEvent.typedefs';
+import { ModelBase } from './ModelBase';
 
 @Table({
   tableName: 'user_events',
 })
-export class UserEvent extends Model {
-  @PrimaryKey
-  @AutoIncrement
-  @AllowNull(false)
-  @Column
-  id: number;
-
+export class UserEvent extends ModelBase {
   @BelongsTo(() => User)
   user: User;
 
@@ -51,16 +45,4 @@ export class UserEvent extends Model {
     type: DataType.ENUM(...Object.values(UserEventStatus)),
   })
   status: UserEventStatus;
-
-  @CreatedAt
-  @Column({
-    field: 'created_at',
-  })
-  createdAt: Date;
-
-  @UpdatedAt
-  @Column({
-    field: 'updated_at',
-  })
-  updatedAt: Date;
 }

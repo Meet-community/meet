@@ -1,0 +1,17 @@
+.modal {
+  position: fixed;
+}
+
+.closeButton {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+
+  padding: 0;
+
+  border: none;
+  color: #b2b2b2;
+  background: none;
+
+  cursor: pointer;
+}

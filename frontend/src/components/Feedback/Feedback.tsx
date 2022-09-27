@@ -1,18 +1,19 @@
 import React, {
   FC, memo, useCallback, useState,
 } from 'react';
-import { Modal, useMediaQuery } from '@mui/material';
 import TextField from '@mui/material/TextField';
-import Box from '@mui/material/Box';
 import { useRouter } from 'next/router';
 import { LoadingButton } from '@mui/lab';
+import Typography from '@mui/material/Typography';
+import { useSnackbar } from 'notistack';
 import { FeedbackButton } from '../UI/Buttons/FeedbackButton';
 import { useCreateFeedbackMutation } from '../../controllers/graphql/generated';
 import { TextFieldVariant } from '../UI/Inputs/input.typdefs';
+import { ModalWindow } from '../UI/Modal/ModalWindow';
 
 export const Feedback: FC = memo(() => {
-  const matches = useMediaQuery('(min-width:800px)');
   const { route } = useRouter();
+  const { enqueueSnackbar } = useSnackbar();
 
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [feedback, setFeedback] = useState<string>('');
@@ -21,6 +22,7 @@ export const Feedback: FC = memo(() => {
     onCompleted: () => {
       setIsModalOpen(false);
       setFeedback('');
+      enqueueSnackbar('Ваш відгук відправлено, дякуємо!', { variant: 'success' });
     },
     onError: () => { /* empty */ },
   });
@@ -37,59 +39,67 @@ export const Feedback: FC = memo(() => {
     <>
       <FeedbackButton onClick={showModalHandler} />
 
-      <Modal
-        open={isModalOpen}
-        onClose={showModalHandler}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box sx={{
-          position: 'absolute',
-          top: '50%',
-          left: '50%',
-          transform: 'translate(-50%, -50%)',
-          width: matches ? '40%' : '90%',
-          backgroundColor: '#121212',
-          borderRadius: '10px',
-          padding: '32px',
-          color: '#fff',
-          backgroundImage: 'linear-gradient(rgba(255, 255, 255, 0.11), rgba(255, 255, 255, 0.11))',
+      <ModalWindow isOpen={isModalOpen} onClose={showModalHandler}>
+        <form onSubmit={(e) => {
+          e.preventDefault();
+          handleSubmit();
         }}
         >
-          <form onSubmit={(e) => {
-            e.preventDefault();
-            handleSubmit();
-          }}
+          <Typography
+            sx={{
+              fontSize: { md: 24 },
+              paddingBottom: '1.5rem',
+              marginBottom: '1.5rem',
+              borderBottom: '1px solid rgba(255, 255, 255, 0.7)',
+            }}
+            variant="h6"
+            component="p"
           >
-            <TextField
-              sx={{ marginBottom: '24px' }}
-              margin="none"
-              id="feedback"
-              value={feedback}
-              onChange={(e) => setFeedback(e.target.value)}
-              label="Відгук"
-              placeholder='Напишіть ваш відгук'
-              fullWidth
-              variant={TextFieldVariant.Standard}
-              multiline
-              rows={3.4}
-              required
-              disabled={loading}
-            />
+            Є ідеї як покращити продукт?
+          </Typography>
 
-            <LoadingButton
-              sx={{ margin: '0 auto', display: 'flex' }}
-              color="success"
-              variant="contained"
-              size="large"
-              type="submit"
-              loading={loading}
-            >
-              Відправити
-            </LoadingButton>
-          </form>
-        </Box>
-      </Modal>
+          <Typography
+            sx={{
+              fontSize: { md: 16 },
+              marginBottom: '1.5rem',
+            }}
+            variant="caption"
+            component="p"
+          >
+            Напиши, будь ласка, що саме пішло не так. Ми щодня працюємо над
+            вдосконаленням нашого сайту, тому нам важливий твій коментар 😉
+          </Typography>
+
+          <TextField
+            sx={{ marginBottom: '24px' }}
+            margin="none"
+            id="feedback"
+            value={feedback}
+            onChange={(e) => setFeedback(e.target.value)}
+            label="Відгук"
+            placeholder='Напишіть ваш відгук'
+            fullWidth
+            variant={TextFieldVariant.Standard}
+            multiline
+            rows={7}
+            required
+            disabled={loading}
+            autoFocus
+          />
+
+          <LoadingButton
+            sx={{ margin: '0 auto', display: 'flex' }}
+            color="success"
+            variant="contained"
+            size="large"
+            type="submit"
+            loading={loading}
+          >
+            Відправити
+          </LoadingButton>
+        </form>
+      </ModalWindow>
+
     </>
   );
 });

@@ -5,5 +5,7 @@ export const CitySchema = gql`
     id: Int!
     name: String!
     googleId: String!
+    createdAt: Date
+    updatedAt: Date
   }
 `;

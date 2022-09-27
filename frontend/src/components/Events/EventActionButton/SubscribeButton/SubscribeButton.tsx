@@ -23,6 +23,10 @@ export const SubscribeButton: FC<Props> = memo((props) => {
     event.participants.some((p) => p.id === authUser?.id)
   ), [authUser?.id, event.participants]);
 
+  const isMaxParticipants = useMemo(() => {
+    return event.capacity <= event.participants.length;
+  }, [event.capacity, event.participants]);
+
   const {
     unSubscribeHandler,
     subscribeHandler,
@@ -61,7 +65,7 @@ export const SubscribeButton: FC<Props> = memo((props) => {
       onClick={onSubscribe}
       loading={isLoading}
       endIcon={<GroupAddIcon />}
-      disabled={disabled}
+      disabled={disabled || isMaxParticipants}
     >
       Підписатись
     </LoadingButton>

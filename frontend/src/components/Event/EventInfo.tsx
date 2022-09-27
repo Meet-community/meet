@@ -28,7 +28,7 @@ export const EventInfo: FC<Props> = memo((props) => {
           fontSize: { xs: '24px', md: '34px' },
         }}
       >
-        Датальна інформація про подію
+        Дeтальна інформація про подію
 
         {event && <EventActionButton event={event} />}
       </Typography>
@@ -60,6 +60,7 @@ export const EventInfo: FC<Props> = memo((props) => {
               target="_blank"
               href={event.eventLink}
               variant="body2"
+              sx={{ textAlign: { md: 'end' }, display: 'block' }}
             >
               Посилання на подію
             </Typography>
@@ -67,7 +68,13 @@ export const EventInfo: FC<Props> = memo((props) => {
         </Grid>
       </Grid>
 
-      <Typography sx={{ marginBottom: { xs: '20px', md: '40px' } }}>
+      <Typography
+        sx={{
+          paddingBottom: '1.5rem',
+          marginBottom: '2.5rem',
+          borderBottom: '1px solid rgba(255, 255, 255, 0.7)',
+        }}
+      >
         {event?.description}
       </Typography>
     </>
