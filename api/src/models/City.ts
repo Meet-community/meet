@@ -1,23 +1,17 @@
 import {
-  AllowNull, AutoIncrement,
+  AllowNull,
   Column,
   DataType, Index,
-  Model, PrimaryKey,
   Table,
 } from 'sequelize-typescript';
+import { ModelBase } from './ModelBase';
 
 @Table({
   tableName: 'cities',
   timestamps: false,
 })
 
-export class City extends Model {
-  @PrimaryKey
-  @AutoIncrement
-  @AllowNull(false)
-  @Column
-  id: number;
-
+export class City extends ModelBase {
   @AllowNull(false)
   @Index('cities_google_id')
   @Column({

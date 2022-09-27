@@ -32,6 +32,8 @@ export const EventSchema = gql`
     cityId: Int!
     googlePlaceId: String
     eventLink: String
+    createdAt: Date
+    updatedAt: Date
   }
   
   enum EventStatus {

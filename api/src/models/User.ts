@@ -1,25 +1,15 @@
 import {
-  AllowNull, AutoIncrement,
-  Column, CreatedAt,
-  DataType, Default, HasMany,
-  Model, PrimaryKey,
-  Table, Unique, UpdatedAt
+  AllowNull, Column, DataType, Default, HasMany, Table, Unique
 } from 'sequelize-typescript';
 import { UserStatus } from '../modules/user/user.typedefs';
 import { UserEvent } from './UserEvent';
+import { ModelBase } from './ModelBase';
 
 @Table({
   tableName: 'users',
-  timestamps: false,
 })
 
-export class User extends Model {
-  @PrimaryKey
-  @AutoIncrement
-  @AllowNull(false)
-  @Column
-  id: number;
-
+export class User extends ModelBase {
   @HasMany(() => UserEvent)
   userEvents: User[];
 
@@ -64,18 +54,6 @@ export class User extends Model {
     type: DataType.STRING,
   })
   password: string;
-
-  @CreatedAt
-  @Column({
-    field: 'created_at',
-  })
-  createdAt: Date;
-
-  @UpdatedAt
-  @Column({
-    field: 'updated_at',
-  })
-  updatedAt: Date;
 
   @Column({
     type: DataType.TEXT,

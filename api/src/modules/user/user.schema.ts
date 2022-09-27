@@ -32,6 +32,8 @@ export const UserSchema = gql`
     telegram: String
     facebook: String
     instagram: String
+    createdAt: Date
+    updatedAt: Date
   }
 
   enum UserStatus {
