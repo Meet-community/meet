@@ -25,8 +25,8 @@ export const subscribeToEventResolver: AuthResolver<Promise<EventModel>,
 
   if (event.capacity >= participants.length) {
     throw new ClientError({
-      type: ClientErrorTypes.Forbidden,
-      message: EVENT_ERROR.UpdateForbidden,
+      type: ClientErrorTypes.BadRequest,
+      message: EVENT_ERROR.MaxParticipants,
     });
   }
 
