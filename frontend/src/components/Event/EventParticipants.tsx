@@ -17,6 +17,7 @@ interface Props {
 
 export const EventParticipants: FC<Props> = memo((props) => {
   const { event } = props;
+
   const user = useAuthUser();
 
   const { subscribeHandler, isLoading } = useEventSubscribe();
@@ -27,13 +28,24 @@ export const EventParticipants: FC<Props> = memo((props) => {
 
   return (
     <Grid container spacing={2}>
-      <Grid item xs={12} md={4} order={{ md: 1 }}>
+      <Grid
+        item
+        xs={12}
+        md={4}
+        order={{ md: 1 }}
+        sx={{
+          paddingTop: '1.5rem',
+          paddingBottom: '1.5rem',
+          marginBottom: '1.5rem',
+          borderBottom: { xs: '1px solid rgba(255, 255, 255, 0.7)', md: 'none' },
+        }}
+      >
         <Typography mb='32px'>
           {event?.creator && <EventCreator creator={event.creator} />}
         </Typography>
       </Grid>
 
-      <Grid item xs={12} md={8} order={{ md: 0 }}>
+      <Grid item xs={12} md={8} order={{ md: 0 }} marginBottom="40px">
         <Typography variant='h5' mb='12px' sx={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
           Учасники
 

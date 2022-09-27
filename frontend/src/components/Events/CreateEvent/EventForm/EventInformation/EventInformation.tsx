@@ -73,7 +73,7 @@ export const EventInformation: FC<Props> = React.memo(({ loading }) => {
               setEventLink(e.target.value);
             }}
             label="Посилання на подію"
-            placeholder='Якщо подія має сайт - додайте її сюди'
+            placeholder='Посилання на сайт, якщо необхідно'
             fullWidth
             variant={variant}
             helperText={eventLinkError}
@@ -88,7 +88,7 @@ export const EventInformation: FC<Props> = React.memo(({ loading }) => {
             value={description}
             onChange={(e) => setDescription(e.target.value)}
             label="Опис події"
-            placeholder='Якась додаткова інформація'
+            placeholder='Детальний опис події'
             fullWidth
             variant={variant}
             multiline
@@ -145,7 +145,7 @@ export const EventInformation: FC<Props> = React.memo(({ loading }) => {
         }}
         loading={loading}
       >
-        Save
+        Зберегти
       </LoadingButton>
 
     </div>

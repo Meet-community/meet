@@ -47,7 +47,11 @@ export const EventSubscribers: FC<Props> = memo((props) => {
         return (
           <ListItem
             key={person.id}
-            sx={{ paddingRight: '0px' }}
+            sx={{
+              paddingRight: '0px',
+              '.MuiListItem-button-root': { xs: { paddingLeft: '0' } },
+              '.MuiListItemButton-root': { xs: { paddingLeft: '0' }, md: { paddingLeft: '12px' } },
+            }}
             className={styles.item}
             secondaryAction={(
               <>
