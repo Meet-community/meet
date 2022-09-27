@@ -1,31 +1,23 @@
 import {
-  AllowNull, AutoIncrement,
+  AllowNull,
   BelongsTo,
   Column,
-  CreatedAt,
   DataType,
   ForeignKey, HasMany,
   Index,
-  Model, PrimaryKey,
   Table,
-  UpdatedAt,
 } from 'sequelize-typescript';
 import { User } from './User';
 import { EventStatus } from '../modules/event/event.typedefs';
 import { City } from './City';
 import { UserEvent } from './UserEvent';
+import { ModelBase } from './ModelBase';
 
 
 @Table({
   tableName: 'events',
 })
-export class EventModel extends Model {
-  @PrimaryKey
-  @AutoIncrement
-  @AllowNull(false)
-  @Column
-  id: number;
-
+export class EventModel extends ModelBase {
   @HasMany(() => UserEvent)
   userEvents: UserEvent[] | null;
 
@@ -102,18 +94,6 @@ export class EventModel extends Model {
     type: DataType.ENUM(...Object.values(EventStatus)),
   })
   status: EventStatus;
-
-  @CreatedAt
-  @Column({
-    field: 'created_at',
-  })
-  createdAt: Date;
-
-  @UpdatedAt
-  @Column({
-    field: 'updated_at',
-  })
-  updatedAt: Date;
 
   @Column({
     type: DataType.STRING,

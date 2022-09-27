@@ -19,9 +19,11 @@ export type Scalars = {
 
 export type City = {
   __typename?: 'City';
+  createdAt?: Maybe<Scalars['Date']>;
   googleId: Scalars['String'];
   id: Scalars['Int'];
   name: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Date']>;
 };
 
 export type CreateEventArgs = {
@@ -48,6 +50,7 @@ export type Event = {
   capacity: Scalars['Int'];
   city: City;
   cityId: Scalars['Int'];
+  createdAt?: Maybe<Scalars['Date']>;
   creator: User;
   creatorId: Scalars['Int'];
   description: Scalars['String'];
@@ -61,6 +64,7 @@ export type Event = {
   startAt: Scalars['Date'];
   status: EventStatus;
   title: Scalars['String'];
+  updatedAt?: Maybe<Scalars['Date']>;
 };
 
 export enum EventStatus {
@@ -217,6 +221,7 @@ export type UpdateUserPasswordArgs = {
 export type User = {
   __typename?: 'User';
   avatar?: Maybe<Scalars['String']>;
+  createdAt?: Maybe<Scalars['Date']>;
   email: Scalars['String'];
   facebook?: Maybe<Scalars['String']>;
   firstName: Scalars['String'];
@@ -228,13 +233,16 @@ export type User = {
   telegram?: Maybe<Scalars['String']>;
   temporaryPassword?: Maybe<Scalars['String']>;
   token?: Maybe<Scalars['String']>;
+  updatedAt?: Maybe<Scalars['Date']>;
 };
 
 export type UserEvent = {
   __typename?: 'UserEvent';
+  createdAt?: Maybe<Scalars['Date']>;
   eventId: Scalars['Int'];
   id: Scalars['Int'];
   status: UserEventStatus;
+  updatedAt?: Maybe<Scalars['Date']>;
   user: User;
   userId: Scalars['Int'];
 };
