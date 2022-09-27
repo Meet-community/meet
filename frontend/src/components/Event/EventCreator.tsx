@@ -6,6 +6,8 @@ import { Link } from '@mui/material';
 import InstagramIcon from '@mui/icons-material/Instagram';
 import TelegramIcon from '@mui/icons-material/Telegram';
 import FacebookIcon from '@mui/icons-material/Facebook';
+import SentimentVeryDissatisfiedIcon
+  from '@mui/icons-material/SentimentVeryDissatisfied';
 
 interface Creator {
   id: number,
@@ -61,7 +63,7 @@ export const EventCreator: FC<Props> = memo((props) => {
             marginBottom: '16px',
           }}
         >
-          Social media
+          Соціальні мережі
         </Typography>
 
         <Typography sx={{
@@ -114,6 +116,20 @@ export const EventCreator: FC<Props> = memo((props) => {
 
                 Facebook
               </Link>
+            </Typography>
+          )}
+
+          {!creator.telegram && !creator.facebook && !creator.instagram && (
+            <Typography sx={{
+              textAlign: { xs: 'center' },
+              display: 'flex',
+              alignItem: 'center',
+              gap: '8px',
+            }}
+            >
+              У користувача немає соціальних мереж
+
+              <SentimentVeryDissatisfiedIcon />
             </Typography>
           )}
         </Typography>

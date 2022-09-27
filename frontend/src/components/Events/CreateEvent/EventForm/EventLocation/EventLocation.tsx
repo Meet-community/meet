@@ -56,7 +56,7 @@ export const EventLocation: FC = React.memo(() => {
               type={[GoogleSelectTypes.Establishment]}
               onChange={setGooglePlace}
               value={googlePlace}
-              label="Місцеположення"
+              label="Місцерозташування"
               placeholder="Майдан незалежності"
               placePrefix={googleCity ? googleCity.name : ''}
             />
