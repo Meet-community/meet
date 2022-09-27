@@ -44,7 +44,7 @@ export const Event = memo(() => {
       </div>
 
       <div className={styles.googleMaps}>
-        <GoogleMaps placeId={event?.city.googleId} />
+        <GoogleMaps cityId={event?.city.googleId} placeId={event?.googlePlaceId} />
       </div>
     </Paper>
   );

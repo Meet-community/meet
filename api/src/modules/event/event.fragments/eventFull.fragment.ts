@@ -17,6 +17,7 @@ export const EVENT_FULL_FRAGMENT = gql`
     minCapacity
     status
     eventLink
+    googlePlaceId
     creator {
       ...UserFull
     }
