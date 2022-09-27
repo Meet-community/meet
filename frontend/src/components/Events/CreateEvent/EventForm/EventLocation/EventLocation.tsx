@@ -66,7 +66,7 @@ export const EventLocation: FC = React.memo(() => {
       </div>
 
       <div className={styles.mapsWrapper}>
-        <GoogleMaps placeId={placeId} />
+        <GoogleMaps cityId={placeId} />
       </div>
 
     </div>

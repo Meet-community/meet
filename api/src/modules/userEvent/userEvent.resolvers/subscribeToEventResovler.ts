@@ -23,7 +23,7 @@ export const subscribeToEventResolver: AuthResolver<Promise<EventModel>,
   const event = await eventRepository.getById(eventId);
   const participants = await userEventRepository.findEventParticipants(eventId);
 
-  if (event.capacity >= participants.length) {
+  if (event.capacity <= participants.length) {
     throw new ClientError({
       type: ClientErrorTypes.BadRequest,
       message: EVENT_ERROR.MaxParticipants,

@@ -93,7 +93,7 @@ export const Events: FC<Props> = memo((props) => {
             </TabContext>
           </Box>
         </div>
-        <div {...swipHandler}>
+        <div style={{ minHeight: '80vh' }} {...swipHandler}>
           <EventsList setIsLoading={setIsLoading} />
         </div>
       </>
