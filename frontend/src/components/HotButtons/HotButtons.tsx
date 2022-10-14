@@ -14,7 +14,6 @@ export const HotButtons: FC = memo(() => {
       display: 'flex',
       flexDirection: 'column',
       gap: '12px',
-      padding: '12px',
       zIndex: '10',
     }}
     >
