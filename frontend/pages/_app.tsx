@@ -20,7 +20,7 @@ import {
   AmplitudeAnalyticsEvents,
   useAmplitudeAnalytics,
 } from '../src/services/AmplitudeAnalystics/useAmplitudeAnalyticsEvents';
-import { Feedback } from '../src/components/Feedback/Feedback';
+import { HotButtons } from '../src/components/HotButtons/HotButtons';
 
 export default function MyApp({
   Component, pageProps, apiUrl, stage, amplitudeApiKey,
@@ -63,7 +63,7 @@ export default function MyApp({
             },
           })}
           >
-            <Feedback />
+            <HotButtons />
             <Component {...pageProps} />
           </ThemeProvider>
         </SnackbarProvider>
