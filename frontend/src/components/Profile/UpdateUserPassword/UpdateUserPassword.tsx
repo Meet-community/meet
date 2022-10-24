@@ -27,7 +27,7 @@ export const UpdateUserPassword = memo(() => {
       return;
     }
 
-    if (!currentPassword || !newPasswordError || !repeatNewPassword) {
+    if (!currentPassword || newPasswordError || !repeatNewPassword) {
       setCurrentPasswordError(currentPassword ? null : 'Введіть пароль');
       setNewPasswordError(newPassword ? null : 'Введіть пароль');
       setRepeatPasswordError(repeatNewPassword ? null : 'Введіть пароль');
