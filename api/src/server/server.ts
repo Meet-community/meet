@@ -18,16 +18,15 @@ import { UserStatus } from '../modules/user/user.typedefs';
 import { Ctx } from './typedefs';
 import { graphqlUploadExpress } from 'graphql-upload';
 import { ENV, getEnvVariable } from '../helpers/getEnvVariable';
+import { initAdminJs } from '../../adminJs/adminJsInit';
 
-async function initApolloServer(typeDefs: any, resolvers: any) {
+async function initApolloServer(typeDefs: any, resolvers: any, models: Models) {
   const app = express();
 
   app.use(cookieParser());
   app.use(graphqlUploadExpress());
   const httpServer = http.createServer(app);
 
-  const db = await dbInit();
-  const models: Models = db.models as Models;
 
   const server = new ApolloServer({
     typeDefs,
@@ -91,9 +90,13 @@ async function initApolloServer(typeDefs: any, resolvers: any) {
   console.log('➖➖➖➖➖➖➖➖➖🛬➖➖➖➖➖➖➖➖➖➖➖🛬➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖➖🛫');
 }
 
-const serverInit = () => {
+const serverInit = async () => {
   dotenv.config();
-  initApolloServer(typeDefs, resolvers);
+  const db = await dbInit();
+  const models = db.models as Models;
+
+  initApolloServer(typeDefs, resolvers, models);
+  initAdminJs(models);
 };
 
 serverInit();
