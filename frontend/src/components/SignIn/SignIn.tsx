@@ -28,6 +28,7 @@ import {
 } from '../../services/AmplitudeAnalystics/useAmplitudeAnalyticsEvents';
 
 function Copyright(props: any) {
+  // gf
   return (
     <Typography variant="body2" color="text.secondary" align="center" {...props}>
       {'Copyright © Meet '}
