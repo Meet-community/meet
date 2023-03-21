@@ -19,6 +19,7 @@ export enum ENV {
   TrelloApiKey = 'TRELLO_API_KEY',
   TrelloOAuth = 'TRELLO_O_AUTH',
   TrelloFeedbackListId = 'TRELLO_FEEDBACK_LIST_ID',
+  AdminJsPort = 'ADMIN_JS_PORT',
 }
 
 export const getEnvVariable = (key: ENV): string => {

@@ -38,7 +38,8 @@
     "jspm_packages",
     "application",
     "system",
-    "dist"
+    "dist",
+    "node_modules/prosemirror-view/dist/index.d.ts",
   ],
   "compileOnSave": false
 }
